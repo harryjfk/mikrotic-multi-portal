@@ -1,0 +1,4 @@
+services:
+#    qba_bit_template_admin_lte.example:
+#        class: QbaBit\TemplateAdminLTEBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

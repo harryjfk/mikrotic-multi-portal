@@ -1,0 +1,30 @@
+{% set isAjax = app.request.isXmlHttpRequest %}
+{% if isAjax ==false %}
+    {% if doAjax is defined %}
+        {% set isAjax =true %}
+
+    {% endif %}
+{% endif %}
+{% extends  isAjax   ?core.admin.templates.ajax:core.admin.templates.layout %}
+
+
+{% block title %}
+
+    {% block inner_title %} {% endblock %}
+{% endblock title %}
+
+{% block content %}
+    <div class="box ">
+
+        <!-- /.box-header -->
+        <div class="box-body">
+   {% block inner_content %}
+            {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

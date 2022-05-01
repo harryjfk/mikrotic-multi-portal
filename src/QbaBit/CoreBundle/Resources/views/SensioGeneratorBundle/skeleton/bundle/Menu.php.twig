@@ -1,0 +1,31 @@
+<?php
+
+namespace {{ namespace }}\MenuBuilder;
+
+{% block use_statements %}
+use QbaBit\CoreBundle\MenuBuilder\MenuAdapter;
+{% endblock use_statements %}
+
+{% block class_definition %}
+class {{ menu_name }}Menu  extends MenuAdapter
+{% endblock class_definition %}
+{
+{% block class_body %}
+
+
+{% if tables is defined %}
+ public function getData()
+    {
+ $array = array();
+
+{% for table in tables %}
+$array[]=array("text" => "qba_bit.{{ bundle|lower }}.{{ table|lower }}.text", "img" => "fa fa-share", "ref" => $this->container->get("router")->generate("qba_bit_{{ bundle|lower }}_{{ generator.getSeparatedNames(table,"_") }}_list"), "priority" => 0, "childs" =>
+array());
+{% endfor %}
+
+return $array;
+}
+{% endif %}
+
+{% endblock class_body %}
+}

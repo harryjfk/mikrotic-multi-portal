@@ -1,0 +1,72 @@
+<?php
+
+namespace {{ namespace }}\Tests\Admin\Controller;
+
+{% block use_statements %}
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use QbaBit\CoreBundle\Tests\Controller\DefaultAdminControllerTest;
+{% endblock use_statements %}
+
+{% block class_definition %}
+class {{ controller }}ControllerTest extends DefaultAdminControllerTest
+{% endblock class_definition %}
+{
+{% block class_body %}
+ public function getRepository()
+    {
+        return 'qbabit.repository.{{ bundle_name|lower}}.{{ generator.getSeparatedNames(controller,".") }}';
+    }
+
+    public function getData($type, ContainerInterface $container)
+    {
+        if ($type == "deleteList")
+            return parent::getData($type, $container);
+        else {
+
+         {% for field  in fields| keys %}
+         {% if fields[field].DefaultTestValue.files|length>0 %}
+           $t_{{ field }} = array();
+         {% for file in fields[field].DefaultTestValue.files %}
+         $t_{{ field }}[] = '{{ file }}';
+
+         {% endfor %}
+          $files_{{ field }} = $this->getFiles($t_{{ field }});
+        {% endif %}
+         {% endfor %}
+
+$fields = array(
+
+{% for field  in fields| keys %}
+    {% set value =  fields[field].DefaultTestValue.value %}
+    {% if value|trim !="" %}
+
+        '{{ field }}' => '{{ value }}',
+    {% endif %}
+{% endfor %}
+);
+
+return array('fields' => array('qbabit_{{ bundle_name|lower~"_"~controller|lower }}' => $fields), 'files' => array('qbabit_{{ bundle_name|lower~"_"~controller|lower }}' =>array(
+
+{% for field  in fields| keys %}
+    {% if fields[field].DefaultTestValue.files|length>0 %}
+        {% if fields[field].DefaultTestValue.value==""  %}
+        '{{ field }}_file'=>$files_{{ field }}[0],
+        {% else %}
+        '{{ generator.getSeparatedNames(controller,"_") }}_{{ field }}' =>$files_{{ field }},
+            {% endif %}
+    {% endif %}
+{% endfor %}
+
+)  ));
+
+
+}
+}
+
+public function getBasicUrl()
+{
+return array('index' => 'qbabit_admin_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}', 'new' => 'qbabit_admin_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_new', 'edit' => 'qbabit_admin_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_edit', 'delete' => 'qbabit_admin_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_delete', 'deleteList' => 'qbabit_admin_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_delete_list');
+}
+
+{% endblock class_body %}
+}

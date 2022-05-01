@@ -1,0 +1,164 @@
+    {% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_list.html.twig") %}
+
+
+
+
+
+
+    {% block search_columns %}
+
+    
+                    <div class="col-md-3">
+                <div class="form-group">
+                    <label> {{ 'qba_bit.nauta.nautaaccountslog.fields.csrfhw' | trans }}  </label>
+                    <input type="text" id="frmSearch[csrfhw]" name="frmSearch[csrfhw]" class="form-control"
+                           value="{{ app.request.get('frmSearch')is not empty?app.request.get('frmSearch').csrfhw:'' }}">
+
+                </div>
+            </div>
+
+
+            
+                    <div class="col-md-3">
+                <div class="form-group">
+                    <label> {{ 'qba_bit.nauta.nautaaccountslog.fields.ip' | trans }}  </label>
+                    <input type="text" id="frmSearch[ip]" name="frmSearch[ip]" class="form-control"
+                           value="{{ app.request.get('frmSearch')is not empty?app.request.get('frmSearch').ip:'' }}">
+
+                </div>
+            </div>
+
+
+            
+                    <div class="col-md-3">
+                <div class="form-group">
+                    <label> {{ 'qba_bit.nauta.nautaaccountslog.fields.data' | trans }}  </label>
+                    <input type="text" id="frmSearch[data]" name="frmSearch[data]" class="form-control"
+                           value="{{ app.request.get('frmSearch')is not empty?app.request.get('frmSearch').data:'' }}">
+
+                </div>
+            </div>
+
+
+            
+                    <div class="col-md-3">
+                <div class="form-group">
+                    <label> {{ 'qba_bit.nauta.nautaaccountslog.fields.closed' | trans }}  </label>
+                    <input type="text" id="frmSearch[closed]" name="frmSearch[closed]" class="form-control"
+                           value="{{ app.request.get('frmSearch')is not empty?app.request.get('frmSearch').closed:'' }}">
+
+                </div>
+            </div>
+
+
+            
+                    <div class="col-md-3">
+                <div class="form-group">
+                    <label> {{ 'qba_bit.nauta.nautaaccountslog.fields.account' | trans }}  </label>
+                    <input type="text" id="frmSearch[account]" name="frmSearch[account]" class="form-control"
+                           value="{{ app.request.get('frmSearch')is not empty?app.request.get('frmSearch').account:'' }}">
+
+                </div>
+            </div>
+
+
+            
+    <div class="col-md-3">
+        <div class="form-group">
+            <label style="display: block;">&nbsp;</label>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+    {% endblock search_columns %}
+
+        {% block columns%}
+        <th style='width: 25px;'>
+            <input type='checkbox' id='chkall' class='chkall' />
+        </th>
+
+
+        " }}
+        
+                            <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Rendering engine: activate to sort column descending">
+                    {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nautaaccountslog.fields.csrfhw' , 'a.csrfhw') }}
+                </th>
+
+                    
+                            <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Rendering engine: activate to sort column descending">
+                    {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nautaaccountslog.fields.ip' , 'a.ip') }}
+                </th>
+
+                    
+                            <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Rendering engine: activate to sort column descending">
+                    {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nautaaccountslog.fields.data' , 'a.data') }}
+                </th>
+
+                    
+                            <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Rendering engine: activate to sort column descending">
+                    {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nautaaccountslog.fields.closed' , 'a.closed') }}
+                </th>
+
+                    
+                            <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Rendering engine: activate to sort column descending">
+                    {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nautaaccountslog.fields.account' , 'a.account') }}
+                </th>
+
+                    
+
+        {% endblock columns %}
+
+
+    {% block list_content %}
+    {% for entity in entities %}
+        <tr id='rw{{ entity.id }}' class='odd'>
+            <td>
+                <input type='checkbox' name='idcheck[]' value='{{entity.id}}' id='id{{entity.id}}' class='selitm' />
+                <label for='id{{entity.id}}'></label>
+
+            </td>
+            
+
+            <td class="">
+            {{ entity.csrfhw }}
+        </td>
+
+            <td class="">
+            {{ entity.ip }}
+        </td>
+
+            <td class="">
+            {{ entity.data }}
+        </td>
+
+            <td class="">
+            <div class="switch">
+                    <input id="enable-{{ entity.closed }}" type="hidden" value="" />
+                    <input id="disable-{{ entity.closed }}" type="hidden" value="" />
+                    <input id="{{ entity.closed }}" type="checkbox" {% if  entity.closed %}checked="checked"{% endif %} disabled />
+                    <label for="{{ entity.closed }}"></label>
+                </div>
+        </td>
+
+            <td class="">
+            {{ entity.account }}
+        </td>
+
+    
+    </tr>
+
+    {% endfor %}
+
+
+    {% endblock %}

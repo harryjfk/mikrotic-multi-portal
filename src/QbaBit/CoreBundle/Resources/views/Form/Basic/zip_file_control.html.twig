@@ -1,0 +1,64 @@
+
+
+{% block qbabit_zip_file_control_widget %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Subida masiva de imágenes</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+
+        <div class="box-body">
+
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    {% include '@QbaBitCore/Form/_base_file_control.html.twig' with {margin:0,select_text:"Seleccionar Archivos"} %}
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-2" style="text-align: center;">
+                <button id="{{ form.vars.id }}_button" type="button" class="btn btn-primary">Iniciar</button>
+            </div>
+
+
+        </div>
+        <!-- /.box-body -->
+
+    </div>
+    <script>
+
+
+       /* $(function () {
+            $("form[name={{ form.vars.id }}]").on("submit", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var data = new FormData(this);
+                var v = $("#{{ form.vars.id }}").val();
+                if (v != "") {
+                    //   console.log("aaaa");
+                    //   var data = (new FormData($("#qbabit_zip_file_control")[0]));
+					
+                    PageAjax.execute("{{ form.vars.action }}", data, 'GET', function (e) {
+                        PageAjax.msg.showBallon(e.return, e.msg);
+                    }, function (e) {
+                        PageAjax.msg.showBallon("error", "Existen errores, si piensa que esto es incorrecto. Consulte con el administrador del sistema")
+                    }, true);
+                }
+                else
+                    PageAjax.msg.showBallon('error', "Por favor seleccione los archivos a subir");
+
+            });
+        });*/
+
+        $("#{{ form.vars.id }}_button").on("click", function (e) {
+            $("form[name={{ form.vars.id }}]").submit();
+            /*  e.preventDefault();
+             e.stopPropagation();
+
+
+
+             */
+
+        })
+    </script>
+{% endblock %}

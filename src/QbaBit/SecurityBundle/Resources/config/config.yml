@@ -1,0 +1,14 @@
+qba_bit_security:
+   menu:
+       frontend: "@qba_bit_security.render.menu"
+       backend: "@qba_bit_security.render.menu"
+   uploads:
+       web: '@qba_bit_core.routing.uploads.url@/security/users/'
+       dir: '@qba_bit_core.routing.uploads.dir@/security/users/'
+   navigator:
+       frontend:
+          priority: -1
+          render: null
+       backend:
+          priority: 1
+          render: "qba_bit_admin_security_nav"

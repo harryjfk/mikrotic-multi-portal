@@ -1,0 +1,294 @@
+{% block qbabit_file_control_widget %}
+
+    {% include '@QbaBitCore/Form/_base_file_control.html.twig' %}
+
+{% endblock %}
+{% block qbabit_image_file_widget %}
+    <div class="row">
+        <div class="col-xs-12">
+            {% if vertical %}
+                <div class="row">
+                    <div class="col-xs-12" style="margin-top: 5px;text-align: center">
+
+                        {% set img=data==null?asset('bundles/qbabitcore/css/common/images/no-img.png'): 'thumbnail' in form.vars.web_base ==1 ?  (form.vars.web_base~data):((form.vars.web_base~data)| imagine_filter('thumbnail')) %}
+                        {% if 'tmp' in img %}
+                            {% set img = asset('bundles/qbabitcore/css/common/images/no-img.png') %}
+                        {% endif %}
+                        <img src="{{ img }}" style="/*width: 100%*/">
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% include '@QbaBitCore/Form/_base_file_control.html.twig' with {margin:12,select_text:"Seleccionar Imágen"} %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-xs-2" style="text-align: center">
+
+
+                        {% set img=data==null?asset('bundles/qbabitcore/css/common/images/no-img.png'): (form.vars.web_base~data)| imagine_filter('thumbnail') %}
+                        {% if 'tmp' in img %}
+                            {% set img = asset('bundles/qbabitcore/css/common/images/no-img.png') %}
+                        {% endif %}
+                        <img src="{{ img }}" style="/*width: 100%*/">
+
+                    </div>
+                    <div class="col-xs-10">
+                        {% include '@QbaBitCore/Form/_base_file_control.html.twig' %}
+                    </div>
+                </div>
+
+            {% endif %}
+        </div>
+
+
+    </div>
+
+    <script>
+
+    </script>
+{% endblock %}
+
+{% block qbabit_image_file_param_generator %}
+    'web_base'=>   $this->container->get('qbabit_core.global.config')->getConfigValue('{{ web_dir }}'),
+    'dir_base'=>   $this->container->get('qbabit_core.global.config')->getConfigValue('{{ dir_dir }}')
+{% endblock %}
+{% block qbabit_image_file_multiple_widget %}
+
+    {% set list = [
+    {url:asset('bundles/qbabitcore/js/common/form.imagefiles.js'), type:'script'},
+    {url:asset('bundles/qbabitcore/css/common/form.imagefiles.css'), type:'link'},
+    ] %}
+    {% include 'QbaBitCoreBundle:Form:_base_include.html.twig' with {'list':list,'onloadAll':'onLoad'~form.vars.id~'_image_file','again':true,'loading':true} %}
+
+    <div class="row form-control1">
+        <div class="col-xs-12">
+            <div class="controls col-xs-12" style="margin-bottom: 20px"><input type="file" id="{{ form.vars.id }}_files"
+                                                                               name="{{ form.vars.id }}[]"
+                                                                               style="margin-top: 5px"
+                                                                               data-files="1" multiple="multiple">
+
+
+                <input type="text" style="display: none " {{ block('widget_attributes') }} value="[]">
+            </div>
+            <img class="twe">
+
+            <div class="col-xs-12" id="{{ form.vars.id }}_render">
+                <div class="thumbnails row" data-thumbnails="1">
+
+                </div>
+            </div>
+
+            {% if canDoUrl %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+
+                            <div class="col-xs-12 col-sm-11">
+                                <label for="add_url">{{ 'qbabit.admin.banner.url.add'|trans }}</label>
+                                <input type="url" class="form-control" name="add_url" id="add_url">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-1" style="padding-top: 42px;padding-left: 0">
+                                <button type="button" class="btn btn-primary" style="padding: 7px 10px;"
+                                        id="button_add_url"> {{ 'qbabit.admin.banner.url.add_button'|trans }}</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+
+        <script>
+            function replace(str, search, replace) {
+                var t = str;
+                while (t.indexOf(search) != -1)
+                    t = t.replace(search, replace);
+                return t;
+
+            }
+            function onLoad{{ form.vars.id }}_image_file() {
+
+                FilesUploader.list = new Array();
+
+                FilesUploader.base_dir = '{{ 'thumbnail' in upload_web?  upload_web:  url('liip_imagine_filter',{'filter':'thumbnail','path':upload_web}) }}';
+                FilesUploader.noImg = '{{ url('liip_imagine_filter',{'filter':'thumbnail','path':'bundles/qbabitcore/css/common/images/no-img.png'}) }}';
+                FilesUploader.videoImg = '{{ url('liip_imagine_filter',{'filter':'thumbnail','path':'bundles/qbabitcore/css/common/images/video.png'}) }}';
+                FilesUploader.msg.download = '{{ 'qbabit.common.action.download'|trans }}';
+                FilesUploader.msg.default = '{{ 'qbabit.common.action.default'|trans }}';
+                FilesUploader.msg.delete = '{{ 'qbabit.common.action.delete'|trans }}';
+                FilesUploader.restrict = {{ extension|json_encode|raw }};
+                FilesUploader.htmlSrc = {{ htmlSrc|json_encode|raw }};
+
+                FilesUploader.msg.restrict = '{{ 'qbabit.common.controls.file_control.msg.allowed_extension'|trans({'%tipo%':-1,'%web%':-2}) }}'.replace('-1', FilesUploader.restrict.toString()).replace('-2', FilesUploader.htmlSrc.toString());
+                FilesUploader.events.onChange = function (e) {
+
+                    var t = replace(JSON.stringify(FilesUploader.list), 'null,', '');
+                    t = replace(t, ',null', '');
+                    t = replace(t, 'null', '');
+                    $('#{{ form.vars.id }}').val(t);
+                };
+
+                var data = {{ data|json_encode|raw }};
+                if (data == '[]')
+                    data = null;
+
+
+                FilesUploader.createControl($("input[type='file']"), $('#{{ form.vars.id }}_render'), data);
+
+            }
+
+
+        </script>
+
+
+    </div>
+
+{% endblock %}
+{% block qbabit_image_file_multiple_param_generator %}
+    'canDoUrl'=>false,'search_callback' => function ($arrayCollection, $src) {
+    foreach ($arrayCollection as $t)
+    if ($t->getImage() == $src->name)
+    return $t;
+    return false;
+    },
+    'new_callback' => function ({{ to_short }} $image, $src, $generated_filename) {
+    /* $image->setIsexternal(false);
+    $image->setOrden(0);*/
+    if ($generated_filename != null)
+    $image->setImage($generated_filename);
+    if ($src->default == true)
+    $image->get{{ from_short }}()->setDefaultImg($image);
+
+    }, 'retrieve_file_callback' => function ($object) {
+    return $object->getImage();
+
+    }, 'delete_callback' => function ({{ to_short }} $object) {
+
+    if ($object->get{{ from_short }}()->getDefaultImg() == $object)
+    $object->get{{ from_short }}()->setDefaultImg(null);
+
+    }, 'default_callback' => function ({{ to_short }} $object, {{ em_short }} $em) {
+    return $object->get{{ from_short }}()->getDefaultImg() == $object;
+
+    }, 'upload_web' => $this->container->get('qbabit_core.global.config')->getConfigValue('{{ upload_web }}'), 'upload_dir' => $this->container->get('qbabit_core.global.config')->getConfigValue('{{ upload_dir }}')
+{% endblock %}
+{% block qbabit_image_gallery_widget %}
+    {% set list = [
+    {url:asset('bundles/qbabitcore/js/common/galleria-1.4.2.min.js'), type:'script'},
+    ] %}
+    {% include 'QbaBitCoreBundle:Form:_base_include.html.twig' with {'list':list,'onloadAll':'onLoad'~form.vars.id~'_image_gallery','loading':true} %}
+
+    {% set parent  = form.parent.vars.data %}
+    <div id="galleria_{{ form.vars.id }}" style="height:{{ height }};">
+
+        {% if data|length>0 %}
+            {% for image in data %}
+
+                <a href="{{ upload_web  ~  image.get(field) }}">
+                    <img src="{{ upload_web  ~ image.get(field) }}" data-big="{{ upload_web  ~  image.get(field) }}">
+                </a>
+
+            {% endfor %}
+        {% else %}
+
+            {% set primary =parent.get(primary)==null?asset("bundles/qbabitcore/css/common/images/no-img.png"):( upload_web  ~  parent.get(primary)) %}
+            <a href="{{  primary   }}">
+                <img src="{{ primary }}" data-big="{{ primary }}">
+            </a>
+        {% endif %}
+
+    </div>
+
+    <script>
+        function onLoad{{ form.vars.id }}_image_gallery() {
+            // Load the classic theme
+            if ($(".galleria-image").length > 0)
+                return;
+            Galleria.loadTheme('{{ asset('bundles/qbabitcore/js/common/galleria.classic.js') }}');
+            Galleria.configure({});
+            Galleria.ready(function (options) {
+
+                this.bind('image', function (e) {
+                    $('.galleria-images .galleria-image img').on('click', function (w) {
+
+                        $('#galleria_{{ form.vars.id }}').data('galleria').enterFullscreen();
+                    });
+                });
+            });
+            // Initialize Galleria
+            Galleria.run('#galleria_{{ form.vars.id }}');
+        }
+
+
+    </script>
+{% endblock %}
+
+{% block qbabit_zip_file_control_widget %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Subida masiva de imágenes</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+
+        <div class="box-body">
+
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    {% include '@QbaBitCore/Form/_base_file_control.html.twig' with {margin:0,select_text:"Seleccionar Archivos"} %}
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-2" style="text-align: center;">
+                <button id="{{ form.vars.id }}_button" type="button" class="btn btn-primary">Iniciar</button>
+            </div>
+
+
+        </div>
+        <!-- /.box-body -->
+
+    </div>
+    <script>
+
+
+       /* $(function () {
+            $("form[name={{ form.vars.id }}]").on("submit", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var data = new FormData(this);
+                var v = $("#{{ form.vars.id }}").val();
+                if (v != "") {
+                    //   console.log("aaaa");
+                    //   var data = (new FormData($("#qbabit_zip_file_control")[0]));
+					
+                    PageAjax.execute("{{ form.vars.action }}", data, 'GET', function (e) {
+                        PageAjax.msg.showBallon(e.return, e.msg);
+                    }, function (e) {
+                        PageAjax.msg.showBallon("error", "Existen errores, si piensa que esto es incorrecto. Consulte con el administrador del sistema")
+                    }, true);
+                }
+                else
+                    PageAjax.msg.showBallon('error', "Por favor seleccione los archivos a subir");
+
+            });
+        });*/
+
+        $("#{{ form.vars.id }}_button").on("click", function (e) {
+            $("form[name={{ form.vars.id }}]").submit();
+            /*  e.preventDefault();
+             e.stopPropagation();
+
+
+
+             */
+
+        })
+    </script>
+{% endblock %}

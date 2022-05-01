@@ -1,0 +1,73 @@
+
+<li class="dropdown user user-menu">
+
+    <a href="#" class="dropdown-toggle non-ajax" data-toggle="dropdown">
+        <img src="{{ app.user.path|QbRenderImg(security.uploads.web) }}" class="user-image" alt="User Image">
+        <span class="hidden-xs"> {{ app.user==null?'qbabit.security.nav.guest'|trans:app.user.name }}</span>
+    </a>
+    <ul class="dropdown-menu">
+        <!-- User image -->
+        <li class="user-header">
+            <img src="{{  app.user.path|QbRenderImg(security.uploads.web) }}" class="img-circle" alt="User Image" data-name="{{ app.user==null?0:1 }}">
+
+            <p>
+                {{ app.user==null?'qbabit.security.nav.guest'|trans:app.user.fullname }}
+                {% if app.user!=null %}
+                    <small>
+                        {{ "qba_bit.security.nav.fields.dateCreated"|trans({'%date%': app.user.dateCreated|date('d-m-Y')}) }}
+ </small>
+                {% endif %}
+            </p>
+        </li>
+
+        <li class="user-footer">
+            {#
+            {% if app.user.impersonateUser!=null %}
+                <div style="margin-bottom: 40px">
+                    <div class="pull-left">
+                        {{ app.user.impersonateUser.name }}
+                    </div>
+                    <div class="pull-right">
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+
+                            <a href="{{ path('store_homepage', {_switch_user: '_exit'}) }}"
+                               class="non-ajax btn btn-danger btn-flat">{% trans %}
+                                qbabit.security.nav.control.exit{% endtrans %}</a>
+                        {% endif %}
+                    </div>
+                </div>  {% endif %}
+            #}
+            {% if app.user==null %}
+                <div class="pull-left">
+
+
+                </div>
+                <div class="pull-right">
+                    <a href="{{ url('qba_bit_admin_security_login') }}" onclick="profileClick()"
+                       class=" non-ajax btn btn-primary btn-flat"> {{ "qba_bit.security.nav.login"|trans }}</a>
+
+                </div>
+            {% else %}
+                <div class="pull-left">
+
+                </div>
+                <div class="pull-right">
+
+                    <a href="{{ url('qba_bit_admin_security_logout') }}"
+                       class="non-ajax btn btn-danger btn-flat">
+                        {{ "qba_bit.security.nav.logout"|trans }}
+                     </a>
+                </div>
+            {% endif %}
+        </li>
+
+    <script>
+        function profileClick() {
+            $('nav .user-menu').attr('class', 'dropdown user user-menu');
+            //UpdateCategories('');
+        }
+    </script>
+    </ul>
+
+</li>
+

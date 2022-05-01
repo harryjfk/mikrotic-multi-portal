@@ -1,0 +1,31 @@
+qba_bit:
+    nauta:
+        title: Control de cuentas Nautas
+        nauta_tipo_cuenta:
+            fields: { name: Tipo de Cuenta,capacity: "Ancho de Banda", amount: Cantidad, date: Tiempo }
+            delete: Cuenta
+            single: Tipo de Cuenta
+            list: Tipo de Cuentas
+            text: Tipo de Cuentas
+        nauta_accounts:
+            fields: { nameAccount: Cuenta, logs: logs, user: user }
+            delete: NautaAccounts
+            single: NautaAccounts
+            list: NautaAccounts
+            text: NautaAccounts
+        nauta_user_ip:
+            fields: { ip: Ip, user: user }
+            delete: NautaUserIp
+            single: NautaUserIp
+            list: NautaUserIp
+            text: NautaUserIp
+        nauta_options:
+            list: Opciones
+            text: Opciones
+            fields: { address: "Dirección del Mikrotik", dhcp_server: "Servidor DHCP de ETECSA", user: "Usuario del Mikrotik", password: "Contraseña del Mikrotik",phone: "Teléfono",email: "Correo electrónico", releaseType: "Tipo de Reconexión" }
+        nauta_accounts_log:
+            fields: { csrfhw: csrfhw, ip: ip, data: data, closed: closed, account: account }
+            delete: NautaAccountsLog
+            single: NautaAccountsLog
+            list: NautaAccountsLog
+            text: NautaAccountsLog

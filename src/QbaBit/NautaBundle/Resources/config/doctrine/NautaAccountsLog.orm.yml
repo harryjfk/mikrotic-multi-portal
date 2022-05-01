@@ -1,0 +1,68 @@
+QbaBit\NautaBundle\Entity\NautaAccountsLog:
+    type: entity
+    table: nauta_accounts_log
+    indexes:
+        account_id:
+            columns: [account_id]
+    id:
+        id:
+            type: integer
+            nullable: false
+            options: { unsigned: false }
+            id: true
+            generator: { strategy: IDENTITY }
+    fields:
+        csrfhw:
+            type: string
+            nullable: false
+            length: 255
+            options: { fixed: false }
+            column: CSRFHW
+            qba_bit: { type: text }
+        ip:
+            type: string
+            nullable: false
+            length: 255
+            options: { fixed: false }
+            qba_bit: { type: text }
+        data:
+            type: text
+            nullable: false
+            length: 65535
+            options: { fixed: false }
+            qba_bit: { type: text }
+        closed:
+            type: boolean
+            nullable: false
+            qba_bit: { type: switchcheck }
+        forzada:
+            type: datetime
+            nullable: true
+            column: forzada
+        typeClose:
+            type: integer
+            nullable: false
+            column: type_close
+            options: { fixed: false }
+            qba_bit: { type: text }
+    manyToOne:
+        account:
+            targetEntity: QbaBit\NautaBundle\Entity\NautaAccounts
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: logs
+            joinColumns: { account_id: { referencedColumnName: id } }
+            orphanRemoval: false
+            qbabit: { type: text }
+        lanIp:
+            targetEntity: QbaBit\NautaBundle\Entity\NautaUserIp
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: logs
+            joinColumns: { lanIp_id: { referencedColumnName: id } }
+            orphanRemoval: false
+            qbabit: { type: text }
+    lifecycleCallbacks: {  }
+    repositoryClass: QbaBit\NautaBundle\Repository\NautaAccountsLogRepository

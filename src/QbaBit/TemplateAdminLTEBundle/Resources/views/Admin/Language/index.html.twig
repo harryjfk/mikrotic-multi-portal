@@ -1,0 +1,97 @@
+{% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_list.html.twig") %}
+
+    {% block search_columns %}
+
+        <div class="col-md-9">
+            <div class="form-group">
+                {{ form_label(searchForm.name) }}
+                {{ form_widget(searchForm.name) }}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="display: block;">&nbsp;</label>
+                {{ form_row(searchForm.submit) }}
+            </div>
+        </div>
+    {% endblock %}
+{% block columns %}
+
+    <tr>
+
+        <th style="width: 25px;">
+            <input type="checkbox" id="chkall" class="chkall"/>
+        </th>
+        <th style="">
+            {{ 'qba_bit.language.fields.image'|trans }}
+        </th>
+        <th class="sorting_asc"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">{{ knp_pagination_sortable(entities,  'qba_bit.language.fields.name' , 'a.name') }}</th>
+
+        <th class="sorting_asc"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">{{ knp_pagination_sortable(entities,  'qba_bit.language.fields.shortCode' , 'a.locale') }}</th>
+        <th class="sorting_asc"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">{{ knp_pagination_sortable(entities,  'qba_bit.language.fields.longCode' , 'a.locale') }}</th>
+
+        <th class="sorting_asc"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">{{ knp_pagination_sortable(entities,  'qba_bit.language.fields.enabled' , 'a.enabled') }}</th>
+        <th class="sorting_asc"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">{{ knp_pagination_sortable(entities,  'qba_bit.language.fields.primary' , 'a.principal') }}</th>
+    </tr>
+{% endblock %}
+{% block row %}
+
+    {% for entity in entities %}
+        <tr id="rw{{ entity.id }}">
+            <td>
+                <input type="checkbox" name="idcheck[]" value="{{ entity.id }}"
+                       id="id{{ entity.id }}" class="selitm minimal"/>
+                <label for="id{{ entity.id }}"></label>
+            </td>
+            <td>
+
+                <img src="{{ entity.image |QbRenderImg(language.uploads.web) }}" width="32px" height="32px">
+            </td>
+            <td>
+                {% if is_granted(role.edit) %}
+                    <a href="{{ path(url.edit, { 'id': entity.id } | merge(paramsUrl)) }}"
+                       class="edit">{{ entity.name }}</a>
+                {% else %}
+                    {{ entity.name }}
+                {% endif %}
+            </td>
+            <td class="sorting_2">
+                {{ entity.shortCode }}
+            </td>
+            <td class="sorting_2">
+                {{ entity.longCode }}
+            </td>
+            <td>
+                <div class="switch">
+                    <input id="enable-{{ entity.shortCode }}" type="hidden" value=""/>
+                    <input id="disable-{{ entity.shortCode }}" type="hidden" value=""/>
+                    <input id="{{ entity.shortCode }}" type="checkbox"
+                           {% if entity.enabled %}checked="checked"{% endif %} disabled/>
+                    <label for="{{ entity.shortCode }}"></label>
+                </div>
+
+            </td>
+            <td>
+                <div class="switch">
+                    <input id="enable-{{ entity.shortCode }}" type="hidden" value=""/>
+                    <input id="disable-{{ entity.shortCode }}" type="hidden" value=""/>
+
+                    <input id="{{ entity.shortCode }}" type="checkbox"
+                           {% if  entity.name == primary %}checked="checked"{% endif %} disabled/>
+                    <label for="{{ entity.shortCode }}"></label>
+                </div>
+
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

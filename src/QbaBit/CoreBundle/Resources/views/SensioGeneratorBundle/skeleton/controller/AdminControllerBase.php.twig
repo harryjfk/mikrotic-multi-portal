@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }}\Controller\Admin;
+
+{% block use_statements %}
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use QbaBit\CoreBundle\Controller\Base\QbaBitBaseController;
+
+{% endblock use_statements %}
+
+{% block class_definition %}
+class AdminController extends QbaBitBaseController
+{% endblock class_definition %}
+{
+{% block class_body %}
+ public function indexAction()
+    {
+        return $this->render('{{ bundle }}:Admin:index.html.twig',$this->additionalParams());
+}
+{% endblock class_body %}
+}

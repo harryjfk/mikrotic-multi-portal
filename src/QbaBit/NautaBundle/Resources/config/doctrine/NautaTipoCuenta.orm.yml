@@ -1,0 +1,36 @@
+QbaBit\NautaBundle\Entity\NautaTipoCuenta:
+    type: entity
+    table: nauta_tipo_cuenta
+    indexes:
+    id:
+        id:
+            type: integer
+            nullable: false
+            options: { unsigned: false }
+            id: true
+            generator: { strategy: IDENTITY }
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options: { fixed: false }
+            column: name
+            qba_bit: { type: text }
+        date:
+            type: integer
+            nullable: false
+        amount:
+            type: decimal
+            nullable: false
+        capacity:
+            type: decimal
+            nullable: false
+    oneToMany:
+        users:
+            mappedBy: accountType
+            cascade: [persist]
+            targetEntity: QbaBit\SecurityBundle\Entity\SecurityUser
+            qba_bit: { type: text }
+    lifecycleCallbacks: {  }
+    repositoryClass: QbaBit\NautaBundle\Repository\NautaTipoCuentaRepository

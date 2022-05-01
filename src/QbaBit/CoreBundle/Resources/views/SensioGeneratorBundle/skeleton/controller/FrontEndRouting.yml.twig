@@ -1,0 +1,3 @@
+qbabit_{{ bundle_name|lower }}_{{ generator.getSeparatedNames(controller,"_") }}:
+    defaults: { _controller: {{ bundle }}:Front/{{ controller  }}:index }
+    path:  /

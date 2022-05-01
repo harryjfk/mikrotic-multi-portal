@@ -1,0 +1,153 @@
+QbaBit\SecurityBundle\Entity\SecurityUser:
+    type: entity
+    table: security_user
+    repositoryClass: QbaBit\SecurityBundle\Repository\SecurityUserRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        firstName:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: first_name
+        secondName:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: second_name
+        email:
+            type: string
+            unique: true
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        username:
+            type: string
+            nullable: false
+            unique: true
+            length: 255
+            options:
+                fixed: false
+        percent:
+            type: decimal
+            nullable: false
+        salt:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        issuperadmin:
+            type: boolean
+            nullable: true
+            options:
+                comment: 'si es admin no se puede borrar el usuario'
+                default: '0'
+            column: isSuperAdmin
+        dateCreated:
+            type: datetime
+            nullable: true
+            column: date_created
+        dateModified:
+            type: datetime
+            nullable: true
+            column: date_modified
+        path:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        movilPhone:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        interface:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: wlan
+        fixPhone:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        enabled:
+            type: boolean
+            nullable: true
+        checkCount:
+            type: integer
+            nullable: false
+            column: check_count
+        checkCountInternet:
+            type: integer
+            nullable: false
+            column: check_count_internet
+    manyToMany:
+        group:
+            targetEntity: QbaBit\SecurityBundle\Entity\SecurityGroup
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: user
+            joinTable:
+                name: security_user_group
+                joinColumns:
+                    -
+                        name: user_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: group_id
+                        referencedColumnName: id
+            orderBy: null
+    manyToOne:
+        accountType:
+            targetEntity: QbaBit\NautaBundle\Entity\NautaTipoCuenta
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: users
+            joinColumns:
+                account_type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        accounts:
+            mappedBy: user
+            cascade: [persist]
+            targetEntity: QbaBit\NautaBundle\Entity\NautaAccounts
+        ip:
+            mappedBy: user
+            cascade: [persist]
+            targetEntity: QbaBit\NautaBundle\Entity\NautaUserIp
+    lifecycleCallbacks: {  }

@@ -1,0 +1,15 @@
+services:
+#    qba_bit_language.example:
+#        class: QbaBit\LanguageBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+##-------- MENU-------------
+    qba_bit_language.render.menu:
+        class: QbaBit\LanguageBundle\MenuBuilder\Menu
+        arguments: ['@service_container']
+        public: true
+##-------- FORMS---------
+    qba_bit_language.forms.language:
+         class: QbaBit\LanguageBundle\Form\Admin\LanguageType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]

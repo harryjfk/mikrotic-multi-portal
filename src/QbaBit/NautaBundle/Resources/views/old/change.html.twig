@@ -1,0 +1,124 @@
+{% extends "QbaBitNautaBundle:Default:_base.html.twig" %}
+{% block scripts_header %}
+{% endblock %}
+
+
+{% block contenedor %}
+    <div id="int" class="row" >
+        <div class="blq ">
+            <div class="title">
+                Interfaces con Internet
+            </div>
+            <div class="blq_int ">
+                <div id="cont" class="col-xs-12" style="background-color: white;  margin: 0 auto; text-align: center;">
+                    <div style="padding: 20px; text-align: center;">
+                        <div class="title_text">
+
+                            <span style="padding-left: 10px; font-weight: bold;">
+                            </span>
+                        </div>
+
+                        <div class="row" id="logout" style="padding-top: 5px" >
+  <div class="col-xs-12">
+
+      <div class="row">
+          <div class=" col-xs-6 key">
+              Direccion
+          </div>
+          <div class=" col-xs-6 ">
+              {{ ip.ip }}
+          </div>
+      </div>
+      {% for i in states|keys %}
+      <div class="row" id="{{ i }}">
+          <div class=" col-xs-6 key">
+              {{ i  }}
+          </div>
+          <div class=" col-xs-6 " >
+
+              <input class="btn" name="change" value="Cambiar "  {% if states[i]==false %} style="display: none" {% endif %}onclick="changeInterface('{{ i }}');" type="button">
+
+          </div>
+      </div>
+      {% endfor %}
+
+      <div class="row"  style="margin-top: 10px">
+          <div class=" col-xs-12">
+              <input class="btn" name="refrescar" value="Actualizar" onclick="update();" type="button">
+
+          </div>
+
+      </div>
+  </div>
+
+
+
+
+                        </div>
+                    <img src="{{ asset('bundles/qbabitnauta/nauta_wifi_popup.jpg') }}" style="padding: 0 5px 15px 0; width: 190px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block scripts_footer %}
+AvailableTime
+    <script>
+        function changeInterface(int)
+        {
+            var url = "{{ url("qba_bit_nauta_change_interface",{"interface":"-1"}) }}";
+            url = url.replace("-1",int);
+            $.ajax({
+                url: url,
+                /* method:method,*/
+                data: null,
+                type: "GET",
+                /*  dataType : 'html',*/
+                enctype: 'multipart/form-data',
+                success: function(e){
+                alert("Interfaz cambiada")
+
+                },
+                error: function(){
+                    alert("Error.");
+
+                },
+                processData: false,
+                contentType: false
+
+            });
+        }
+        function update() {
+
+            $.ajax({
+                url: "{{ url("qba_bit_nauta_aviable",{"ajax":"true"}) }}",
+                /* method:method,*/
+                data: null,
+                type: "GET",
+                /*  dataType : 'html',*/
+                enctype: 'multipart/form-data',
+                success: function(e){
+                    for (var i=0;i<e.states.length;i++)
+                    {
+                        var  v = e.states[i].value;
+                        var  n = e.states[i].name;
+                        if(v==true)
+                            $("#"+n+" input").show();
+                        else
+                            $("#"+n+" input").hide();
+                    }
+
+                     },
+                error: function(){
+                    alert("Error.");
+
+                },
+                processData: false,
+                contentType: false
+
+            });
+        }
+    </script>
+{% endblock %}

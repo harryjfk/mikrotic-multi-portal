@@ -1,0 +1,327 @@
+{% extends  '@QbaBitCore/Layout/layout_backend.html.twig' %}
+
+    {% set tit = 'listado_X' | trans({'%nombre%': 'coches' | trans({}, 'lavadoo') }, 'qbabitcore') %}
+    {% block title %} {{ tit }} {% endblock %}
+    {% set paramsUrl = {'itemid': app.request.get('itemid')} %}
+
+
+{% block update %}
+    <div class="box-header with-border">
+        <div class="user-block">
+            <span class="username" style="margin-left: 0px;"><h3
+                        style="margin-bottom: 0;margin-top: 0;">{{ tit }}</h3></span>
+        </div>
+        <!-- /.user-block -->
+        <div class="box-tools">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownOptions"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fa fa-fw fa-cogs"></span>
+                    {{ 'opciones' | trans({}, 'qbabitcore') }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownOptions">
+                    <li>
+
+                        {% if is_granted( role.new ) %}
+                            <a href="{{ path(url.new, paramsUrl) }} " class="new"
+                               style="height: auto;"><i
+                                        class="fa fa-plus-square"></i>{{ 'nuevo' | trans({}, 'qbabitcore') }}</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if is_granted(role.delete ) %}
+                            <a href="#" class="del"><i
+                                        class="fa fa-trash-o"></i>{{ 'eliminar' | trans({}, 'qbabitcore') }}</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+<form action="{{ path(url.view, paramsUrl) }}" name="frmsearch" id="frmsearch" method="post">
+    <div class="row nmlf">
+        {% block search_columns %}
+            {% endblock %}
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+            <thead>
+
+            </thead>
+            <tbody>
+             {% block row %}
+
+                 {% endblock %}
+            </tbody>
+        </table>
+    </div>
+    {{ knp_pagination_render(entities) }}
+
+</form>
+{% endblock %}
+
+
+{#
+{% set flash = request.session.flashBag.get("success") %}
+   {% block breadcumb_controls %}
+
+       <div style="text-align: right;float: right;margin: 5px;">
+
+           {% if priviligies['new']==true %}
+               <a href="{% block new_item %}{% endblock %}" class="morado new btn blue" style="height: auto;"><i
+                           class="fa fa-plus-square"></i>{% trans %}qbabit.common.action.new{% endtrans %}</a>
+           {% endif %}
+           {% if priviligies['delete']==true %}
+               <button type="button" id="list_delete_btn" href="" class="rojovino del btn red non-ajax"
+                       style="height: auto;"><i
+                           class="fa fa-trash-o"></i>{% trans %}qbabit.common.action.delete{% endtrans %}</button>
+           {% endif %}
+
+       </div>
+
+       <div style="display: none">
+
+       </div>
+   {% endblock %}
+
+
+{% block error_type %}
+
+
+
+
+    {% if flash|length==0 %}
+        alert-danger
+    {% else %}
+        alert-success
+    {% endif %}
+
+{% endblock %}
+
+       {% block error_icon %}
+           {% if flash|length==0 %}
+               fa-ban
+           {% else %}
+               fa-success
+           {% endif %}
+
+       {% endblock %}
+    {% block  error_text %}
+
+        {% if flash|length>0 %}
+            <div>{{ flash[0] }}</div>
+            <script>
+                $('.alert').show();
+            </script>
+
+        {% endif %}
+
+    {% endblock %}
+{% block content %}
+    {% set list1 = [{url:asset('bundles/qbabitcore/js/common/icheck.js'), type:'script'} ,
+    {url:asset('bundles/qbabitcore/css/common/iCheck/flat/blue.css'), type:'link'},
+    {url:asset('bundles/qbabitcore/css/common/iCheck/square/blue.css'), type:'link'}
+    ] %}
+
+    {% include 'QbaBitCoreBundle:Form:_base_include.html.twig' with {list:list1,'loading':true,'onloadAll':'onList_Load','again':true} %}
+    {% block upper_content %}
+
+    {% endblock %}
+
+    <form id="frmsearch" name="frmsearch" method="post" action="{% block form_action %}{% endblock %}">
+
+        <!-- /.box-header -->
+        <div class="">
+            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box" style="margin-bottom: 0px">
+
+                            <div class="box-body">
+                                <div class="row">
+
+                                    {% block top_navigation %}
+
+
+                                        {% block data_filter %}
+                                            <div class="col-xs-12 col-sm-12">
+                                                <div class="row" style="margin-bottom: 15px;
+    margin-top: 15px;">
+                                                    <div class="col-xs-12 col-md-10" style="padding-left: 15px">
+                                                        <div class="dataTables_filter">
+                                                            <input id="dataTables_filter"
+                                                                   name="dataTables_filter"
+                                                                   type="search" style="margin-top: 0"
+                                                                   class="form-control input-sm"
+                                                                   placeholder="{% trans %}
+                                                qbabit.common.navigation.search{% endtrans %}"
+                                                                    {% if app.request.get('dataTables_filter') %}
+                                                                value="{{ app.request.get('dataTables_filter') }}"
+                                                                    {% endif %}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-2" style="padding: 5px;text-align: center">
+                                                        <button class="btn btn-primary"
+                                                                style="padding: 5px 10px;"> {{ 'qbabit.common.navigation.search'|trans }}</button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        {% endblock %}
+                                        <div class="col-sm-6">
+                                            <input type="hidden" id="dataTables_length"
+                                                   name="dataTables_length"
+                                                   value="{{ app.request.get('dataTables_length_select') }}">
+                                        </div>
+
+                                    {% endblock %}
+                                </div>
+                                {% set name= "" %}
+                                {% if form is defined %}
+                                    {% set name=form.vars.id %}
+                                {% endif %}
+                                {% block list_container %}
+                                <table id="gridview_{{ name }}" class="table table-bordered table-striped dataTable"
+                                       role="grid"
+                                       aria-describedby="example1_info">
+                                    <thead>
+
+                                    <tr role="row">
+                                        {% block columns %} {% endblock %}
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% block list_content %}
+
+                                    {% endblock list_content %}
+
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        {% block list_footer %}
+
+                                        {% endblock %}
+
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                {% endblock %}
+                                <div class="row">
+                                    {% block bottom_navigation %}
+                                        <div class="col-xs-12 col-sm-4 pagination" style="padding-left: 20px">
+                                            <div class="dataTables_info pagination" id="example1_info" role="status"
+                                                 aria-live="polite">
+                                                {% trans %}
+                                                qbabit.common.navigation.showing{% endtrans %}  {% if entities.getCurrentPageNumber==1 %}
+                                                    1
+                                                {% else %}
+                                                    {{ entities.getItemNumberPerPage * (entities.getCurrentPageNumber-1)+1 }}
+                                                {% endif %}
+                                                {% trans %}qbabit.common.navigation.to{% endtrans %}
+                                                {% if entities.getItemNumberPerPage * (entities.getCurrentPageNumber-1)+entities.getItemNumberPerPage > entities.getTotalItemCount %}
+                                                    {{ entities.getTotalItemCount }}
+                                                {% else %}
+                                                    {{  entities.getItemNumberPerPage * (entities.getCurrentPageNumber-1)+entities.getItemNumberPerPage }}
+                                                {% endif %}
+                                                {% trans %}
+                                                qbabit.common.navigation.of{% endtrans %}  {{ entities.getTotalItemCount }} {% trans %}
+                                                qbabit.common.navigation.entries{% endtrans %}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4 pagination" style="text-align: center">
+                                            <div class="dataTables_length pagination" style="margin-top: 0px">
+                                                <div class="col-xs-4">
+                                                    <label style="margin-top: 10px"> {% trans %}
+                                                        qbabit.common.navigation.show{% endtrans %}</label>
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <select id="dataTables_length_select" style="margin: 0"
+                                                            name="dataTables_length_select"
+                                                            aria-controls="example1"
+                                                            onchange="dataTables_length.value  = dataTables_length_select.value; $('#frmsearch').submit();"
+                                                            class="form-control input-sm">
+
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
+
+
+                                                <script>
+
+                                                    dataTables_length_select.value = {{ app.request.get('dataTables_length_select')?app.request.get('dataTables_length_select'):  entities.getItemNumberPerPage  }};
+                                                </script>
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
+                                            <div class="dataTables_paginate paging_simple_numbers"
+                                                 id="example1_paginate">
+                                                <ul class="pagination">
+                                                    {{ knp_pagination_render(entities   ) }}
+
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <!-- /.box-body -->
+{% block after_content %}
+
+    {% endblock %}
+{% endblock content %}
+
+
+{% block scripts %}
+
+    <script>
+        function onList_Load() {
+
+
+          /* */
+
+            {% set name= "" %}
+            {% if form is defined %}
+            {% set name=form.vars.id %}
+            {% endif %}
+
+            PageAjax.block.text = "";
+            PageAjax.list.msg.searching = '{{ 'qbabit.common.navigation.searching'|trans }}';
+            PageAjax.block.img = '{{ asset('bundles/qbabitcore/css/common/images/loading.gif') }}';
+            PageAjax.list.setControl(frmsearch, gridview_{{ name }}, '#dataTables_length', ['#dataTables_filter'], '.content-wrapper', {{ priviligies['delete']==true?'list_delete_btn':'null' }});
+            PageAjax.list.del_url = '{% block delete_item %}{% endblock %}';
+            PageAjax.list.msg.delete_sel = '{{ 'qbabit.common.delete.delete_selected'|trans }}';
+            PageAjax.list.msg.deleted_ok = '{{ 'qbabit.common.delete.deleted_success'|trans }}';
+            PageAjax.list.msg.access_denied = '{{ 'qbabit.common.access.denied'|trans }}';
+            PageAjax.list.msg.delete_error = '{{ 'qbabit.common.delete.delete_error'|trans }}';
+            PageAjax.list.msg.none_sel = '{{ 'qbabit.common.navigation.none_sel'|trans }}';
+
+
+        }
+    </script>
+
+
+{% endblock %}
+
+
+#}

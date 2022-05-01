@@ -1,0 +1,9 @@
+services:
+    qba_bit_template.helper:
+       class: QbaBit\TemplateBundle\Services\TemplateHelper
+       arguments: ['@service_container']
+       public: true
+    qba_bit_template.render.menu:
+        class: QbaBit\TemplateBundle\MenuBuilder\Menu
+        arguments: ['@service_container']
+        public: true

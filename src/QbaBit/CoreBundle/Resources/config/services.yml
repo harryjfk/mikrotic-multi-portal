@@ -1,0 +1,138 @@
+services:
+#    qba_bit_core.example:
+#        class: QbaBit\CoreBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+#    qba_bit_core_utils:
+ #      resource: "@QbaBitCoreBundle/Resources/config/Services/utils.yml"
+##-------- MENU-------------
+    qba_bit_core.render.menu:
+        class: QbaBit\CoreBundle\MenuBuilder\Menu
+        arguments: ['@service_container']
+        public: true
+ ##----------------- UTILS-------------------
+    qba_bit_core.global.utils:
+        class: QbaBit\CoreBundle\Services\GlobalUtils
+        arguments: ["@service_container" ]
+        public: true
+    qba_bit_core.language.utils:
+        class: QbaBit\CoreBundle\Services\LanguageUtils
+        arguments: ["@service_container" ]
+        public: true
+    qba_bit_core.paginator.utils:
+        class: QbaBit\CoreBundle\Services\PaginatorUtils
+        arguments: ["@service_container","@doctrine.orm.default_entity_manager","@knp_paginator"]
+        public: true
+    qba_bit_core.class.utils:
+        class: QbaBit\CoreBundle\Services\ClassUtils
+        arguments: ["@service_container"]
+        public: true
+    qba_bit_core.file.utils:
+        class: QbaBit\CoreBundle\Services\FileUtils
+        arguments: ["@service_container"]
+        public: true
+    qba_bit_core.orm.utils:
+        class: QbaBit\CoreBundle\Services\OrmUtils
+        arguments: ["@service_container"]
+        public: true
+    qba_bit_core.global.dynamic.pages.render:
+        class: QbaBit\CoreBundle\Services\DynamicPagesRender
+        arguments:
+           - '@service_container'
+        public: true
+    qba_bit_core.manager.module:
+        class: QbaBit\CoreBundle\Services\ModulesManager
+        arguments: ["@service_container"]
+        public: true
+    qba_bit_core.manager.system:
+        class: QbaBit\CoreBundle\Services\SystemManager
+        arguments: ["@service_container"]
+        public: true
+    qba_bit_core.modal.logger:
+        class: QbaBit\CoreBundle\Services\RequestClientLogger
+        arguments: ["@service_container"]
+        public: true
+ ##--------------MENU -------------------
+    qba_bit_core.menu.render.extension:
+         class: QbaBit\CoreBundle\Twig\MenuExtension
+         tags:
+            - name: "twig.extension"
+         arguments: ["@service_container"]
+    qba_bit_core.navigator.render.extension:
+         class: QbaBit\CoreBundle\Twig\NavigatorExtension
+         tags:
+            - name: "twig.extension"
+         arguments: ["@service_container"]
+    qba_bit_core.image.render.extension:
+         class: QbaBit\CoreBundle\Twig\ImageExtension
+         tags:
+            - name: "twig.extension"
+         arguments: ["@service_container","@liip_imagine.twig.extension"]
+
+##------FORM--------
+    qba_bit_core.form.base:
+         class: QbaBit\CoreBundle\Form\Base\AccessBaseType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+    qba_bit_core.form.basic.switch_check:
+         class: QbaBit\CoreBundle\Form\Types\Basic\SwitchCheckType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+    qba_bit_core.form.basic.button:
+         class: QbaBit\CoreBundle\Form\Types\Basic\ButtonType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+    qba_bit_core.form.basic.search:
+         class: QbaBit\CoreBundle\Form\Types\Basic\SearchType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+    qba_bit_core.form.basic.general-datetime:
+        class: QbaBit\CoreBundle\Form\Types\Basic\GeneralDateTimeType
+        tags:
+           - name: "form.type"
+        arguments: ["@service_container"]
+    qba_bit_core.form.basic.process_logger:
+        class: QbaBit\CoreBundle\Form\Types\Basic\ModalProcessLoggerType
+        tags:
+           - name: "form.type"
+        arguments: ["@service_container"]
+    qba_bit_core.form.collections.general:
+        class: QbaBit\CoreBundle\Form\Types\Collections\GeneralCollectionType
+        tags:
+           - name: "form.type"
+        arguments: ["@service_container"]
+    qba_bit_core.form.collections.modal_transfer_entity:
+        class: QbaBit\CoreBundle\Form\Types\Collections\ModalTransferEntityType
+        tags:
+           - name: "form.type"
+        arguments: ["@service_container"]
+    qba_bit_core.form.module.install_form:
+        class: QbaBit\CoreBundle\Form\Modules\ModalInstallModuleType
+        tags:
+           - name: "form.type"
+        arguments: ["@service_container"]
+    qba_bit_core.form.system_restore.form:
+        class: QbaBit\CoreBundle\Form\Modules\SystemRestoreModuleType
+        tags:
+           - name: "form.type"
+        arguments: ["@service_container"]
+
+    qba_bit_core.form.collections.grid_view:
+        class: QbaBit\CoreBundle\Form\Types\Collections\GridViewType
+        tags:
+           - name: "form.type"
+        arguments: ["@service_container"]
+    qba_bit_core.form.collections.list_view:
+        class: QbaBit\CoreBundle\Form\Types\Collections\ListViewType
+        tags:
+           - name: "form.type"
+        arguments: ["@service_container"]
+
+
+    qba_bit_core.graph.resolver:
+        class: QbaBit\CoreBundle\Services\ChartDataResolver
+        arguments: ["@service_container" ]

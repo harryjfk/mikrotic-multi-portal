@@ -1,0 +1,39 @@
+qba_bit_core:
+    pagination:
+       frontend:
+          pagination: null
+          sortable: null
+       backend:
+          pagination: null
+          sortable: null
+    menu:
+       frontend: null
+       backend: "@qba_bit_core.render.menu"
+    generator:
+       defaultTypes: [{ name: null, type: string, control: text }, { name: null, type: boolean, control: switchcheck }, { name: '*image*', type: string, control: imagefile }, { name: '*images*', type: entity, control: imagefilemultiple }, { name: parent, type: entity, control: treeselect }, { name: description, type: string, control: htmlcontrol }, { name: pdf, type: string, control: file }, { name: url, type: string, control: url }, { name: null, type: date, control: generaldatetime }]
+
+    modules:
+       url: "http://localhost/ecommerce/web/app_dev.php/api/modules/list?id={id}&name={name}&version={version}"
+     #  file: "http://localhost/ecommerce/web/app_dev.php/admin/modules/file/{id}/{version}"
+       file: "http://localhost/ecommerce/web/app_dev.php/api/modules/file/{id}/{version}"
+    system_manager:
+       folder: '%kernel.project_dir%/../ecommerceRestorePoints/'
+    routing:
+       url: 'http://localhost/ecommerce/web'
+       dir: '%kernel.root_dir%/../web'
+       uploads:
+          url: '/uploads'
+          dir: '@qba_bit_core.routing.dir@/uploads'
+
+    app:
+       name: "MultiPortales"
+       name_mini: "Portales"
+       image: "bundles/front/images/logo.png"
+       index_url: 'qba_bit_nauta_admin_homepage'
+
+knp_paginator:
+    page_range: '10'
+    default_options: { page_name: page, sort_field_name: sort, sort_direction_name: direction, distinct: true }
+liip_imagine:
+    resolvers: { default: { web_path: null } }
+    filter_sets: { cache: null, thumbnail: { quality: 75, filters: { thumbnail: { size: [235, 150], mode: outbound } } }, slider: { quality: 100, filters: { thumbnail: { size: [720, 300], mode: null } } }, product_view: { quality: 100, filters: { thumbnail: { size: [400, 400], mode: null } } }, product_list_view: { quality: 100, filters: { thumbnail: { size: [300, 300], mode: null } } } }

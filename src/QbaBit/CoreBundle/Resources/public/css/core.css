@@ -1,0 +1,57 @@
+.opaco_block{ background: url(../images/opaca.png); }
+.opaco_block .indicador{
+    margin-top: 1%;
+    border:solid 1px #000102;
+    background: #ffffff;
+    padding: 0.5%;
+    width: 20%;
+    margin: 10px auto auto auto;
+}
+
+.br3{border-radius: 3px;}
+
+
+.errorfield
+{
+    color: #a94442;
+    font-size: 12px;
+    margin-top: 3px;
+}
+ul#stars {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    display: inline-block;
+    margin-bottom: -3px;
+}
+.mr20{
+    margin-right: 20px;
+}
+
+ul#stars li{
+    background:url("../images/stars.png") no-repeat 0px 0px transparent;
+    width:16px;
+    height:16px;
+    float:left;
+}
+
+ul#stars li.selected{ /* esta clase añade la imagen seleccionada */
+    background:url("../images/stars.png") no-repeat -16px 0px transparent;
+
+}
+.qb-star-g{
+    background: url(../images/star_gris.png) repeat-x;
+    height: 15px;
+    width: 75px;
+    display: block;
+    background-size: 15px;
+}
+
+.qb-star-filled{
+    background: url(../images/start_nar.png) repeat-x;
+    height: 15px;
+    width:0%;
+    background-size: 15px;
+    display: inline-block;
+}

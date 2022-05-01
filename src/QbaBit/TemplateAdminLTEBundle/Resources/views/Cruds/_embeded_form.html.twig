@@ -1,0 +1,316 @@
+{% extends  template_helper.getRedirectedView("QbaBitCoreBundle:Layout:_ajax.html.twig") %}
+
+   {# {% set tit = 'qba_bit.core.listado_X' | trans({'X':base_title|trans()}) %}
+    {% block title %} {{ tit }} {% endblock %}
+    {% set paramsUrl = {'itemid': app.request.get('itemid')} %}
+#}
+
+{% block update %}
+    {% set beginr = '<tr role="row" class="odd">' %}
+    {% set endr = '</tr>' %}
+    {% set begint = ' <td> ' %}
+    {% set endt = ' </td> ' %}
+    {% set form_click ='doCollection_'~form.vars.id~'_Click' %}
+    <link rel="stylesheet" href="{{ asset('bundles/qbabitcore/forms/switch_check_type/switch.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/qbabitcore/forms/icheck_type/iCheck/all.css') }}">
+
+
+    <div class="box-header with-border">
+        <div class="user-block">
+            <span class="username" style="margin-left: 0px;"><h3
+                        style="margin-bottom: 0;margin-top: 0;">{{ form.vars.label|trans }}</h3></span>
+        </div>
+        <!-- /.user-block -->
+        <div class="box-tools">
+            <div class="dropdown" id="{{ form.vars.id }}_drop">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownOptions"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fa fa-fw fa-cogs"></span>
+                    {{ 'qba_bit.core.options' | trans() }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownOptions">
+                    <li>
+
+
+                        <a id="{{ form.vars.id }}_new" href="#" class="new"
+                           style="height: auto;"><i
+                                    class="fa fa-plus-square"></i>{{ 'qba_bit.core.new' | trans() }}</a>
+
+                    </li>
+                    <li>
+
+                        <a id="{{ form.vars.id }}_delete" href="#" class="del"><i
+                                    class="fa fa-trash-o"></i>{{ 'qba_bit.core.delete' | trans() }}</a>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+
+
+
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover" id="gridview_{{ form.vars.id }}">
+            <thead>
+            {% set add = true %}
+            {% block columns %}
+                <th style="width: 25px;">
+                    <input type="checkbox" id="chkall" class="chkall"/>
+                </th>
+                {% for c in columns|keys %}
+                    <th> {{ c|trans }}</th>
+                {% endfor %}
+
+            {% endblock %}
+            </thead>
+            <tbody>
+            {% if can_add is defined %}
+                {% set add = can_add %}
+            {% endif %}
+            {% if add==true %}
+                <div class="prototype_{{ form.vars.id }}" data-prototype="
+
+  {% for c in columns %}
+    {{ begint|raw }}
+
+  {{ form_widget(child.vars.prototype[c])|e('html_attr') }}
+
+{{ endt|raw }}
+
+  {% endfor %}
+
+
+       "></div>
+
+
+
+                <script>{% if columns|length==0 %}gridview_{{ form.vars.id }}.style.display = "none";{% endif %}</script>
+                <div class="">
+                    <div class="col-xs-8 col-sm-10   ">
+                        <script>
+                            function searchEmbbededForm_{{ form.vars.id }}() {
+
+                                var v = $('#embbedform_search_{{ form.vars.id }}').val();
+                                var rows = $("#gridview_{{ form.vars.id }} tbody tr");
+                                if (v == "")
+                                    rows.show();
+                                else {
+
+                                    for (var i = 0; i < rows.length; i++) {
+                                        var r = $(rows[i]);
+                                        var s = false;
+                                        r.children().each(function (e, w, q) {
+
+                                            var input = $(w).children().children('input , select');
+
+                                            if (input.val() != null)
+                                                if (input.val().indexOf(v) != -1)
+                                                    s = true;
+
+                                        });
+                                        if (s == false)
+                                            r.hide();
+                                        else
+                                            r.show();
+                                    }
+                                }
+                            }
+                        </script>
+                        <div class="row" style="display: none">
+                            <div class="col-sm-12">
+                                <div class="row" style="margin-bottom: 15px;
+    margin-top: 15px;">
+                                    <div class="col-xs-11" style="padding-left: 15px">
+                                        <div class="dataTables_filter">
+                                            <input id="embbedform_search_{{ form.vars.id }}"
+                                                   name="embbedform_search_{{ form.vars.id }}"
+                                                   type="search" style="margin-top: 0"
+                                                   class="form-control input-sm"
+                                                   placeholder="{% trans %}
+                                                qbabit.common.navigation.search{% endtrans %}"
+
+                                                   value=""
+
+                                            >
+                                            <script>
+                                                $('#embbedform_search_{{ form.vars.id }}').on("change", function (e) {
+
+
+                                                    searchEmbbededForm_{{ form.vars.id }}();
+
+                                                });
+                                                $('#embbedform_search_{{ form.vars.id }}').on("keypress", function (e) {
+
+
+                                                    var code = (e.keyCode ? e.keyCode : e.which);
+                                                    if (code == 13) { //Enter keycode
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        searchEmbbededForm_{{ form.vars.id }}();
+                                                    }
+
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1 pd0">
+                                        <button type="button" class="btn btn-primary"
+                                                onclick=" searchEmbbededForm_{{ form.vars.id }}();"
+                                                style="padding: 5px 10px"> {{ 'qbabit.common.navigation.search'|trans }}</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-2 pd0" style=" padding-left: 4px;padding-right: 15px;
+    text-align: right;     /*border-left: 3px solid #d2d6de;*/
+
+    margin-top: 15px;">
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+            {% block row %}
+
+
+            {% for form_line in child %}
+            <tr role="row" class="odd" id="{{ loop.index }}">
+                <td>
+                    <input type="checkbox" name="idcheck[]" value="{{ loop.index }}"
+                           id="id{{ loop.index }}" class="selitm minimal"/>
+                    <label for="id{{ loop.index }}"></label>
+                </td>
+                {% for c in columns %}
+
+                    <td> {{ form_widget(form_line[c]) }}</td>
+                {% endfor %}
+
+                {{ endr|raw }}
+                {% endfor %}
+                {% endblock %}
+            </tbody>
+        </table>
+    </div>
+    <script src="{{ asset('bundles/qbabitcore/forms/icheck_type/iCheck/icheck.min.js') }}"></script>
+    <script>
+        function setChecks()
+        {
+            jQuery('#chkall,input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            }).trigger('click');//le pongo trigger('click') para corregir bug
+
+            jQuery('#chkall').on('ifToggled', function () {
+                MKLib.checkedCtrl(jQuery(this), '.selitm', function (status, ele) {
+                    ele.iCheck(status ? 'check' : 'uncheck');
+                });
+            });
+        }
+        setChecks();
+
+    </script>
+    <script>
+
+        function onAdded(e) {
+            {% if onAdd is defined %}
+            {% if onAdd!='' %}
+            {{ onAdd|raw }}
+            {% endif %}
+            {% endif %}
+            {% block on_add_item %}
+
+            {% endblock %}
+
+        }
+
+        function getIndex_{{ form.vars.id }}(collection) {
+            //  console.log('aaa');
+            var r = -1;
+            for (var i = 0; i < collection.length; i++) {
+                var t = parseInt(collection[i].id);
+                if (t > r)
+                    r = t;
+
+            }
+            return r + 1;
+        }
+
+
+        $("#{{ form.vars.id }}_new").on("click", function (e) {
+
+            e.stopPropagation();
+            e.preventDefault();
+
+            {{ form_click }}(e.target, 'add');
+            $("#{{ form.vars.id }}_drop").removeClass("open");
+
+        });
+        $("#{{ form.vars.id }}_delete").on("click", function (e) {
+
+            e.stopPropagation();
+            e.preventDefault();
+            $("#{{ form.vars.id }}_drop").removeClass("open");
+            {{ form_click }}(e.target, 'delete');
+        });
+
+        function {{ form_click }}(e, w) {
+
+            if (w == "add") {
+                if (gridview_{{ form.vars.id }}.style.display = "none") {
+                    gridview_{{ form.vars.id }}.style.display = "";
+                    //  $(e).hide();
+                }
+
+                $prototype = $('.prototype_{{ form.vars.id }}');
+                $collectionHolder = $('#gridview_{{ form.vars.id }} ');
+                index = getIndex_{{ form.vars.id }}($collectionHolder.find('tr[class="odd"]'));
+
+                $collectionHolder.data('index', index);
+
+                var prototype = $prototype.data('prototype');
+                var newForm = prototype.replace(/__name__/g, index);
+
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                var n = ' <tr role="row" class="odd" id="' + (index) + '"><td> <input type="checkbox" name="idcheck[]" value="'+(index)+' id="id'+(index)+'" class="selitm minimal"/><label for="id'+(index)+'"></label></td>{{ endr|raw }}';
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $(n).append(newForm);
+                $collectionHolder.append($newFormLi);
+                onAdded($newFormLi);
+
+                setChecks();
+                //   PageAjax.edit.controls.doLoad();
+            }
+            else {
+
+
+              var checks =  $("#gridview_{{ form.vars.id }} input[type=checkbox]");
+              for(var i=0;i<checks.length;i++)
+                  if(checks[i].checked && checks[i].id!="chkall")
+                      $(checks[i]).parent().parent().parent().remove();
+
+
+                if ($('#gridview_{{ form.vars.id }} tbody tr').length == 0)
+                {
+                    gridview_{{ form.vars.id }}.style.display = "none";
+                    $(chkall).parent().attr("aria-checked",false).removeClass("checked");
+                }
+
+
+            }
+
+        }
+
+    </script>
+
+{% endblock %}

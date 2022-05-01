@@ -1,0 +1,27 @@
+{% block extends %}
+    {{ '{% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_edit.html.twig") %}
+' }}
+{% endblock extends %}
+
+{% block body %}
+
+    {{ "{% block form_body %}" }}
+
+    {% for field in fields|keys %}
+        {% set class = ("class_row" in (fields[field].getDefaultValues|keys)? fields[field].getDefaultValues["class_row"]:"col-xs-12" ) %}
+        {{ "
+  <div class='row'>
+
+        <div class='"~class~"'>
+            {{ form_label(form."~fields[field].getFieldName(field)~") }}
+            {{ form_widget(form."~fields[field].getFieldName(field)~") }}
+        </div>
+    </div>
+
+
+ " }}
+    {% endfor %}
+    {{ "{% endblock %}" }}
+
+
+{% endblock body %}

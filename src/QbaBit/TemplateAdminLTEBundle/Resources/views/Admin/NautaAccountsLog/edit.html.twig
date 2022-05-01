@@ -1,0 +1,64 @@
+    {% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_edit.html.twig") %}
+
+
+
+    {% block form_body %}
+
+                    
+  <div class='row'>
+
+        <div class='col-xs-12'>
+            {{ form_label(form.csrfhw) }}
+            {{ form_widget(form.csrfhw) }}
+        </div>
+    </div>
+
+
+ 
+                    
+  <div class='row'>
+
+        <div class='col-xs-12'>
+            {{ form_label(form.ip) }}
+            {{ form_widget(form.ip) }}
+        </div>
+    </div>
+
+
+ 
+                    
+  <div class='row'>
+
+        <div class='col-xs-12'>
+            {{ form_label(form.data) }}
+            {{ form_widget(form.data) }}
+        </div>
+    </div>
+
+
+ 
+                    
+  <div class='row'>
+
+        <div class='col-xs-12'>
+            {{ form_label(form.closed) }}
+            {{ form_widget(form.closed) }}
+        </div>
+    </div>
+
+
+ 
+                    
+  <div class='row'>
+
+        <div class='col-xs-12'>
+            {{ form_label(form.account) }}
+            {{ form_widget(form.account) }}
+        </div>
+    </div>
+
+
+ 
+        {% endblock %}
+
+

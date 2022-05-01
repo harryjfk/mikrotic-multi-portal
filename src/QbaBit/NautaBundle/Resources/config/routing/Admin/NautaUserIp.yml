@@ -1,0 +1,16 @@
+qba_bit_nauta_nauta_user_ip_list:
+    path:     /list
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaUserIp:index }
+qba_bit_nauta_nauta_user_ip_delete_list:
+    path:     /del_list/
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaUserIp:deleteList  }
+qba_bit_nauta_nauta_user_ip_new:
+    path:     /new
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaUserIp:new }
+qba_bit_nauta_nauta_user_ip_edit:
+    path:     /edit/{id}
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaUserIp:edit }
+qba_bit_nauta_nauta_user_ip_delete:
+    path:     /delete/{id}
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaUserIp:delete }
+

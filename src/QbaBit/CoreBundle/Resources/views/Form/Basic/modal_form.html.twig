@@ -1,0 +1,62 @@
+{% block qba_bit_modal_form_widget %}
+    <div id="{{ form.vars.id }}_modal" style="display: none;">
+        {% if template!=null %}
+            {{ template|raw }}
+        {% endif %}
+        {% if form_render !=null %}
+            {{ form_render.render(form)|raw }}
+        {% else %}
+        {% for i in form.children %}
+            {{ form_row(i) }}
+        {% endfor %}
+{% endif %}
+
+    </div>
+    <div>
+        {% if template_add is defined %}
+        {{ template_add|raw }}
+        {% endif %}
+    </div>
+    <button id="{{ form.vars.id }}_button"  type="button"  style="{{ buttonStyles }}" class="{{ buttonClass }}" onclick="show{{ form.vars.id }}Modal(this)">{{ buttonText|raw }}</button>
+    <script>
+
+
+
+        function show{{ form.vars.id }}Modal(e) {
+            {% if onClick is defined %}
+            {{ onClick|raw }}
+            {% endif %}
+            $("#{{ form.vars.id }}_modal").dialog({
+              title:'{{ caption }}',  draggable: false, modal: true, height: "{{ height }}", width: "{{ width }}",
+                buttons: [
+                    {
+                        text: "OK",
+                        class: "btn",
+                        click: function (e) {
+                            {% if onOk %}
+                            {{ onOk|raw }}
+                            {% endif %}
+                            $(this).dialog("close");
+                        }
+                    },
+                    {
+                        text: "Cancel",
+                        class: "btn btn-secundary",
+                        click: function (e) {
+                            {% if onCancel %}
+                            {{ onCancel|raw }}
+                            {% endif %}
+                            $(this).dialog("close");
+                        }
+                    },
+                ]
+            });
+            $('.ui-dialog[aria-describedby="{{ form.vars.id }}_modal"] .ui-dialog-title').html( "{{ caption }}");
+
+        }
+        function hide{{ form.vars.id }}Modal(e) {
+
+        }
+
+    </script>
+{% endblock %}

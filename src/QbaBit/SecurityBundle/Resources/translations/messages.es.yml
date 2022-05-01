@@ -1,0 +1,129 @@
+qba_bit:
+   security:
+      security_user:
+          list: Lista de Usuarios
+          text: Usuarios
+          single: Usuario
+          fields:
+            email: Correo Electrónico
+            userName: Nick
+            fullName: Nombre Completo
+            name: Nombre
+            dateCreated: Fecha de Creación
+            dateModified: Fecha de Modificación
+            password: Contraseña
+            repeatPassword: Repetir Contraseña
+            firstName: Primer Apellido
+            secondName: Segundo Apellido
+            userGroups: Grupo de usuarios
+            movilPhone: Teléfono Móvil
+            percent: Porciento
+            fixPhone: Teléfono Fijo
+            image: Imágen
+            enabled: Activo
+            accountType: Tipo de Cuenta
+          msg:
+            passwordMatch: Las contraseñas no coinciden
+
+
+      security_group:
+             text: Grupos de usuario
+             simple: Grupos
+             single: Grupo de usuario
+             fields:
+                name: Nombre
+                roles: Roles disponibles
+             actions:
+                delete: Eliminar
+                edit: Editar
+                new: Crear
+                view: Ver
+      login:
+          title: Iniciar sesión
+          alert:
+             error:
+                 locked: El usuario esta bloqueado
+                 badcredentials: No se encuentra el usuario o contraseña
+          email: Correo Electrónico
+          password: Contraseña
+          remember: Recodar
+          enter: Entrar
+          forgot:
+             button: Olvido la constraseña?
+             title: Recordatorio de contraseña
+             description: Si olvidaste tu contraseña, facilítanos tu email y te la enviamos otra vez.
+             email: Correo Electrónico
+             send: Enviar
+          activate:
+             ok: Se activo correctamente el usuario
+             error: El usuario buscado no existe en el sistema
+          recovery:
+             sent: Se envió un correo con la informacion para restablecer su cuenta.
+             account_not_exists: Su cuenta no existe.
+             title: Reestablecer contraseña
+             ok: Se reestableció la constraseña correctamente. Por favor de click en el siguiente enlace  para ir a la web.
+      nav:
+          fields:
+             dateCreated: Miembro desde %date%
+          logout: Cerrar sesión
+          login: Iniciar sesión
+          register: Registrar
+          register_long: Registrarse en la web
+          or: O
+          sign_facebook: Iniciar con Facebook
+          sign_google: Iniciar con Google
+          i_ready_have: Ya tengo usuario
+          guest: Invitado
+          front: Pagina de inicio
+          control:
+              exit: Dejar de controlar
+          profile: Perfil
+
+
+#       entity:
+#          securityuser:
+#             fields:
+#                name: Nombre
+#                fullname: Nombre Completo
+#                email: Correo Electrónico
+#                location: Lugar
+#             title: Usuarios
+#             invited: Iniciar como Invitado
+#          security_user:
+#             list: Lista de Usuarios
+#             simple: Usuarios
+#             fields:
+#                email: Correo Electrónico
+#                userName: Nick
+#                fullName: Nombre Completo
+#                name: Nombre
+#                dateCreated: Fecha de Creación
+#                dateModified: Fecha de Modificación
+#                password: Contraseña
+#                repeatPassword: Repetir Contraseña
+#                firstName: Primer Apellido
+#                secondName: Segundo Apellido
+#                userGroups: Grupo de usuarios
+#                image: Imágen
+#                enabled: Activo
+#             msg:
+#                passwordMatch: Las contraseñas no coinciden
+#                unique: Nombre de usuario o correo existen ya en el sistema, por favor elija uno diferente
+#             actions:
+#                delete: Eliminar
+#                edit: Editar
+#                new: Crear
+#                view: Ver
+
+#          administrator: Es Administrador?
+#
+#
+
+#       profile:
+#          title: Perfil de usuario
+#          edit_tab:
+#              name: Cambiar
+#              data: Datos
+#          info_tab:
+#              name: Informacion
+#

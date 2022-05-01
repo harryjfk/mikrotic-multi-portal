@@ -1,0 +1,15 @@
+qba_bit:
+      language:
+        text: Idiomas
+        list: Lista de Idiomas
+        single: Idioma
+        fields:
+           name: Idioma
+           shortCode: Código corto
+           longCode: Código largo
+           primary: Primario
+           enabled: Activo
+           image: Imágen
+        error:
+           primary: No se puede eliminar el lenguaje principal de la aplicacion
+

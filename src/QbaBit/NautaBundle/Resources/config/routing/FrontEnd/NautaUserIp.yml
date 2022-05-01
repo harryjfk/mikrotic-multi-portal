@@ -1,0 +1,3 @@
+qbabit_nauta_nauta_user_ip:
+    defaults: { _controller: QbaBitNautaBundle:Front/NautaUserIp:index }
+    path:  /

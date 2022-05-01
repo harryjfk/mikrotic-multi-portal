@@ -1,0 +1,17 @@
+{% if add is defined %}
+  {% include 'QbaBitCoreBundle:Form/Collections/includes:_base_entity_list.html.twig' with {'show':true,'n_name':form.vars.full_name~'[table]'}  %}
+
+{% else %}
+  {{ form(form.children.table) }}
+   <script>
+       function onOk{{ form.vars.id }}(e)
+       {
+
+           alert('aaaa');
+
+
+
+       }
+   </script>
+{% endif %}
+

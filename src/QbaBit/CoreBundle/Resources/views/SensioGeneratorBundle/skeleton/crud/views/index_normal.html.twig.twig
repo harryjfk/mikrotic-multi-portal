@@ -1,0 +1,92 @@
+{% block extends %}
+    {{ '{% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_list.html.twig") %}
+' }}
+{% endblock extends %}
+
+{% block body %}
+
+
+
+
+    {{ "{% block search_columns %}" }}
+
+    {% for field in fields|keys %}
+
+        {% if fields[field].isScalar %}
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{ " {{ 'qba_bit."~(bundle_name|lower)~'.'~(controller|lower)~".fields."~field~"' | trans }}  " }}</label>
+                    <input type="text" id="frmSearch[{{ field }}]" name="frmSearch[{{ field }}]" class="form-control"
+                           value="{{ "{{ app.request.get('frmSearch')is not empty?app.request.get('frmSearch')."~field~":'' }}" }}">
+
+                </div>
+            </div>
+
+
+        {% else %}
+
+        {% endif %}
+    {% endfor %}
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label style="display: block;">&nbsp;</label>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+    {{ "{% endblock search_columns %}" }}
+
+        {{ "{% block columns%}" }}
+        <th style='width: 25px;'>
+            <input type='checkbox' id='chkall' class='chkall' />
+        </th>
+
+
+        " }}
+        {% for field in fields|keys %}
+
+            {% if fields[field].isScalar %}
+                <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Rendering engine: activate to sort column descending">
+                    {{ "{{ knp_pagination_sortable(entities,  'qba_bit."~(bundle_name|lower)~'.'~(controller|lower)~".fields."~field~"' , 'a."~field~"') }}" }}
+                </th>
+
+            {% else %}
+                <th style="">
+                    {{ "{{ 'qba_bit."~(bundle_name|lower)~'.'~(controller|lower)~".fields."~field~"' | trans  }}" }}
+
+                </th>
+            {% endif %}
+        {% endfor %}
+
+
+        {{ "{% endblock columns %}" }}
+
+
+    {{ "{% block list_content %}
+    {% for entity in entities %}
+        <tr id='rw{{ entity.id }}' class='odd'>
+            <td>
+                <input type='checkbox' name='idcheck[]' value='{{entity.id}}' id='id{{entity.id}}' class='selitm' />
+                <label for='id{{entity.id}}'></label>
+
+            </td>
+            " }}
+
+    {% for field in fields|keys %}
+        <td class="">
+            {{ fields[field].getIndexHtml("entity."~field,{"bundle":bundle,"bundle_name":bundle_name,"table":controller}) }}
+        </td>
+
+    {% endfor %}
+
+    </tr>
+
+    {{ "{% endfor %}" }}
+
+
+    {{ "{% endblock %}" }}
+{% endblock body %}

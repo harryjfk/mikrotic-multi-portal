@@ -1,0 +1,38 @@
+{% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_edit.html.twig") %}
+
+
+
+    {% block form_body %}
+
+
+        <div class='row nmlf'>
+
+            <div class='col-xs-3'>
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class='col-xs-3'>
+                {{ form_label(form.capacity) }}
+                {{ form_widget(form.capacity) }}
+            </div>
+            <div class='col-xs-3'>
+                {{ form_label(form.amount) }}
+                {{ form_widget(form.amount) }}
+            </div>
+            <div class='col-xs-3'>
+                {{ form_label(form.date) }}
+                {{ form_widget(form.date) }}
+            </div>
+        </div>
+        <script>
+            $("#qbabit_nautabundle_nautatipocuenta_amount").attr("type","number");
+        </script>
+
+
+
+
+
+
+    {% endblock %}
+
+

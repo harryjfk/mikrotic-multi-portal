@@ -1,0 +1,95 @@
+{% block qbabit_chart_control_type_widget %}
+
+    aaa
+{% endblock %}
+{% block qbabit_high_chart_control_type_widget %}
+
+
+    <script src="{{ asset('bundles/qbabitcore/forms/highChart/highChartCore/highcharts-custom.min.js') }}"></script>
+    <script src="{{ asset('bundles/qbabitcore/forms/highChart/highchartTable/jquery.highchartTable.min.js') }}"></script>
+
+
+    <div class="row">
+        <div class="col-sm-12 ">
+            <div class="col-xs-12 col-sm-5">
+
+                <table id="table_graph_{{ form.vars.id }}" class="highchart table table-hover table-bordered"
+                       data-graph-container=".. .. .highchart-container2" data-graph-type="{{ type }}">
+                    <caption>{{ caption }}</caption>
+                    <thead>
+                    <tr>
+                        {% for c in data.columns %}
+                            <th class="{{ c.class }}"
+                                {% if c.type !=null %}data-graph-type="{{ c.type }}" {% endif %}>{{ c.name }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+<script>
+    var subtotal{{ form.vars.id }} = Array();
+    var total{{ form.vars.id }} =0;
+</script>
+
+                    {% for c in data.data|keys %}
+                        <tr>
+                            <td>{{ c }}</td>
+                            {% for w in data.columns %}
+                                {% if w !=data.masterColumn %}
+                                    <td class="">{{ data.data[c][w.name]  }}</td>
+<script>
+    if(subtotal{{ form.vars.id }}["{{ w.name }}"]==null)
+        subtotal{{ form.vars.id }}["{{ w.name }}"]= parseFloat({{ data.data[c][w.name]  }});
+        else
+    subtotal{{ form.vars.id }}["{{ w.name }}"]+=parseFloat({{ data.data[c][w.name]  }});
+    total{{ form.vars.id }}+=parseFloat({{ data.data[c][w.name]  }});
+</script>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+                <table class="table table-hover table-bordered">
+                    <thead></thead>
+                    <tbody>
+                    <tr>
+                        <td style="font-weight: bold;width: 36%;">
+                            SubTotal
+                        </td>
+                        {% for w in data.columns %}
+                            {% if w !=data.masterColumn %}
+                                <td id="{{ w.name }}_subtotal"></td>
+                                <script>
+                                    $("#{{ w.name }}_subtotal").html(subtotal{{ form.vars.id }}["{{ w.name }}"]);
+                                </script>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;width: 36%;">
+                            Total
+                        </td>
+                          <td id="total{{ form.vars.id }}"></td>
+                        <script>
+                            $("#total{{ form.vars.id }}").html(total{{ form.vars.id }});
+                        </script>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-sm-7" style="margin-top: 10px">
+                <div class="highchart-container2 row" style=""></div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+            $('#table_graph_{{ form.vars.id }}').highchartTable();
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% block qbabit_switch_check_widget %}
+
+    <link rel="stylesheet" href="{{ asset('bundles/qbabitcore/forms/switch_check_type/switch.css') }}">
+
+    <div class="switch " style="width: 100%">
+        <input id="{{ form.vars.id }}_src" name="{{ form.vars.id }}_src" type="checkbox"/>
+        <label for="{{ form.vars.id }}_src"></label>
+    </div>
+    <select {{ block('widget_attributes') }} style="display: none">
+        <option value="1" {% if data==true %} selected="selected"{% endif %} >1</option>
+        <option value="0" {% if data==false %} selected="selected"{% endif %}>0</option>
+    </select>
+
+    <script>
+        $('#{{ form.vars.id }}_src').on('change', function (e) {
+            on{{ form.vars.id }}_change(e);
+        });
+        {% if form.vars.data!=null %}
+        {{ form.vars.id }}_src.checked = {{ form.vars.data }};
+        {% endif %}
+
+        function on{{ form.vars.id }}_change(e) {
+            $("#{{ form.vars.id }}").val(e.target.checked ? 1 : 0);
+        }
+    </script>
+{% endblock %}
+

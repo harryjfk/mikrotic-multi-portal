@@ -1,0 +1,16 @@
+{
+  "id": "security",
+  "name": "Security",
+  "icon": "",
+  "description": "Security Module",
+  "version": "1.0",
+  "keyWords": "security",
+  "required":"true",
+  "installer": "namespace hacia la clase instaladora",
+  "dependences": [
+    {  }
+  ],
+  "files": [
+
+  ]
+}

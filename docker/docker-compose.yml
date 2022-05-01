@@ -1,0 +1,11 @@
+version: "2"
+services:
+ php-fpm:
+   image: php:7.2
+   ports:
+    - 9000:9000
+   volumes:
+    - /var/www/html/mikrotic-multi-portal:/usr/local/src/app
+   working_dir: /usr/local/src/app
+   extra_hosts:
+    - "app:127.0.0.1"

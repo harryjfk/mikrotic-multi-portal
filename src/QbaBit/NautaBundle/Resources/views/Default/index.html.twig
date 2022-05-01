@@ -1,0 +1,179 @@
+{% extends "QbaBitNautaBundle:Default:layout.html.twig" %}
+{% block content %}
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white">Dirección</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4">{{ mk.getAddress() }}</p>
+
+                </div>
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white">Interfaz</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4">{{ mk.getInterface==false? "Existen problemas de conexión con el Mikrotik":mk.getInterface.name }}</p>
+
+                </div>
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white">Condición</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4" id="ccq">{{ mk.getCondicion==false? "Existen problemas de conexión con el Mikrotik": mk.getCondicion}}</p>
+
+                </div>
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white">CCQ</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4" id="ccq1"> {{ mk.getCCQ==false? "Existen problemas de conexión con el Mikrotik": (mk.getCCQ~"%") }}</p>
+
+                </div>
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white">Señal</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4" id="ccq2">{{ mk.getPower==false? "Existen problemas de conexión con el Mikrotik": (mk.getPower~"dBm")}}</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Acciones</h2>
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <button style="background: none;border: none;" type="button"  onclick="renewDHCP('2');">
+
+
+                        <i class="fas fa-4x fa-gem text-primary mb-3 sr-icon-1"></i>
+                        <h3 class="mb-3">Reconectar</h3>
+                        <p class="text-muted mb-0"> Realiza una nueva asignación de dirección de la conexión , la cual se pierde después de un rato de inactividad.</p>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <button style="background: none;border: none;" type="button"  onclick="renewDHCP('3');">
+                        <i class="fas fa-4x fa-paper-plane text-primary mb-3 sr-icon-2"></i>
+                        <h3 class="mb-3">Refrescar</h3>
+                        <p class="text-muted mb-0">    Refresca la asignación de dirección de la conexión. Usar en caso de perdida de conexión una vez iniciada la sesion.
+                        </p>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <button style="background: none;border: none;" type="button"  onclick="renewDHCP('1');">
+
+                        <i class="fas fa-4x fa-code text-primary mb-3 sr-icon-3"></i>
+                        <h3 class="mb-3">Cerrar sesión Forzosa</h3>
+                        <p class="text-muted mb-0"> Realiza un cierre forzado de la conexión. Usar en caso de que se pierda la conexión o que se pierda la pantalla con el cierre de ETECSA.
+                        </p>
+                        </button>
+                    </div>
+                </div>
+                {#<div class="col-lg-3 col-md-6 text-center">#}
+                    {#<div class="service-box mt-5 mx-auto">#}
+                        {#<i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>#}
+                        {#<h3 class="mb-3">Made with Love</h3>#}
+                        {#<p class="text-muted mb-0">You have to make your websites with love these days!</p>#}
+                    {#</div>#}
+                {#</div>#}
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+
+
+
+
+
+        function setCCQ()
+        {
+
+            $.ajax({
+                url: "{{ url("qba_bit_nauta_index",{type:"ccq"}) }}",
+                /* method:method,*/
+                data: null,
+                type: "GET",
+                /*  dataType : 'html',*/
+                enctype: 'multipart/form-data',
+                success: function(e){
+                    var w =e;
+                    if(w.return==false)
+                    {
+                        $("#ccq").html("Existen problemas de conexión con el Mikrotik");
+                        $("#ccq1").html("Existen problemas de conexión con el Mikrotik");
+                        $("#ccq2").html("Existen problemas de conexión con el Mikrotik");
+                    }
+                    else
+                    {
+                        $("#ccq").html(w.return);
+                        $("#ccq1").html(w.ccq+"%");
+                        $("#ccq2").html(w.signal+"dBm");
+                    }
+
+                    setTimeout(function () {
+                        setCCQ();
+                    },1000);
+                },
+                error: function(){
+                    alert("Error al momento de buscar la calidad");
+
+                },
+                processData: false,
+                contentType: false
+
+            });
+        }
+        function renewDHCP(type)
+        {
+
+            var url = "{{ url("qba_bit_nauta_index",{"type":-1}) }}".replace("-1",type);
+
+            $.ajax({
+                url: url ,
+                /* method:method,*/
+                data: null,
+                type: "GET",
+                /*  dataType : 'html',*/
+                enctype: 'multipart/form-data',
+                success: function(e){
+
+                    if(e.return==0)
+                        alert("No se pudo renovar la conexion");
+                    else
+                    {
+                        var w = e;
+                        document.location.href = w.url;
+                    }
+                },
+                error: function(){
+                    alert("No se pudo renovar la conexion");
+
+                },
+                processData: false,
+                contentType: false
+
+            });
+
+        }
+
+        setCCQ();
+
+    </script>
+{% endblock %}

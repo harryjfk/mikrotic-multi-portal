@@ -1,0 +1,18 @@
+{
+  "id": "language",
+  "name": "Languages",
+  "icon": "",
+  "description": "Language Module",
+  "version": "1.0",
+  "keyWords": "language",
+  "required":"true",
+  "installer": "namespace hacia la clase instaladora",
+  "dependences": [
+    {
+      "core":"1.0"
+    }
+  ],
+  "files": [
+
+  ]
+}

@@ -1,0 +1,59 @@
+services:
+    qba_bit_nauta.render.menu:
+        class: QbaBit\NautaBundle\MenuBuilder\AdminMenu
+        arguments: ["@service_container"]
+    qba_bit.type.nauta.nauta.accounts:
+        class: QbaBit\NautaBundle\Form\Admin\NautaAccountsType
+        tags:
+            - { name: form.type }
+        arguments:
+            - '@service_container'
+    qba_bit.type.nauta.nauta.option:
+        class: QbaBit\NautaBundle\Form\Admin\NautaOptionsType
+        tags:
+            - { name: form.type }
+        arguments:
+            - '@service_container'
+    qba_bit.type.nauta.nauta.user.ip:
+        class: QbaBit\NautaBundle\Form\Admin\NautaUserIpType
+        tags:
+            - { name: form.type }
+        arguments:
+            - '@service_container'
+    qba_bit.type.nauta.nauta.tipo.cuenta:
+        class: QbaBit\NautaBundle\Form\Admin\NautaTipoCuentaType
+        tags:
+            - { name: form.type }
+        arguments:
+            - '@service_container'
+    qba_bit.type.nauta.nauta.accounts.log:
+        class: QbaBit\NautaBundle\Form\Admin\NautaAccountsLogType
+        tags:
+            - { name: form.type }
+        arguments:
+            - '@service_container'
+    qba_bit.repository.nauta.nauta_accounts:
+        class: Doctrine\ORM\EntityRepository
+        factory:
+            - '@doctrine.orm.default_entity_manager'
+            - getRepository
+        arguments:
+            - QbaBit\NautaBundle\Entity\NautaAccounts
+    qba_bit.repository.nauta.nauta_user_ip:
+        class: Doctrine\ORM\EntityRepository
+        factory:
+            - '@doctrine.orm.default_entity_manager'
+            - getRepository
+        arguments:
+            - QbaBit\NautaBundle\Entity\NautaUserIp
+    qba_bit.repository.nauta.nauta_accounts_log:
+        class: Doctrine\ORM\EntityRepository
+        factory:
+            - '@doctrine.orm.default_entity_manager'
+            - getRepository
+        arguments:
+            - QbaBit\NautaBundle\Entity\NautaAccountsLog
+    qba_bit.nauta.mk_controller:
+        class: QbaBit\NautaBundle\Services\MkController
+        arguments:
+            - '@service_container'

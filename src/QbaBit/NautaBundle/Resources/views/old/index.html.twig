@@ -1,0 +1,12 @@
+
+{{ content|raw }}
+
+<script>
+    var error = "{{ app.request.get("error") }}";
+    if(error!="")
+        if(error=="login_failed")
+            alert("Usuario o contraseña no validos");
+            else
+            alert("La ip no es valida");
+
+</script>

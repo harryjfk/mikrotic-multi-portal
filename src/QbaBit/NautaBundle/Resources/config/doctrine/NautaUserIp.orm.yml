@@ -1,0 +1,38 @@
+QbaBit\NautaBundle\Entity\NautaUserIp:
+    type: entity
+    table: nauta_user_ip
+    indexes:
+        user_id:
+            columns: [user_id]
+    id:
+        id:
+            type: integer
+            nullable: false
+            options: { unsigned: false }
+            id: true
+            generator: { strategy: IDENTITY }
+    fields:
+        ip:
+            type: string
+            nullable: false
+            length: 255
+            options: { fixed: false }
+            qba_bit: { type: text }
+    manyToOne:
+        user:
+            targetEntity: QbaBit\SecurityBundle\Entity\SecurityUser
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: ip
+            joinColumns: { user_id: { referencedColumnName: id } }
+            orphanRemoval: false
+            qbabit: { type: text }
+    oneToMany:
+        logs:
+            mappedBy: lanIp
+            cascade: [persist]
+            targetEntity: QbaBit\NautaBundle\Entity\NautaAccountsLog
+            qba_bit: { type: text }
+    lifecycleCallbacks: {  }
+    repositoryClass: QbaBit\NautaBundle\Repository\NautaUserIpRepository

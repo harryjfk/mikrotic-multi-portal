@@ -1,0 +1,48 @@
+services:
+#    qba_bit_language.example:
+#        class: QbaBit\LanguageBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+##-------- MENU-------------
+    qba_bit_security.render.menu:
+        class: QbaBit\SecurityBundle\MenuBuilder\Menu
+        arguments: ['@service_container']
+        public: true
+##-------- FORMS---------
+    qba_bit_security.forms.user:
+         class: QbaBit\SecurityBundle\Form\Admin\SecurityUserType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+    qba_bit_security.forms.group_user:
+         class: QbaBit\SecurityBundle\Form\Admin\SecurityGroupType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+    qba_bit_security.forms.recovery_type:
+         class: QbaBit\SecurityBundle\Form\SecurityRecoveryType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+    qba_bit_security.forms.account_type:
+         class: QbaBit\SecurityBundle\Form\Admin\SecurityAccountType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+    qba_bit_security.forms.ip_type:
+         class: QbaBit\SecurityBundle\Form\Admin\SecurityIpType
+         tags:
+            - name: "form.type"
+         arguments: ["@service_container"]
+##---------MANAGER------
+    qba_bit_security.manager.user:
+        class: QbaBit\SecurityBundle\Services\UserManager
+        arguments: ['@service_container']
+        public: true
+##--------EVENTS
+
+    qba_bit_security.listener.user.created:
+        class: QbaBit\SecurityBundle\EventListener\UserRegisteredListener
+        arguments:
+            [ '@service_container' ]
+        tags:
+            - { name: kernel.event_subscriber}

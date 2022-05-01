@@ -1,0 +1,61 @@
+security_group:
+    resource: "@QbaBitSecurityBundle/Resources/config/routing/security_group.yml"
+    prefix:   /admin/user/groups
+
+
+security_user:
+    resource: "@QbaBitSecurityBundle/Resources/config/routing/security_user.yml"
+    prefix:   /
+
+
+#qba_bit_select_matica_base_homepage:
+#    path:     /select
+#    defaults: { _controller: QbaBitSelectMaticaBaseBundle:Default:index }
+#qba_bit_select_matica_base_frame:
+#    path:     /select/frame
+#    defaults: { _controller: QbaBitSelectMaticaBaseBundle:Default:frame }
+#qba_bit_select_matica_admin_home:
+#    path:     /admin
+#    defaults: { _controller: QbaBitSelectMaticaBaseBundle:Admin:index }
+#qba_bit_select_matica_base_sync:
+#    path:     /admin/selectmatica/sync
+#    defaults: { _controller: QbaBitSelectMaticaBaseBundle:Admin:sync }
+#qba_bit_select_matica_admin_api:
+#    path:     /admin/selectmatica/api
+#    defaults: { _controller: QbaBitSelectMaticaBaseBundle:Admin:api }
+#qba_bit_select_matica_admin_attributes:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/Admin/category.yml"
+#    prefix:   /admin/selectmatica/categories
+#qba_bit_select_matica_admin_products:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/Admin/products.yml"
+#    prefix:   /admin/selectmatica/products
+#qba_bit_select_matica_admin_promotion:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/Admin/promotion.yml"
+#    prefix:   /admin/selectmatica/promotion
+#qba_bit_select_matica_admin_billing:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/Admin/billing.yml"
+#    prefix:   /admin/selectmatica/billing
+#qba_bit_select_matica_admin_graph:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/Admin/graph.yml"
+#    prefix:   /admin/selectmatica/graph
+#qba_bit_select_matica_admin_orders:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/Admin/orders.yml"
+#    prefix:   /admin/selectmatica/orders
+#qba_bit_select_matica_admin_user:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/Admin/user.yml"
+#    prefix:   /admin/selectmatica/user
+#qba_bit_select_matica_categories:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/FrontEnd/categories.yml"
+#    prefix:   /selectmatica/categories
+#qba_bit_select_matica_manufacturer:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/FrontEnd/manufacturer.yml"
+#    prefix:   /selectmatica/manufacturer
+#qba_bit_select_matica_products:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/FrontEnd/products.yml"
+#    prefix:   /selectmatica/products
+#qba_bit_select_matica_cart:
+#    resource: "@QbaBitSelectMaticaBaseBundle/Resources/config/routing/FrontEnd/cart.yml"
+#    prefix:   /selectmatica/orders
+#qba_bit_select_matica_admin_options:
+#    path:     /admin/selectmatica/options
+#    defaults: { _controller: QbaBitSelectMaticaBaseBundle:Admin/Options:index }

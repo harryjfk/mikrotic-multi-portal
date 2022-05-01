@@ -1,0 +1,39 @@
+QbaBit\NautaBundle\Entity\NautaAccounts:
+    type: entity
+    table: nauta_accounts
+    indexes:
+        user_id:
+            columns: [user_id]
+    id:
+        id:
+            type: integer
+            nullable: false
+            options: { unsigned: false }
+            id: true
+            generator: { strategy: IDENTITY }
+    fields:
+        nameAccount:
+            type: string
+            nullable: false
+            length: 255
+            options: { fixed: false }
+            column: name_account
+            qba_bit: { type: text }
+    manyToOne:
+        user:
+            targetEntity: QbaBit\SecurityBundle\Entity\SecurityUser
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: accounts
+            joinColumns: { user_id: { referencedColumnName: id } }
+            orphanRemoval: false
+            qbabit: { type: text }
+    oneToMany:
+        logs:
+            mappedBy: account
+            cascade: [persist]
+            targetEntity: QbaBit\NautaBundle\Entity\NautaAccountsLog
+            qba_bit: { type: text }
+    lifecycleCallbacks: {  }
+    repositoryClass: QbaBit\NautaBundle\Repository\NautaAccountsRepository

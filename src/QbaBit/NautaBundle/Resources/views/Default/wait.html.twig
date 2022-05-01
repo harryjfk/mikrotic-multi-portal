@@ -1,0 +1,193 @@
+{% extends "QbaBitNautaBundle:Default:layout.html.twig" %}
+{% block content %}
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white">Dirección</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4">{{ mk.getAddress() }}</p>
+
+                </div>
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white">Tiempo faltante</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4"  id="onlineTime"></p>
+
+                </div>
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white"> Tiempo a esperar</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4" id="availableTime">00:01:00</p>
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Acciones</h2>
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <button style="background: none;border: none;" type="button"  onclick="updateAvailableTime();">
+
+
+                        <i class="fas fa-4x fa-gem text-primary mb-3 sr-icon-1"></i>
+                        <h3 class="mb-3">Actualizar</h3>
+                        <p class="text-muted mb-0"> Refresca el tiempo a esperar para reestablecer la conexión</p>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+        //显示在线时间
+        function $$(tt){return tt<10?"0"+tt : tt;};
+        var today   = new Date();
+        var hour  = $$(today.getHours() );
+        var minu  = $$(today.getMinutes());
+        var second= $$(today.getSeconds());
+        var actime= 'null';
+        if('notFound.jsp' != 'notFound.jsp')
+        {
+            var newWnd =window.open("notFound.jsp","_blank");newWnd.opener = null;
+        }
+        function set()
+        {
+
+            //  var loginTime=parseInt((new Date().getTime()-today.getTime())/1000);
+            var loginTime=parseInt((new Date().getTime()-today.getTime())/1000);
+            if(loginTime++ > 600000)
+            {
+                today =new Date() ;
+                //你已经登录了一个星期了，时间重置！
+                alert("Ha iniciado sesión en una semana. Reajuste el tiempo.");
+            }
+            if(actime > 0)
+            {
+                setonTime(actime);
+                actime++;
+            }
+            else if(loginTime >0)
+            {
+                setonTime(loginTime);
+            }
+        }
+        setInterval(set,1000);
+
+        var  sourceTime = JSON.parse('{{ timePassed|json_encode|raw }}');
+        function setonTime(loginTime)
+        {
+            /*
+               var t =
+            var s = t.getFullYear() + "/"+(t.getMonth()+1)+"/"+t.getDate()
+            var loginTime = parseInt( ( ).getTime()-today.getTime())/1000);
+        */
+
+            var hours   = 0;
+            var minutes = 0;
+            var seconds = 0;
+
+            hours = Math.floor(loginTime/3600);
+            minutes = Math.floor((loginTime%3600)/60);
+            seconds = loginTime%60;
+
+            if(hours <= 9)
+            {
+                hours="0"+hours;
+            }
+            if(minutes <= 9)
+            {
+                minutes="0"+minutes;
+            }
+            if(seconds <= 9)
+            {
+                seconds="0"+seconds;
+            }
+
+            var t1 = new Date("2001/01/01 "+sourceTime.h+":"+sourceTime.i+":"+sourceTime.s)
+            var t2 = new Date("2001/01/01 "+hours+":"+minutes	+":"+seconds)
+            t1.setHours(t1.getHours() - t2.getHours(), t1.getMinutes() - t2.getMinutes(), t1.getSeconds() - t2.getSeconds());
+
+//            console.log(t1);
+            var cdate = getTimeStr(sourceTime.h - hours) + ":" + getTimeStr(t1.getMinutes())  + ":" + getTimeStr(t1.getSeconds());
+            if(cdate=="00:00:00"|| document.getElementById('onlineTime').innerHTML == "Reiniciando conexión.")
+            {
+                if( document.getElementById('onlineTime').innerHTML != "Reiniciando conexión.")
+                    setTimeout(function(){
+
+                        document.location.href =  "{{ url("qba_bit_nauta_index",{type:"wait"}) }}?complete=true";
+                    },2000);
+                document.getElementById('onlineTime').innerHTML = "Reiniciando conexión.";
+            }
+            else
+                document.getElementById('onlineTime').innerHTML = cdate;
+        }
+
+
+        function getTimeStr(time) {
+            var time= time.toString();
+            if(time.length==1)
+                return "0"+time;
+            return time;
+
+        }
+
+
+        function updateAvailableTime()
+        {
+
+            $.ajax({
+                url: "{{ url("qba_bit_nauta_index",{type:"wait"}) }}?resting_time=true",
+                /* method:method,*/
+                data: null,
+                type: "GET",
+                /*  dataType : 'html',*/
+                enctype: 'multipart/form-data',
+                success: function(e){
+
+                    var w = e;
+                    document.getElementById("availableTime").innerHTML = getTimeStr(w.time.h)+":"+getTimeStr(w.time.i)+":"+getTimeStr(w.time.s);
+                },
+                error: function(){
+                    alert("Actualización disponible tiempo falle.");
+                    document.getElementById("availableTime").innerHTML = "--:--:--";
+                },
+                processData: false,
+                contentType: false
+
+            });
+
+
+        }
+
+        $(function(){
+            updateAvailableTime();
+            set();
+        });
+
+
+
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,55 @@
+
+{% block qbabit_image_file_widget %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            {% if vertical %}
+                <div class="row">
+                    <div class="col-xs-12" style="margin-top: 5px;text-align: center">
+
+                        {% set img=data|QbRenderImg(form.vars.web_base,'thumbnail') %}
+                        {% if 'tmp' in img %}
+                            {% set img = asset('bundles/qbabitcore/css/images/no-img.png') %}
+                        {% endif %}
+                        <img src="{{ img }}" style="/*width: 100%*/">
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% include '@QbaBitCore/Form/Basic/includes/_base_file_control.html.twig' with {margin:12,select_text:"Seleccionar Imágen"} %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-xs-2" style="text-align: center">
+
+
+                        {% set img= data|QbRenderImg(form.vars.web_base,'thumbnail') %}
+                        {% if 'tmp' in img %}
+                            {% set img = asset('bundles/qbabitcore/css/images/no-img.png') %}
+                        {% endif %}
+                        <img src="{{ img }}" style="/*width: 100%*/">
+
+                    </div>
+                    <div class="col-xs-10">
+                        {% include '@QbaBitCore/Form/Basic/includes/_base_file_control.html.twig' %}
+                    </div>
+                </div>
+
+            {% endif %}
+        </div>
+
+
+    </div>
+
+    <script>
+
+    </script>
+{% endblock %}
+
+{% block qbabit_image_file_param_generator %}
+    'web_base'=>   $this->container->get('qbabit_core.global.config')->getConfigValue('{{ web_dir }}'),
+    'dir_base'=>   $this->container->get('qbabit_core.global.config')->getConfigValue('{{ dir_dir }}')
+{% endblock %}

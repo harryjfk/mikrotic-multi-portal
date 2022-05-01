@@ -1,0 +1,46 @@
+QbaBit\LanguageBundle\Entity\Language:
+    type: entity
+    table: language
+    repositoryClass: QbaBit\LanguageBundle\Repository\LanguageRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        image:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        enabled:
+            type: boolean
+            nullable: false
+            options:
+                unsigned: false
+        shortcode:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: shortCode
+        longcode:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: longCode
+    lifecycleCallbacks: {  }

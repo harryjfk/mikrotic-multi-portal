@@ -1,0 +1,54 @@
+{% block qba_bit_status_control_widget %}
+
+    <style>
+        .color-palette
+        {
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            color: white;
+        }
+    </style>
+    {% set stat = null %}
+    {% for status in statuses %}
+        {% if status.value ==data %}
+            {% set stat=status %}
+
+        {% endif %}
+    {% endfor %}
+
+    <div class="color-palette" style="{% if "color" in stat|keys %} background-color: #{{ stat.color }}{% endif %}">
+        <span>{{ stat.text }}</span>
+
+    </div>
+    <div class="">
+        <span>{{ comment }}</span>
+    </div>
+    <input type="hidden" value="{{ data }}" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}">
+
+
+    {#  {% include 'QbaBitCoreBundle:Form:_base_entity_list.html.twig' with {show:true} %}
+      {% set list = [
+      {url:asset('bundles/qbabitcore/css/common/select2.min.css'), type:'link'},
+      {url:asset('bundles/qbabitcore/js/common/select2.min.js'), type:'script'},
+      ] %}
+      {% include 'QbaBitCoreBundle:Form:_base_include.html.twig' with {'list':list,'onloadAll':'onLoad'~form.vars.id~'_select2','loading':true} %}
+      <script>
+          function onLoad{{ form.vars.id }}_select2(e) {
+
+
+              var data = null;
+              var options = $('#{{ form.vars.id }} option');
+              for (var i = 0; i < options.length; i++)
+                  if ($(options[i]).html() == '{{ data|trans }}') {
+                      data = $(options[i]).attr("value");
+                      break;
+                  }
+
+              var control_{{ form.vars.id }} = $("#{{ form.vars.id }}").select2();
+              control_{{ form.vars.id }}.val(data).trigger("change");
+          }
+      </script>#}
+{% endblock %}
+
+

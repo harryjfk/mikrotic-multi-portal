@@ -1,0 +1,92 @@
+{% block qba_bit_grid_view_type_widget %}
+    <script src="{{ asset('bundles/qbabitcore/forms/icheck_type/iCheck/icheck.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('bundles/qbabitcore/forms/icheck_type/iCheck/all.css') }}">
+
+    <div {{ block('widget_attributes') }}>
+    </div>
+
+    <script>
+
+        var page_{{ id }} = 1;
+        var filter_{{ id }} = "";
+        $(function () {
+            setPage_{{ id }}(1);
+        });
+
+        var searching_{{ id }} = false;
+
+        function setPage_{{ id }}(index) {
+            if (searching_{{ id }})
+                return;
+            searching_{{ id }} = true;
+            MKLib.blockScreen("{{ asset('') }}");
+
+            var data = 'id={{ id }}&class={{ class }}&columns={{ columns|json_encode|raw }}&edit={{ allow_edit }}&new={{ allow_add }}&delete={{ allow_remove }}';
+            data = data + '&' + (index != 'undefined' ? 'page=' + index : '') + '&filter=["' + filter_{{ id }}+ '"]';
+
+            jQuery.ajax({
+                url: "{{ url('qba_bit_core_grid_data') }}",
+                data: data,
+                type: "GET",
+                dataType: 'text',
+                success: function (e) {
+
+                    $('#{{ id }}').html(e);
+
+                    $('#{{ id }} a').on('click', function (w) {
+                        w.preventDefault();
+                        w.stopPropagation();
+                        setPage_{{ id }}(w.target.href.substr(w.target.href.indexOf('page') + 5));
+                        return false;
+                    });
+
+
+                    $("#table_{{ id }} input[type=\"text\"]").on('keyup', function (e) {
+                        if (e.keyCode == 13) {
+                            updateView();
+                        }
+                    });
+
+                     jQuery("#check_all_{{ id }}").on('ifToggled', function () {
+
+
+                MKLib.checkedCtrl(jQuery(this), '#{{ id }} .selitm', function (status, ele) {
+                    ele.iCheck(status ? 'check' : 'uncheck');
+                });
+            });
+
+                    $('#search_button_{{ id }}').on('click', function (e) {
+                        updateView();
+                    });
+                    setChecks();
+                    MKLib.unlockScreen();
+                    searching_{{ id }}= false;
+                },
+                error: function (xhr, status) {
+                    alert(xhr.responseText);
+                    /*alert('Disculpe, ha ocurrido un problema vuelva a intentarlo.');*/
+                },
+                complete: function () {
+                    jQuery('#blockscreen').hide();
+                }
+            });
+
+        }
+
+        function updateView() {
+            filter_{{ id }} = $('#table_{{ id }} input[type="text"]').serialize();
+            setPage_{{ id }}(1);
+        }
+
+        function setChecks() {
+            jQuery('#chkall,input[type="checkbox"].checkeable, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            }).trigger('click');//le pongo trigger('click') para corregir bug
+
+
+        }
+
+        setChecks();
+    </script>
+{% endblock %}

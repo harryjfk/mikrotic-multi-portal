@@ -1,0 +1,2 @@
+form_theme:
+   - "QbaBitCoreBundle:Form/Basic:switch_check.html.twig"

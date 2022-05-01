@@ -1,0 +1,379 @@
+{% extends "QbaBitNautaBundle:Default:_base.html.twig" %}
+{% block scripts_header %}
+    <script type="text/javascript">
+
+        //显示在线时间
+        function $$(tt){return tt<10?"0"+tt : tt;};
+        var today   = new Date();
+        var hour  = $$(today.getHours() );
+        var minu  = $$(today.getMinutes());
+        var second= $$(today.getSeconds());
+        var actime= 'null';
+        if('notFound.jsp' != 'notFound.jsp')
+        {
+            var newWnd =window.open("notFound.jsp","_blank");newWnd.opener = null;
+        }
+
+        var g_httpRequest        = null;
+
+        var g_isSubmitLogout = false;
+
+        //登录后提示退出
+        function windowExitFunc(e)
+        {
+            var event= window.event||e;
+            try
+            {
+                if(g_isSubmitLogout)
+                {
+                    return false;
+                }
+
+                var message = "Visitar otros sitios web en esta página le llevará fuera de línea de forma anormal. Para visitar otros sitios web, haga clic en Cancelar y abra una nueva página.";
+
+                if (event)
+                {
+                    event.returnValue = message;
+                }
+
+            }
+            catch(e)
+            {
+                alert("alert window error!!!");
+            }
+            return true;
+        }
+
+        function userSubmitLogout(forzada)
+        {
+            if(!confirm("Se le desconectará. ¿Seguro que quieres cerrar sesión?"))
+            {
+                return false;
+            }
+
+            logoutImpl(forzada);
+            return true;
+        }
+
+        function logoutImpl(forzada)
+        {
+            pageOnunload(forzada);
+        }
+
+        function pageOnunload(forzada)
+        {
+            //if(!g_httpRequest){ g_httpRequest = createHttpRequest(); }
+            var cookieCheck = document.getElementById("removeCookie");
+            var removeCookie = "1";
+            if (cookieCheck && cookieCheck.checked == true) {
+                removeCookie = cookieCheck.value;
+            }
+            var g_httpRequest = createHttpRequest();
+            if (g_httpRequest == null)
+            {
+                alert("Se desconecta de forma anormal. Por favor, póngase en contacto con el administrador de la red.");
+                return false;
+            }
+            else
+            {
+                $.ajax({
+                    url: "{{ url("qba_bit_nauta_logout",{"user":ip.ip}) }}"+"/"+forzada+"/1",
+                    /* method:method,*/
+                    data: null,
+                    type: "GET",
+                    /*  dataType : 'html',*/
+                    enctype: 'multipart/form-data',
+                    success: function(e){
+                        if(e.return==0)
+                            alert("No se pudo cerrar la session");
+                        else
+                        {
+                            document.location.href = e.url;
+                        }
+                    },
+                    error: function(){
+                        alert("No se pudo cerrar la session");
+
+                    },
+                    processData: false,
+                    contentType: false
+
+                });
+
+            }
+        }
+        function logoutToFirstPage()
+        {
+            //[false alarm:Cross-Site Scripting: Reflected]
+            window.location.href="/nauta_etecsa/OnlineURL/offline.jsp?CSRFHW=aba3bfcf2bd9177c16e5f7247133c0b0&lang="+'es_ES';
+        }
+        function IEkeydown(event)
+        {
+            if ((event.keyCode == 8)||  //屏蔽退格删除键
+                (event.keyCode == 114)||
+                (event.keyCode == 116)||            //屏蔽 F5 刷新键
+                (event.keyCode == 122))             //屏蔽 F12 刷新键
+            {
+                event.keyCode=0;
+                event.returnValue=false;
+            }
+
+            if ((event.altKey)&& ((event.keyCode==37)||(event.keyCode==39))) // 屏蔽 Alt + -> 和 Alt+ <-
+            {
+                event.returnValue=false;
+            }
+
+            if (event.ctrlKey ||(event.shiftKey)&&(event.keyCode==121)) //屏蔽 Ctrl 键 和 shift+F10
+            {
+                event.returnValue=false;
+            }
+        }
+
+        function FFkeydown(event)
+        {
+            var key = event.which;
+            if ((key == 8) || (key == 114)|| (key == 116)||  (key == 122))                      //屏蔽退格删除键(event.keyCode ==   8)||//屏蔽 F5 刷新键//屏蔽 F12 刷新键
+            {
+                key=0;
+                event.preventDefault();
+            }
+            if ((event.altKey)&& ((key==37)||(key==39))) // 屏蔽 Alt + -> 和 Alt+ <-
+            {
+                event.preventDefault();
+            }
+            if (event.ctrlKey ||(event.shiftKey)&&(key==121)) //屏蔽 Ctrl 键 和 shift+F10
+            {
+                event.preventDefault();
+            }
+        }
+        function windowKeyDown(e)
+        {
+            if (window.event)
+            {
+                var event = window.event;
+                IEkeydown(event);
+            }
+            else
+            {
+                var event= e;
+                FFkeydown(event);
+            }
+        }
+
+        function createHttpRequest()
+        {
+            var request;
+            try
+            {
+                request = new XMLHttpRequest();
+            }
+            catch (trymicrosoft)
+            {
+                try
+                {
+                    request = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (failed)
+                {
+                    try
+                    {
+                        request = new ActiveXObject("Msxml2.XMLHTTP");
+                    }
+                    catch (othermicrosoft)
+                    {
+                        request = null;
+                    }
+                }
+            }
+            return request;
+        }
+
+        function windowOnunload()
+        {
+            if (!g_isSubmitLogout)
+            {
+                logoutImpl();
+            }
+        }
+
+
+
+    </script>
+{% endblock %}
+
+{% block contenedor %}
+    <div id="int" class="row" >
+
+        <div class="blq ">
+            <div class="title ">
+                Bienvenido
+            </div>
+            <div class="blq_int ">
+                <div id="cont" class="col-xs-12" style="background-color: white; margin: 0 auto; text-align: center;">
+                    <div style="padding: 20px; text-align: center;">
+                        <div class="title_text">
+
+                            <span style=" padding-left: 10px; font-weight: bold;">Esta pantalla permite saber la calidad  y administrar  su conexión</span>
+                        </div>
+
+                        <div class="row" id="logout" style="padding-top: 5px" >
+
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class=" col-xs-6 key">
+                                        Usuario
+                                    </div>
+                                    <div class=" col-xs-6 ">
+                                        {{ ip.user.name }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col-xs-6 key">
+                                        Dirección
+                                    </div>
+                                    <div class=" col-xs-6 ">
+                                        {{ ip1 }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col-xs-6 key">
+                                        Interfaz
+                                    </div>
+                                    <div class=" col-xs-6 ">
+                                        {{ interface }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col-xs-6 key">
+                                        Condición
+                                    </div>
+                                    <div id="ccq" class=" col-xs-6 ">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col-xs-6 key">
+                                        CCQ
+                                    </div>
+                                    <div id="ccq1" class=" col-xs-6 ">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col-xs-6 key">
+                                        Señal
+                                    </div>
+                                    <div id="ccq2" class=" col-xs-6 ">
+
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top: 5px">
+
+                                <div class=" col-xs-12 key">
+                                        Acciones
+                                    </div>
+
+                                </div>
+                                <div class="row" style="padding-top: 5px">
+                                <div class="col-xs-12 col-md-6 key">
+                                        <input class="btn" name="reconectar" value="Reconectar" onclick="renewDHCP('2');" type="button">
+
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 ">
+                                        Realiza una nueva asignación de dirección de la conexión , la cual se pierde después de un rato de inactividad.
+
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top: 5px">
+                                <div class=" col-xs-12 col-md-6 key">
+                                        <input class="btn" name="refrescar" value="Refrescar" onclick="renewDHCP('3');" type="button">
+
+                                    </div>
+                                    <div  class="col-xs-12 col-md-6 ">
+                                        Refresca la asignación de dirección de la conexión. Usar en caso de perdida de conexión una vez iniciada la sesion.
+
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top: 5px">
+                                    <div class=" col-xs-12 col-md-6 key">
+                                        <input style="margin-top:5px" class="btn" name="logout" value="Cerrar sesión Forzosa" onclick="userSubmitLogout(true);" type="button">
+
+                                    </div>
+                                    <div  class="col-xs-12 col-md-6 ">
+                                        Realiza un cierre forzado de la conexión. Usar en caso de que se pierda la conexión o que se pierda la pantalla con el cierre de ETECSA.
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                         </div>
+                    <img src="{{ asset('bundles/qbabitnauta/nauta_wifi_popup.jpg') }}" style="padding: 0 5px 15px 0; width: 190px;">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts_footer %}
+
+<script type="text/javascript">
+
+    function setCCQ()
+    {
+        $.ajax({
+            url: "{{ url("qba_bit_nauta_ccq") }}",
+            /* method:method,*/
+            data: null,
+            type: "GET",
+            /*  dataType : 'html',*/
+            enctype: 'multipart/form-data',
+            success: function(e){
+               $("#ccq").html(e.return);
+               $("#ccq1").html(e.ccq+"%");
+               $("#ccq2").html(e.signal+"dBm");
+            },
+            error: function(){
+                alert("Error al momento de buscar la calidad");
+
+            },
+            processData: false,
+            contentType: false
+
+        });
+    }
+    function renewDHCP(type)
+    {
+        $.ajax({
+            url: "{{ url("qba_bit_nauta_logout",{"user":ip.ip}) }}"+"/"+"true"+"/"+type,
+            /* method:method,*/
+            data: null,
+            type: "GET",
+            /*  dataType : 'html',*/
+            enctype: 'multipart/form-data',
+            success: function(e){
+                if(e.return==0)
+                    alert("No se pudo renovar la conexion");
+                else
+                {
+                    document.location.href = e.url;
+                }
+            },
+            error: function(){
+                alert("No se pudo renovar la conexion");
+
+            },
+            processData: false,
+            contentType: false
+
+        });
+
+    }
+
+    setCCQ();
+    setTimeout(function () {
+        setCCQ();
+    },15000);
+</script>
+{% endblock %}

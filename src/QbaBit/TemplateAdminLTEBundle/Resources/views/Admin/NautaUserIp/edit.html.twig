@@ -1,0 +1,31 @@
+    {% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_edit.html.twig") %}
+
+
+
+    {% block form_body %}
+
+                    
+  <div class='row'>
+
+        <div class='col-xs-12'>
+            {{ form_label(form.ip) }}
+            {{ form_widget(form.ip) }}
+        </div>
+    </div>
+
+
+ 
+                    
+  <div class='row'>
+
+        <div class='col-xs-12'>
+            {{ form_label(form.user) }}
+            {{ form_widget(form.user) }}
+        </div>
+    </div>
+
+
+ 
+        {% endblock %}
+
+

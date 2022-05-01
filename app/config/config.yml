@@ -1,0 +1,75 @@
+imports:
+    -
+        resource: parameters.yml
+    -
+        resource: security.yml
+    -
+        resource: services.yml
+    -
+        resource: '@QbaBitCoreBundle/Resources/config/config.yml'
+    -
+        resource: '@QbaBitLanguageBundle/Resources/config/config.yml'
+    -
+        resource: '@QbaBitSecurityBundle/Resources/config/config.yml'
+    -
+        resource: '@QbaBitNautaBundle/Resources/config/config.yml'
+    -
+        resource: '@QbaBitTemplateBundle/Resources/config/config.yml'
+
+parameters:
+    locale: es
+framework:
+    translator:
+        fallbacks:
+            - '%locale%'
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: null
+    form: null
+    csrf_protection: null
+    validation:
+        enable_annotations: true
+    serializer:
+        enable_annotations: true
+    default_locale: '%locale%'
+    trusted_hosts: null
+    session:
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: null
+    http_method_override: true
+    assets: null
+    php_errors:
+        log: true
+    templating:
+        engines:
+            - twig
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    port: null
+    encryption: null
+    auth_mode: null
+    spool:
+        type: memory
+        path: null
+    delivery_address: null

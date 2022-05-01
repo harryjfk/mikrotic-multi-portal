@@ -1,0 +1,38 @@
+
+
+<div class="" style="margin-top: {{ margin is defined? margin: 5 }}px !important; margin-bottom: 5px">
+    <button type="button" class="btn btn-default btnshowdialog" id="btn_image_{{ form.vars.id }}" style="width: 100%; font-size: 11px !important;">{% if select_text is defined  %}{{ select_text }}{% else %}Seleccionar Archivo{% endif %}</button>
+
+</div>
+<input id="{{ form.vars.id }}" class="form-control" name="{{ form.vars.full_name }}" type="file" style="display: none"  {% if form.vars.multiple %} multiple="multiple"{% endif %} {% if form.vars.required %}required="required"{% endif %}>
+
+
+<script>
+
+    $("#btn_image_{{ form.vars.id }}").on("click",function (e) {
+        $("#{{ form.vars.id }}").click();
+    });
+    var extension_file_{{ form.vars.id }} = {{ extension|json_encode|raw }};
+    {% if extension|length>0 %}
+      $('#{{ form.vars.id }}').on("change",function (q) {
+                    for (var i=0;i<q.target.files.length;i++)
+          {
+              var file =  q.target.files[i].name;
+              file = file.substr(file.lastIndexOf("\\")+1);
+              //  var file = "134_456_789_234.jpg";
+              var ext = file.substr(file.lastIndexOf(".")+1,file.length -file.lastIndexOf(".")).trim().toLowerCase();
+
+              if(extension_file_{{ form.vars.id }}.indexOf(ext)==-1)
+              {
+
+                  PageAjax.msg.showBallon('error','{{ 'qbabit.common.controls.file_control.msg.allowed_extension_file'|trans({'%tipo%':-1}) }}'.replace('-1',extension_file_{{ form.vars.id }}.toString()));
+                  q.target.value='';
+                  return;
+              }
+          }
+
+
+      });
+
+    {% endif %}
+</script>

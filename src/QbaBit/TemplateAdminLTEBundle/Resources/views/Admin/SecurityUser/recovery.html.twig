@@ -1,0 +1,66 @@
+{% extends  template_helper.getRedirectedView("QbaBitCoreBundle:Layout:layout.html.twig") %}
+
+{#{% block stylesheets %}#}
+    {#{{ parent() }}#}
+    {#<link href="{{ asset('bundles/bandec/css/login-3.min.css') }}" rel="stylesheet" type="text/css" />#}
+{#{% endblock %}#}
+{% block login %}
+    <div class="row">
+        <div class="login-box">
+            <div class="login-logo">
+                <b>{{ 'qba_bit.security.login.recovery.title' | trans({}) }}</b>
+            </div>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">{{ 'qba_bit.security.login.recovery.title' | trans({}) }}</p>
+
+                {% if ok is defined %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {{ 'qba_bit.security.login.recovery.ok'|trans }}
+
+
+                            <a    class="btn btn-primary btn-block btn-flat non-ajax" href="{{ redirect_url }}">{{ 'qba_bit.core.actions.go' | trans({}) }}</a>
+                        </div>
+                    </div>
+                {% else %}
+                    {{ form_start(form, { attr:{id:form.vars.id} } ) }}
+
+
+
+                    {% if form.password.first.vars.errors|length>0 %}
+                        <div class="alert alert-danger">   {{ (form.password.first.vars.errors[0].message) }}</div>
+                    {% endif %}
+                    <div class="form-group has-feedback">
+                        {{ form_widget(form.password.first, {'label':false,'attr':{'class': 'form-control'}}) }}
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        {{ form_widget(form.password.second, {'label':false,'attr':{'class': 'form-control'} }) }}
+                        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+
+                        </div>
+
+                        <!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit"
+                                    class="btn btn-primary btn-block btn-flat"> {{ 'qba_bit.core.actions.submit' | trans({}) }} </button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+                    <div style="display: none">
+
+                        {{ form_widget( form) }}</div>
+                {% endif %}
+
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

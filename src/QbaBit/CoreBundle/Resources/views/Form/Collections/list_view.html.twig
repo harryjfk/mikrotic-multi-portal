@@ -1,0 +1,35 @@
+{% block qba_bit_list_view_type_widget %}
+    <script src="{{ asset('bundles/qbabitcore/forms/list_view/listView.js') }}"></script>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <select id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" {% if required %}required="required"{% endif %} class="form-control"
+                     multiple="multiple">
+
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="text-align: right; margin-top: 5px ">
+            <button class="btn btn-primary btn-danger"  type="button" id="{{ form.vars.id }}_list_view_delete_btn"><i class="fa fa-trash-o"></i> </button>
+        </div>
+    </div>
+    <script>
+        var {{ form.vars.id }}_control = null;
+        $(function(e){
+
+            {{ form.vars.id }}_control = $('#{{ form.vars.id }}').listView();
+            $('#{{ form.vars.id }}_list_view_delete_btn').on('click',function(e){
+                {{ form.vars.id }}_control.removeSelected();
+
+            });
+              {% if onLoad !=null %}
+            {{ onLoad|raw }}
+            {% endif %}
+        });
+
+
+
+    </script>
+
+{% endblock %}

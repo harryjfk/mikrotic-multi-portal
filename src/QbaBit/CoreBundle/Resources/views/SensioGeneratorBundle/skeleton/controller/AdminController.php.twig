@@ -1,0 +1,63 @@
+<?php
+
+namespace {{ namespace }}\Controller\Admin;
+
+{% block use_statements %}
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use QbaBit\CoreBundle\Controller\Base\QbaBitCrudController;
+
+{% endblock use_statements %}
+use {{ entity_namespace }};
+{% if type =="tree" %}
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use QbaBit\CoreBundle\Entity\TreeLocator;
+{% endif %}
+{% block class_definition %}
+class {{ controller }}Controller extends QbaBitCrudController
+{% endblock class_definition %}
+{
+{% block class_body %}
+
+
+protected function getCurrentObject()
+    {
+        return "QbaBit\{{ bundle_name }}Bundle\Entity\{{ controller }}";
+    }
+
+    {% if type == "tree" %}
+public function treeAction(Request $request)
+    {//
+        $old = json_decode($request->get('old'));
+$new = json_decode($request->get('new'));
+
+$t = new TreeLocator($old, $new);
+$c = $t->getChange();
+
+$result = array('status' => 0);
+if ($c != null) {
+$val = $this->get({{ "'qbabit.repository."~(bundle_name|lower)~"."~ generator.getSeparatedNames(controller,".")~"'" }})->find($c['value']);
+
+$parent = null;
+if ($c['parent'] != null)
+$parent = $this->get({{ "'qbabit.repository."~(bundle_name|lower)~"."~ generator.getSeparatedNames(controller,".")~"'" }})->find($c['parent']);
+// echo $parent;
+$val->setparent($parent);
+$em = $this->get('doctrine.orm.default_entity_manager');
+$em->persist($val);
+$em->flush();
+$result['status'] = 1;
+}
+return new JsonResponse($result);
+}
+public function selectorsAction(Request $request)
+{
+$locationId = $request->get('value');
+$max = $request->get('params');
+$index = $request->get('index');
+$data = $this->get('qbabit.tree.selectors')->build($this->get({{ "'qbabit.repository."~(bundle_name|lower)~"."~ generator.getSeparatedNames(controller,".")~"'" }}), $locationId, $max, $index);
+return new JsonResponse($data);
+}
+    {% endif %}
+{% endblock class_body %}
+}

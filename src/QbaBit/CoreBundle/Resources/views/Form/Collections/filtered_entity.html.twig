@@ -1,0 +1,27 @@
+{% block qba_bit_filtered_entity_type_widget %}
+    {% include 'QbaBitCoreBundle:Form/Collections/includes:_base_entity_list.html.twig' with {show:true} %}
+
+
+    <link rel="stylesheet" href="{{ asset('bundles/qbabitcore/forms/filtered_entity/select2.css') }}">
+
+    <script src="{{ asset('bundles/qbabitcore/forms/filtered_entity/select2.js') }}"></script>
+
+    <script>
+        $(function () {
+            var data = null;
+            var options = $('#{{ form.vars.id }} option');
+            for (var i = 0; i < options.length; i++)
+                if ($(options[i]).html() == '{{ data|trans }}') {
+                    data = $(options[i]).attr("value");
+                    break;
+                }
+
+            var control_{{ form.vars.id }} = $("#{{ form.vars.id }}").select2();
+            control_{{ form.vars.id }}.val(data).trigger("change");
+        });
+
+
+    </script>
+{% endblock %}
+
+

@@ -1,0 +1,65 @@
+<div class="box box-primary">
+    <div class="box-body">
+        <h3 data-id="{{ class }}">{{ (pref~'.text')|trans }}</h3>
+        <table id="table_{{ id }}" class="table table-bordered table-striped dataTable" role="grid"
+               aria-describedby="example1_info"  >
+            <thead>
+
+            <tr role="row">
+            <tr>
+
+                <th>
+                    <input type="checkbox" id="check_all_{{ id }}" class="checkeable selitm minimal " data-id="-1">
+                </th>
+                {% for c in columns %}
+                    <th>{{ (pref~'.fields.'~c)|trans }}</th>
+
+                {% endfor %}
+                <th></th>
+            </tr>
+            <tr>
+
+                <th>
+
+                </th>
+                {% for c in columns %}
+
+                    <th><input type="text" class="form-control" id="{{ c }}" name="{{ c }}" value="{{ filter[c] }}"></th>
+                {% endfor %}
+                <th><button type="button" class="btn btn-primary" style="margin-top: 5px" id="search_button_{{ id }}">  <i class="fa fa-search"></i>
+                    </button></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <th>
+                        <input type="checkbox" class="checkeable selitm minimal " data-id="{{ entity.id }}">
+                    </th>
+                    {% for c in columns %}
+                        <th>{{ entity[c]|trans }}</th>
+                    {% endfor %}
+                    <th>
+                        {% if actions.new %}
+                            <button type="button" class="btn"><i class="fa fa-plus-square"></i></button>
+                        {% endif %}
+                        {% if actions.edit %}
+                            <button type="button" class="btn"><i class="fa fa-edit"></i></button>
+                        {% endif %}
+                        {% if actions.delete %}
+                            <button type="button" class="btn btn-danger"><i class="fa fa-remove"></i></button>
+                        {% endif %}
+                    </th>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+
+        {{ knp_pagination_render(entities   ) }}
+
+    </div>
+</div>

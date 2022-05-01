@@ -1,0 +1,17 @@
+qba_bit_nauta:
+    resource: "@QbaBitNautaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+qba_bit_language:
+    resource: '@QbaBitLanguageBundle/Resources/config/routing.yml'
+    prefix: /
+qba_bit_core:
+    resource: '@QbaBitCoreBundle/Resources/config/routing.yml'
+    prefix: /
+_liip_imagine:
+    resource: '@LiipImagineBundle/Resources/config/routing.xml'
+qba_bit_security:
+    resource: '@QbaBitSecurityBundle/Resources/config/routing.yml'
+    prefix: /
+

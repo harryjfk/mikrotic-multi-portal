@@ -1,0 +1,66 @@
+QbaBit\SecurityBundle\Entity\SecurityTraces:
+    type: entity
+    table: security_traces
+    indexes:
+        idusuario:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        user:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: user_id
+        action:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        ip:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        table:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+        record:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: record_id
+        observation:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        date:
+            type: datetime
+            nullable: false
+        metaData:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: meta_data
+    lifecycleCallbacks: {  }

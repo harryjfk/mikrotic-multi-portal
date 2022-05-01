@@ -1,0 +1,26 @@
+
+{% for entity in entities %}
+    {% if entity.enabled %}
+
+    <li><!-- start message -->
+        <a class="non-ajax" href="{{ url('qba_bit_language_set',{'lang':entity.shortCode}) }}"
+                {% if entity.name == primary %}
+                    style="background-color:  lightgrey;"
+                {% endif %}
+                >
+            <div>
+
+                <img src="{{ entity.image|QbRenderImg(language.uploads.web) }}" width="19px" height="19px" alt="">
+
+            </div>
+        {#   <p>
+
+                {{entity.name  }}
+
+
+            </p>#}
+
+        </a>
+    </li>
+        {% endif %}
+{% endfor %}

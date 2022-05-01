@@ -1,0 +1,16 @@
+qba_bit_nauta_nauta_accounts_list:
+    path:     /list
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaAccounts:index }
+qba_bit_nauta_nauta_accounts_delete_list:
+    path:     /del_list/
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaAccounts:deleteList  }
+qba_bit_nauta_nauta_accounts_new:
+    path:     /new
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaAccounts:new }
+qba_bit_nauta_nauta_accounts_edit:
+    path:     /edit/{id}
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaAccounts:edit }
+qba_bit_nauta_nauta_accounts_delete:
+    path:     /delete/{id}
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaAccounts:delete }
+

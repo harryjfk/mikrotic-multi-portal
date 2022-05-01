@@ -1,0 +1,123 @@
+{% extends  template_helper.getRedirectedView("QbaBitCoreBundle:Layout:layout.html.twig") %}
+
+{#{% block stylesheets %}#}
+    {#{{ parent() }}#}
+    {#<link href="{{ asset('bundles/bandec/css/login-3.min.css') }}" rel="stylesheet" type="text/css" />#}
+{#{% endblock %}#}
+{% block login %}
+    <link rel="stylesheet"
+          href="{{ asset('bundles/qbabitcore/forms/icheck_type/iCheck/all.css') }}">
+
+
+    <div class="login-box">
+        <div class="login-logo row">
+            <div class="col-xs-6" style="margin-top: 10px">
+            <a href="/"  >{{ config.app.name }}</a></div>
+            <div class="col-xs-6">
+                <img src="{{ asset(config.app.image) }}" width="80%">
+            </div>
+
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <h3 style="margin-top: 0;margin-bottom: 19px;">{{ 'qba_bit.security.login.title' | trans() }}</h3>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form action="{{ path('qba_bit_admin_security_login_check') }}" method="post">
+                <div class="form-group has-feedback">
+                    <input type="email" class="form-control" autocomplete="off" required placeholder="{{ 'qba_bit.security.login.email' | trans() }}" name="_username"  value="{{ last_username }}">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="{{ 'qba_bit.security.login.password' | trans() }}" name="_password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox" id="remember_me" name="_remember_me">  {{ 'qba_bit.security.login.remember' | trans()  }}
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'qba_bit.security.login.enter' | trans()  }}</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <div class="row" style="text-align: center">
+                    <a href="#" class="text-center" id="forgot">     {{ 'qba_bit.security.login.forgot.button'|trans }}</a>
+                </div>
+            </form>
+
+            <div class="register-box-body" style="display: none">
+                <p class="login-box-msg" style="font-weight: bold">{{ 'qba_bit.security.login.forgot.title'|trans }}</p>
+                <p class="login-box-msg">{{ 'qba_bit.security.login.forgot.description'|trans }}</p>
+                <form action="{{ url('qba_bit_security_recovery_mail') }}" id="forgot_form" name="forgot_form" method="post">
+
+                    <div class="form-group has-feedback">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="{{ 'qba_bit.security.login.forgot.email' | trans({}) }}" required="required">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- /.col -->
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'qba_bit.security.login.forgot.send'|trans }}</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <script src="{{ asset("bundles/qbabitcore/forms/icheck_type/iCheck/icheck.js") }}"></script>
+    <script>
+        window.onload = function(){
+            jQuery('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+            $('#forgot').on('click', function (e) {
+                $('.register-box-body').fadeIn(1000);
+
+            });
+            $('#forgot_form').on('submit', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var data = $('#forgot_form').serialize()+'&type=1';
+
+
+                $.ajax({
+                    url: '{{ url('qba_bit_security_recovery_mail') }}',
+
+                    data: data,
+                    type: 'GET',
+
+                    enctype: 'multipart/form-data',
+                    success: function (w) {
+
+                        var t = w.error == 1 ? "error" : "success";
+                        toastr[t](w.msg);
+
+                    },
+                    error: function (e) {
+                        toastr["error"](e.responseText);
+                    },
+                    processData: false,
+                    contentType: false
+
+                });
+
+            });
+        }
+    </script>
+{% endblock %}

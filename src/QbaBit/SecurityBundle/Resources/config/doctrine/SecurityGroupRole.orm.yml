@@ -1,0 +1,32 @@
+QbaBit\SecurityBundle\Entity\SecurityGroupRole:
+    type: entity
+    table: security_group_role
+    indexes:
+        rol:
+            columns:
+                - role_id
+        IDX_BEE1036F72F1374E:
+            columns:
+                - group_id
+    id:
+        role:
+            type: string
+            nullable: false
+            length: 50
+            column: "role_id"
+            options:
+                fixed: false
+                default: ''
+            id: true
+    oneToOne:
+        group:
+            targetEntity: SecurityGroup
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                group_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

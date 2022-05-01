@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body >
+
+<meta http-equiv="keywords" content=" ">
+<meta http-equiv="description" content=" ">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nauta
+</title>
+<link href="{{ asset('bundles/qbabitnauta/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('bundles/qbabitnauta/wifi.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('bundles/qbabitnauta/form.css') }}" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="{{ asset('bundles/qbabitcore/js/jquery.min.js') }}"></script>
+{% block scripts_header %}
+
+{% endblock %}
+
+<div class="row" id="header">
+    <div class=" col-xs-6">
+        <img src="{{ asset('bundles/qbabitnauta/nauta_wifi.jpg') }}" id="logo_nauta">
+
+    </div>
+    <div class="col-xs-6" id="etecsa_container">
+        <img src="{{ asset('bundles/qbabitnauta/etecsa.jpg') }}" id="logo_etecsa">
+
+    </div>
+</div>
+
+<div id="contenedor"  style="height: 100%">
+    {% block contenedor %}
+    {% endblock %}
+</div>
+
+{% block scripts_footer %}
+
+{% endblock %}
+
+</body>
+</html>

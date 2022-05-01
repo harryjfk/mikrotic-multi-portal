@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ namespace }};
+
+{% block use_statements %}
+use QbaBit\CoreBundle\Repository\QbaBitTreeRepository;
+{% endblock %}
+
+{% block class_definition %}
+class {{ entity_class }}Repository extends QbaBitTreeRepository
+{% endblock class_definition %}
+
+{
+{% block class_body %}
+    public function getListQuery($filter )
+{
+    $query = $this->getBasicQuery(true);
+
+return $query->where('a.name LIKE :name')->setParameter('name','%'.$filter.'%')->getQuery();
+
+}
+
+{% endblock class_body %}
+}

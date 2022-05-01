@@ -1,0 +1,3 @@
+qba_bit_nauta_nauta_options:
+    path:     /
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaOptions:newEdit }

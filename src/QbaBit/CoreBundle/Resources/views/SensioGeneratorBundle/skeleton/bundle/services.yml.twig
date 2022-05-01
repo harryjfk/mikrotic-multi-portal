@@ -1,0 +1,11 @@
+services:
+{% block services %}
+#    {{ extension_alias }}.example:
+#        class: {{ namespace }}\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+##-------- MENU-------------
+    qba_bit_{{ bundle_name|lower }}.render.menu:
+        class: QbaBit\{{ bundle|replace({"QbaBit":""}) }}\MenuBuilder\Menu
+
+{% endblock services %}

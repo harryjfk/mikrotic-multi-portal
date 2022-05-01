@@ -1,0 +1,14 @@
+qba_bit_language:
+   menu:
+       frontend: "@qba_bit_language.render.menu"
+       backend: "@qba_bit_language.render.menu"
+   uploads:
+       web: '@qba_bit_core.routing.uploads.url@/languages/'
+       dir: '@qba_bit_core.routing.uploads.dir@/languages/'
+   navigator:
+       frontend:
+          priority: -1
+          render: null
+       backend:
+          priority: 2
+          render: "qba_bit_language_language_nav"

@@ -1,0 +1,147 @@
+{% set isAjax = app.request.isXmlHttpRequest %}
+{% if isAjax ==false %}
+    {% if doAjax is defined %}
+        {% set isAjax =true %}
+
+    {% endif %}
+{% endif %}
+{% extends  isAjax   ?core.admin.templates.ajax:core.admin.templates.layout %}
+
+
+
+{% block title %}
+    {% if isNew %}
+        {% trans %} qbabit.common.action.new  {% endtrans %}
+    {% else %}
+        {% trans %} qbabit.common.action.edit  {% endtrans %}
+    {% endif %}
+    {% block inner_title %} {% endblock %}
+{% endblock title %}
+ {% block error_type %}
+     {% if response_Text.type=="error" %}
+         alert-danger
+     {% else %}
+         alert-success
+     {% endif %}
+
+ {% endblock %}
+
+       {% block error_icon %}
+           {% if response_Text.type=="error" %}
+               fa-ban
+           {% else %}
+               fa-success
+           {% endif %}
+
+       {% endblock %}
+    {% block  error_text %}
+
+        {% for  m in response_Text.values %}
+
+            <div> {{ m }}</div>
+
+        {% endfor %}
+
+
+
+    {% endblock %}
+
+{% block content %}
+
+
+    {% if response_Text.type=="" %}
+        <script>$('.alert').hide()</script>
+
+    {% else %}
+        <script>$('.alert').show()</script>
+
+    {% endif %}
+
+
+
+    {% include 'QbaBitCoreBundle:Form:_base_include.html.twig' with {'list':[],'onloadAll':'onloadEdit','loading':true,'again':true} %}
+    <!-- /.box-header -->
+    <!-- form start -->
+    {% block from_declare %}{{ form_start(form, { attr:{id:form.vars.id} } ) }} {% endblock %}
+    <div class="box box-primary edit-form">
+
+        <!-- /.box-header -->
+        <div class="box-body">
+            {% block form_body %}
+            {% endblock %}
+
+            <!-- /.box-body -->
+            {% block buttons %}
+                <div class="box-footer" style="text-align: center">
+                    <button id="{{ form.vars.id }}_button" type="{% block form_debug_b %}button{% endblock %}"
+                            class="btn btn-primary">{% block button_ok %}{% trans %}qbabit.common.action.submit{% endtrans %}{% endblock %}</button>
+                    {% block button_cancel %}
+                        <a class="btn btn-cancel" href="{% block cancel_ref %}{% endblock %}"
+                           onclick="last=null;">{% trans %}
+                            qbabit.common.action.cancel{% endtrans %}</a>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+
+    </div>
+
+    {% if form._token is defined %}
+        {{ form_widget( form._token) }}
+    {% endif %}
+    {{ form_end(form) }}
+
+
+{% endblock %}
+
+{% block scripts %}
+
+    {{ parent() }}
+    <script>
+
+        //   var executed = false;
+
+        function onloadEdit(e) {
+
+            //   if (executed == true)
+            //       return;
+            //    executed = true;
+            {% block form_debug_sc %}
+
+            PageAjax.edit.setForm('#{{ form.vars.id }}', {{ form.vars.id }}_button, '{% block submit_url %}{{ form.vars.action }}{% endblock %}', '{% block submit_method %}{{ form.vars.method }}{% endblock %}', '.content-wrapper', true);
+            PageAjax.edit.editing_text = '{{ 'qbabit.common.action.saving'|trans }}';
+            PageAjax.block.img = '{{ asset('bundles/qbabitcore/css/common/images/loading.gif') }}';
+            PageAjax.edit.msg.ok = '{{ 'qbabit.common.error.success'|trans }}';
+            PageAjax.edit.msg.error = '{{ 'qbabit.common.error.error'|trans }}';
+            {% endblock %}
+
+            {% block child_edit_java %}
+
+            {% endblock %}
+
+
+        }
+
+
+    </script>
+    {% block update_url %}
+        <script>
+            {% set port = request.server.get('SERVER_PORT')=='80'?"":(":"~request.server.get('SERVER_PORT')) %}
+            {% set begin_uri =request.server.get('SERVER_NAME')~port  %}
+
+    var url = '{{ begin_uri~request.requestUri }}';
+            if(url.indexOf('?')!=-1)
+                    url = url.substr(0,url.indexOf('?'));
+
+             PageAjax.edit.url ='http://'+ url;
+            console.log(PageAjax.edit.url);
+
+        </script> {% endblock %}
+{% endblock %}
+ {% block additional_javascripts %}
+
+ {% endblock %}
+{#
+{% block form_debug_b %}submit{% endblock %}
+ {% block form_debug_sc %}
+{% endblock %}#}

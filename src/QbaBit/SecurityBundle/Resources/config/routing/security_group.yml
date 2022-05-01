@@ -1,0 +1,19 @@
+qba_bit_security_security_group_list:
+    path:     /admin/security/group/list
+    defaults: { _controller: "QbaBitSecurityBundle:Admin/Groups:index" }
+
+qba_bit_security_security_group_new:
+    path:     /admin/security/group/new
+    defaults: { _controller: "QbaBitSecurityBundle:Admin/Groups:new" }
+
+qba_bit_security_security_group_edit:
+    path:     /admin/security/group/{id}/edit
+    defaults: { _controller: "QbaBitSecurityBundle:Admin/Groups:edit" }
+qba_bit_security_security_group_delete:
+    path:     /admin/security/group/{id}/delete
+    defaults: { _controller: "QbaBitSecurityBundle:Admin/Groups:delete" }
+
+qba_bit_security_security_group_delete_list:
+    path:     /admin/security/group/delete
+    defaults: { _controller: "QbaBitSecurityBundle:Admin/Groups:deleteList" }
+    methods:  [POST, DELETE]

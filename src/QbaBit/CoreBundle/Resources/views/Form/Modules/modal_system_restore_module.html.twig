@@ -1,0 +1,40 @@
+<script>
+    {% if form.vars.data==null %}
+
+    function doMake() {
+
+
+        ifrm = document.createElement("IFRAME");
+        ifrm.setAttribute("src", '{{ url('qba_bit_core_system_manager_make',{"ajax":"true"}) }}&description='+$(point_desc).val());
+        ifrm.style.width = 0 + "px";
+        ifrm.style.height = 0 + "px";
+        ifrm.style.border = 0;
+        document.body.appendChild(ifrm);
+
+
+        /**/
+    }
+
+
+
+    {% else %}
+
+    function doRestore() {
+
+
+
+        ifrm = document.createElement("IFRAME");
+        ifrm.setAttribute("src", "{{ url("qba_bit_core_system_manager_restore",{"id":form.vars.data.id,"ajax":"true"}) }}");
+        ifrm.style.width = 0 + "px";
+        ifrm.style.height = 0 + "px";
+        ifrm.style.border = 0;
+        document.body.appendChild(ifrm);
+    }
+
+
+    {% endif %}
+    function onOkqba_bit_modal_system_restore_module_form() {
+        reload();
+    }
+
+</script>

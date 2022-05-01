@@ -1,0 +1,189 @@
+.qb-msk .dspn{
+    display: none;
+}
+
+.qb-umsk .dspn{
+    display: initial;
+}
+.det_order{
+    border: 1px solid #3c8dbc;
+    background: #3c8dbc;
+    color: white;
+    padding: 5px;
+}
+.ct{
+    text-align: center;
+}
+.right{
+    text-align: right;
+    padding-right: 5px !important;
+}
+.left{
+    text-align: left;
+    padding-left: 5px !important;
+}
+.middle{
+    vertical-align: middle !important;
+}
+#accordion .panel-title a p{
+    margin: 0;
+}
+#accordion .panel-heading{
+    background: #3c8dbc;
+    color: white;
+    border-bottom: 1px solid #23282a;
+
+}
+#accordion .panel-heading a:hover, #accordion .panel-heading a:active, #accordion .panel-heading a:focus{
+    color: white;
+}
+
+.box-producto .content-product .image-product{
+    text-align: center;
+}
+.box-producto .nav > li > a.button-carrito:hover,
+.box-producto .nav > li > a.button-carrito:active,
+.box-producto .nav > li > a.button-carrito:focus{
+    background: #3c8dbc !important;
+    color: white !important;
+}
+.timeline::before{
+    width: auto !important;
+}
+.timeline > li > .timeline-item{
+    margin: 2px !important;
+}
+.description-product{
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 10px;
+    border-radius: 4px;
+}
+#quantity_wanted_p{
+    display: inline-block;
+    float: right;
+    margin-top: -8px;
+}
+#quantity_wanted_p input {
+    width: 35px;
+    height: 35px;
+    padding: 0 6px;
+    text-align: center;
+    border: 1px solid #e4e4e4;
+    line-height: 27px;
+    border-radius: 2px;
+}
+.list-group-item {
+    position: relative;
+}
+
+.mapservices{
+    height: 500px;
+}
+
+.qb-small-cart .qb-trash:before{
+    font-size:15pt;
+    color: #dd4b39;
+}
+
+.qb-icon-cart{
+    margin-left: 15px;
+    font-size: 16pt;
+    vertical-align: middle;
+    color: #d1ccc7;
+    background: transparent !important;
+    border: 0 !important;
+}
+
+.qb-icon-cart:hover{
+    color: #3c8dbc;
+}
+
+.qb-icon-cart.delete:hover{
+    margin-left: 15px;
+    font-size: 16pt;
+    vertical-align: middle;
+    color: #dd4b39;
+}
+
+.qb-tbl-cart td{vertical-align: middle !important;}
+
+.content-worker-valoracion{
+    padding: 0 15px;
+}
+.content-worker-valoracion .worker-valoracion{
+    border-bottom: 1px solid #f4f4f4;
+}
+
+
+
+.qp-posibles-direcciones {
+    margin-bottom: 10px;
+}
+
+.qp-posibles-direcciones .qb-titlepos {
+    font-size: 12pt;
+    color: #dd4b39;
+    margin-bottom: 10px;
+}
+
+.qp-posibles-direcciones .qbitmlabel {
+    display: inline-block;
+    background: #eee;
+    color: #777;
+    border-radius: 5px;
+    padding: 3px 10px 3px 3px;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.qp-posibles-direcciones .qbitmlabel:hover {
+    color: #2196f3;
+}
+
+.qp-posibles-direcciones .qbitmlabel:last-child {
+    margin-right: 0px;
+}
+
+.qp-posibles-direcciones .qbitmlabel .qbclose {
+    margin-right: 7px;
+}
+.select2{
+    width: 100% !important;
+}
+textarea{
+    max-width: 100%;
+}
+.qb-star-g{
+    background: url(../../qbabitcore/images/star_gris.png) repeat-x;
+    height: 15px;
+    width: 75px;
+    display: block;
+    background-size: 15px;
+}
+
+.qb-star-filled{
+    background: url(../../qbabitcore/images/start_nar.png) repeat-x;
+    height: 15px;
+    width:0%;
+    background-size: 15px;
+    display: inline-block;
+}
+
+.qb-star-filled{
+    background: url(../../qbabitcore/images/start_nar.png) repeat-x;
+    height: 15px;
+    width:0%;
+    background-size: 15px;
+    display: inline-block;
+}
+
+.qb-grid-galley .qb-item{
+    height: 210px;
+    margin-bottom: 15px;
+    background: #ccc;
+}

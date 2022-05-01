@@ -1,0 +1,15 @@
+{% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_edit.html.twig") %}
+
+ {% block form_body %}
+  <div class="row nmlf">
+   <div class="col-md-12">
+       {{ form_row(form.name, {'attr':{'class': 'form-control'} }) }}
+   </div>
+  </div>
+  <div class="row nmlf">
+   <div class="col-md-12">
+       {{ form_row(form.role, {'attr':{'class': 'form-control'} }) }}
+   </div>
+  </div>
+
+{% endblock %}

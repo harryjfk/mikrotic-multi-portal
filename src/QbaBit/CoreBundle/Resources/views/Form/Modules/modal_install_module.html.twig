@@ -1,0 +1,53 @@
+<script>
+    {% if form.vars.data==null %}
+
+    function doInstallAll() {
+
+        var type_ref = $(target_temp).data("ref");
+        if (type_ref == null)
+            type_ref = $(target_temp).data("ref");
+        var type = type_ref.substring(type_ref.indexOf("?type=") + 6);
+        var data = $("#frmSearch").serialize();
+
+
+        ifrm = document.createElement("IFRAME");
+        ifrm.setAttribute("src", type_ref + "&" + data);
+        ifrm.style.width = 0 + "px";
+        ifrm.style.height = 0 + "px";
+        ifrm.style.border = 0;
+        document.body.appendChild(ifrm);
+
+
+        /**/
+    }
+
+
+
+    {% else %}
+    {% if install %}
+    function doInstall() {
+
+        ifrm = document.createElement("IFRAME");
+        ifrm.setAttribute("src", "{{ url("qba_bit_core_install_modules_install",{"id":form.vars.data.id,"version":form.vars.data.version,"ajax":"true"}) }}");
+        ifrm.style.width = 0 + "px";
+        ifrm.style.height = 0 + "px";
+        ifrm.style.border = 0;
+        document.body.appendChild(ifrm);
+    }
+    {% else %}
+    function doUninstall() {
+        ifrm = document.createElement("IFRAME");
+        ifrm.setAttribute("src", "{{ url("qba_bit_core_install_modules_uninstall",{"id":form.vars.data.id,"version":form.vars.data.version,"ajax":"true"}) }}");
+        ifrm.style.width = 0 + "px";
+        ifrm.style.height = 0 + "px";
+        ifrm.style.border = 0;
+        document.body.appendChild(ifrm);
+    }
+    {% endif %}
+
+    {% endif %}
+    function onOkqba_bit_modal_install_module_form() {
+        reload();
+    }
+
+</script>

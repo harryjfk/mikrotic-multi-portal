@@ -1,0 +1,91 @@
+
+{% block qbabit_collection_reorder_widget %}
+    {% include 'QbaBitCoreBundle:Form:_base_entity_list.html.twig' with {n_name:form.vars.id~ "_src" ,show:true,required:false} %}
+    {% include 'QbaBitCoreBundle:Form:_base_include.html.twig' with {'list':[]  ,'onloadAll':'onLoad'~form.vars.id~'_collection_reorder','again':true ,'loading':true} %}
+
+    <input type="hidden" id="{{ form.vars.id }}_real" name="{{ form.vars.full_name }}" value="{{ data }}" >
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn " id="up_{{ form.vars.id }}" type="button">Subir</button>
+            <button class="btn " id="down_{{ form.vars.id }}" type="button">Bajar</button>
+        </div>
+    </div>
+    <script>
+
+        function updateValue() {
+           var t =  $("#options_QbabitStoreMarketReorderTabs option");
+            var s= "";
+
+            for (var i=0;i<t.length;i++)
+            {
+                 s+=$(t[i]).html();
+                if(i<t.length-1)
+                    s+=",";
+            }
+            {{ form.vars.id }}_real.value = s;
+        }
+        function onLoad{{ form.vars.id }}_collection_reorder(e) {
+
+            $("#up_{{ form.vars.id }}").on("click", function (e) {
+                var val = $("#{{ form.vars.id }}").val();
+
+                var ok = true;
+                var r = Array();
+                for (var i = 0; i < val.length; i++) {
+                    var t = val[i];
+                    if (t - 1 >= 0) {
+                        var src = $("#options_QbabitStoreMarketReorderTabs option[value=" + (t - 1) + "]").html();
+                        var dest = $("#options_QbabitStoreMarketReorderTabs option[value=" + (t) + "]").html();
+                        $("#options_QbabitStoreMarketReorderTabs option[value=" + (t - 1) + "]").html(dest);
+                        $("#options_QbabitStoreMarketReorderTabs option[value=" + (t) + "]").html(src);
+                        r.push(t - 1);
+                    }
+                    else {
+                        ok = false;
+                        break;
+                    }
+
+                }
+                //
+                if (ok == true)
+                {
+                    $("#{{ form.vars.id }}").val(r);
+                    updateValue();
+                }
+
+
+            });
+            $("#down_{{ form.vars.id }}").on("click", function (e) {
+                var val = $("#{{ form.vars.id }}").val();
+
+                var ok = true;
+                var r = Array();
+                for (var i = val.length-1; i >= 0 ; i--) {
+                    var t = parseInt( val[i]);
+                    if (t + 1 < $("#options_QbabitStoreMarketReorderTabs option").length) {
+                        var src = $("#options_QbabitStoreMarketReorderTabs option[value=" + (t + 1) + "]").html();
+                        var dest = $("#options_QbabitStoreMarketReorderTabs option[value=" + (t) + "]").html();
+                        $("#options_QbabitStoreMarketReorderTabs option[value=" + (t + 1) + "]").html(dest);
+                        $("#options_QbabitStoreMarketReorderTabs option[value=" + (t) + "]").html(src);
+                        r.push(t + 1);
+                    }
+                    else {
+                        ok = false;
+                        break;
+                    }
+
+                }
+                //
+                if (ok == true)
+                {
+                    $("#{{ form.vars.id }}").val(r);
+                    updateValue();
+                }
+
+
+            });
+            //alert("aa");
+        }
+    </script>
+
+{% endblock %}

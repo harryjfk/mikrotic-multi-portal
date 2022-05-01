@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }}\Controller\Front;
+
+{% block use_statements %}
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use QbaBit\CoreBundle\Controller\QbaBitBaseFrontEndController;
+{% endblock use_statements %}
+
+{% block class_definition %}
+class {{ controller }}Controller extends QbaBitBaseFrontEndController
+{% endblock class_definition %}
+{
+{% block class_body %}
+public function indexAction()
+    {
+
+
+}
+{% endblock class_body %}
+}

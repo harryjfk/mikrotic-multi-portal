@@ -1,0 +1,17 @@
+{% block qbabit_icheck_type_widget %}
+
+    <link rel="stylesheet" href="{{ asset('bundles/qbabitcore/forms/icheck_type/iCheck/all.css') }}">
+
+    <script src="{{ asset('bundles/qbabitcore/forms/icheck_type/iCheck/icheck.min.js') }}"></script>
+    <input {{ block('widget_attributes') }} type="checkbox"/>
+    <script>
+
+        jQuery('#{{ form.vars.id }}').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        }).trigger('click');//le pongo trigger('click') para corregir bug
+
+    </script>
+
+{% endblock %}
+

@@ -1,0 +1,30 @@
+<?php
+
+namespace {{ namespace }}\Tests\FrontEnd\Controller;
+
+{% block use_statements %}
+use QbaBit\CoreBundle\Tests\Controller\DefaultFrontEndControllerTest;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+{% endblock use_statements %}
+
+{% block class_definition %}
+class {{ controller }}ControllerTest extends DefaultFrontEndControllerTest
+{% endblock class_definition %}
+{
+{% block class_body %}
+public function getBasicUrl()
+    {
+        return array('index' => 'qbabit_{{ bundle_name|lower}}_{{  generator.getSeparatedNames(controller,"_")  }}');
+}
+protected function getUrlParams($type, ContainerInterface $container)
+{
+$urls = $this->getBasicUrl();
+
+if ($type == "index")
+$v = array('name' => $urls['index'], 'params' => array());
+
+return $v;
+}
+
+{% endblock class_body %}
+}

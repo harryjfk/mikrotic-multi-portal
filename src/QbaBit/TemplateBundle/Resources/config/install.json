@@ -1,0 +1,16 @@
+{
+  "id": "template",
+  "name": "template",
+  "icon": "",
+  "description": "template Module",
+  "version": "1.0",
+  "keyWords": "core",
+  "required":"true",
+  "installer": "namespace hacia la clase instaladora",
+  "dependences": [
+    {  }
+  ],
+  "files": [
+
+  ]
+}

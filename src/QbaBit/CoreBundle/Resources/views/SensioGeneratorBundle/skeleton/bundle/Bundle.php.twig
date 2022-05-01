@@ -1,0 +1,29 @@
+<?php
+
+namespace {{ namespace }};
+
+{% block use_statements %}
+use QbaBit\CoreBundle\QbaBitBaseBundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+{% endblock use_statements %}
+
+{% block class_definition %}
+class {{ bundle }} extends QbaBitBaseBundle
+{% endblock class_definition %}
+{
+{% block class_body %}
+
+ public function getCode()
+    {
+        return "{{ bundle_name|lower }}";
+
+    }
+
+    public function getDir()
+    {
+        return __DIR__;
+    }
+
+
+{% endblock class_body %}
+}

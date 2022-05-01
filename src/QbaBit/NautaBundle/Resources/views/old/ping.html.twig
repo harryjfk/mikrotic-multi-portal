@@ -1,0 +1,68 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>IP</th>
+        <th>Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<div id="error"></div>
+<video id="audio" name="audio" loop src="{{ asset("bundles/qbabitnauta/Tornado_Siren_II-Delilah-747233690.mp3") }}" onclick="console.log(this);"></video>
+<button id="a" onclick="audio.play()"/>
+<script src="{{ asset('bundles/qbabittemplateadminlte/adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script>
+
+    function getData()
+    {
+
+                $.ajax({
+                    url: "{{ url("qba_bit_nauta_ping")}}",
+
+            data: null,
+            type: "GET",
+
+            success: function(e){
+
+                var t = e;
+
+
+                var exec= t.result;
+
+                if(exec)
+                    audio.play();
+                else
+                    audio.pause();
+                $("#error").html();
+                setTimeout(getData, 10000);
+            },
+            error: function(e){
+
+
+                audio.play();
+                $("#error").html("error"+e.status);
+                setTimeout(getData, 10000);
+            }});
+
+
+
+
+
+    }
+
+    getData();
+
+</script>
+
+</body>
+</html>

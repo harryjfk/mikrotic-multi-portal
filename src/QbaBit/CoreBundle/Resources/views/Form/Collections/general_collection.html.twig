@@ -1,0 +1,15 @@
+{% block qba_bit_general_collection_type_widget %}
+
+    {% include '@QbaBitTemplateAdminLTE/Cruds/_embeded_form.html.twig' with{'doAjax':true,'entities':child,'OnAdd':onAdd} %}
+
+    <style>
+        #gridview_{{ form.vars.id }} img {
+            height: 60px;
+            width: auto !important;
+
+        }
+
+    </style>
+
+
+{% endblock %}

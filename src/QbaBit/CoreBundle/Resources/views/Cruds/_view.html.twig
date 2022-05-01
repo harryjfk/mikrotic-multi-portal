@@ -1,0 +1,162 @@
+{% extends  app.request.isXmlHttpRequest ?core.admin.templates.ajax:core.admin.templates.layout %}
+ {% block breadcumb_controls %}
+
+     {% if priviligies['new']==true %}
+         <a href="{% block new_item %}{% endblock %}" class="morado new btn blue" style="margin-top:5px;height: auto;"><i
+                     class="fa fa-plus-square"></i>{% trans %}qbabit.common.action.new{% endtrans %}</a>
+     {% endif %}
+ {% endblock %}
+{% block content %}
+    {% include 'QbaBitCoreBundle:Form:_base_include.html.twig' with {list:[],'loading':true,'onloadAll':'onView_Load','again':true} %}
+    {% block upper_content %}
+
+    {% endblock %}
+    <div class="">
+        <form id="frmsearch" name="frmsearch" method="post" action="{% block form_action %}{% endblock %}">
+
+            <!-- /.box-header -->
+            <div class="">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+
+                    <div class="rw">
+                        <div class="box">
+                            <div class="box-body" style="padding-top: 0">
+
+                                <div class="col-xs-12">
+                                    {#{% for tipo, mensajes in app.session.flashbag.all() %}
+                                        {% for mensaje in mensajes %}
+                                            <div class="{{ tipo }}">{{ mensaje }}</div>
+                                        {% endfor %}
+                                    {% endfor %}#}
+                                    {% block top_navigation %}
+                                    <div class=" row">
+                                        {% block data_filter %}
+
+                                            <div class="col-xs-12 col-sm-12">
+                                                <div class="row" style="margin-bottom: 15px;
+    margin-top: 15px;">
+                                                    <div class="col-xs-12  col-sm-10" style="padding-left: 15px">
+                                                        <div class="dataTables_filter">
+                                                            <input id="dataTables_filter"
+                                                                   name="dataTables_filter"
+                                                                   type="search" style="margin-top: 0"
+                                                                   class="form-control input-sm"
+                                                                   placeholder="{% trans %}
+                                                qbabit.common.navigation.search{% endtrans %}"
+                                                                    {% if app.request.get('dataTables_filter') %}
+                                                                value="{{ app.request.get('dataTables_filter') }}"
+                                                                    {% endif %}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12  col-sm-2" style="padding: 5px;text-align: center">
+                                                        <button class="btn btn-primary" style="padding: 5px 10px;"> {{ 'qbabit.common.navigation.search'|trans }}</button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        {% endblock %}
+                                        <div class="col-sm-6">
+                                            <input type="hidden" id="dataTables_length"
+                                                   name="dataTables_length"
+                                                   value="{{ app.request.get('dataTables_length') }}">
+                                        </div>
+
+                                        {% endblock %}
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-12" id="master_view">
+                                            {% block view_content %}
+                                            {% endblock %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% block bottom_navigation %}
+                                            <div class="col-xs-12 col-sm-4 pagination"  style="padding-left: 20px;text-align: center">
+                                                <div class="dataTables_info pagination"  id="example1_info" role="status" aria-live="polite">
+                                                    {% trans %}
+                                                    qbabit.common.navigation.showing{% endtrans %}  {% if entities.getCurrentPageNumber==1 %}
+                                                        1
+                                                    {% else %}
+                                                        {{ entities.getItemNumberPerPage * (entities.getCurrentPageNumber-1)+1 }}
+                                                    {% endif %}
+                                                    {% trans %}qbabit.common.navigation.to{% endtrans %}
+                                                    {% if entities.getItemNumberPerPage > entities.getTotalItemCount %}
+                                                        {{ entities.getTotalItemCount }}
+                                                    {% else %}
+                                                        {{ entities.getItemNumberPerPage }}
+                                                    {% endif %}
+                                                    {% trans %}
+                                                    qbabit.common.navigation.of{% endtrans %}  {{ entities.getTotalItemCount }} {% trans %}
+                                                    qbabit.common.navigation.entries{% endtrans %}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12  col-sm-4 pagination" style="text-align: center">
+                                                <div class="dataTables_length pagination">
+                                                    <div class="col-xs-4">
+                                                        <label style="margin-top: 5px"> {% trans %}
+                                                            qbabit.common.navigation.show{% endtrans %}</label>
+                                                    </div>
+                                                    <div class="col-xs-8">
+                                                        <select id="dataTables_length_select" style="margin: 0"
+                                                                name="dataTables_length_select"
+                                                                aria-controls="example1" onchange="dataTables_length.value  = dataTables_length_select.value; $('#frmsearch').submit();"
+                                                                class="form-control input-sm">
+                                                            <option value="10">10</option>
+                                                            <option value="25">25</option>
+                                                            <option value="50">50</option>
+                                                            <option value="100">100</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                {% if app.request.get('dataTables_length') %}
+                                                    <script>
+                                                        dataTables_length_select.value = {{ app.request.get('dataTables_length') }};
+                                                    </script>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4">
+                                                <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                                                    <ul class="pagination">
+                                                        {{ knp_pagination_render(entities   ) }}
+
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.box-body -->
+
+    {% block post_view %}
+    {% endblock %}
+
+{% endblock content %}
+
+{% block scripts %}
+
+    <script>
+
+        function onView_Load(e) {
+            PageAjax.block.text="";
+            PageAjax.list.msg.searching = '{{ 'qbabit.common.navigation.searching'|trans }}';
+            PageAjax.block.img = '{{ asset('bundles/qbabitcore/css/common/images/loading.gif') }}';
+            PageAjax.list.setControl(frmsearch, $("#master_view"), $("#dataTables_length"), [$("#dataTables_filter")], '.content-wrapper', null);
+
+        }
+
+    </script>
+    {% include 'QbaBitCoreBundle:Form:_base_include.html.twig' with {'list':[],'loading':false} %}
+
+{% endblock %}

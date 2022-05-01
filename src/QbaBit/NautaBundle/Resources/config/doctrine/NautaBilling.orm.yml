@@ -1,0 +1,32 @@
+QbaBit\NautaBundle\Entity\NautaBilling:
+    type: entity
+    table: nauta_billing
+    indexes:
+    id:
+        id:
+            type: integer
+            nullable: false
+            options: { unsigned: false }
+            id: true
+            generator: { strategy: IDENTITY }
+    fields:
+        date:
+            type: datetime
+            nullable: false
+        amount:
+            type: float
+            nullable: false
+    manyToOne:
+        user:
+            targetEntity: QbaBit\SecurityBundle\Entity\SecurityUser
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: ip
+            joinColumns: { user_id: { referencedColumnName: id } }
+            orphanRemoval: false
+            qbabit: { type: text }
+    oneToMany:
+
+    lifecycleCallbacks: {  }
+    repositoryClass: QbaBit\NautaBundle\Repository\NautaBillingRepository

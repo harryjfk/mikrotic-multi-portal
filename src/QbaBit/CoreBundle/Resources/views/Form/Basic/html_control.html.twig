@@ -1,0 +1,48 @@
+{% block qba_bit_html_control_widget %}
+
+
+
+    <script src="{{ asset('bundles/qbabitcore/forms/html_control/ckeditor/ckeditor.js') }}"></script>
+
+      <textarea style="margin-top: 5px" {{ block('widget_attributes') }} >
+    {{ data|raw }}</textarea>
+
+
+     <script>
+         var editor_{{ id }}=null;
+
+
+         $(function(){
+
+
+             editor_{{ id }} = CKEDITOR.replace("{{ full_name }}");
+
+             editor_{{ id }}.on('change',function(){
+                 {{ id }}.value = editor_{{ id }}.getData();
+                 $('#{{ id }}').focusin();
+                 $('#{{ id }}').focusout();
+             });
+
+             editor_{{ id }}.config.title =false;
+             editor_{{ id }}.config.allowedContent  =true;
+
+             {% if required==true %}
+             {{ form.vars.id }}.required = "required";
+             {% endif %}
+
+         });
+
+          /*   PageAjax.edit.controls.add('{{ form.vars.id }}', 'onloadHtmlControl{{ id }}()', 'updateValueControl_{{ id }}()');
+             PageAjax.edit.proxyControls.add('{{ form.vars.id }}', 'editor_{{ id }}', '.cke_browser_webkit');
+
+         function updateValueControl_{{ id }}()
+         {
+
+             {{ id }}.value = editor_{{ id }}.getData();
+             $('#{{ id }}').focusin();
+             $('#{{ id }}').focusout();
+         }
+*/
+     </script>
+
+{% endblock %}

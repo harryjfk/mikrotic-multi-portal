@@ -1,0 +1,54 @@
+QbaBit\SecurityBundle\Entity\SecurityGroup:
+    type: entity
+    table: security_group
+    repositoryClass: QbaBit\SecurityBundle\Repository\SecurityGroupRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        issystem:
+            type: boolean
+            nullable: true
+            options:
+                comment: '0-no es de sistema, 1- es de sistema'
+                default: '0'
+            column: isSystem
+    manyToMany:
+        role:
+            targetEntity: SecuritySectionsRoles
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: group
+            joinTable:
+                name: security_group_role
+                joinColumns:
+                    -
+                        name: group_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: role_id
+                        referencedColumnName: id
+            orderBy: null
+        user:
+            targetEntity: SecurityUser
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: group
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

@@ -1,0 +1,13 @@
+qbabit:
+   admin:
+      language:
+        text: Manage Languages
+        list: Language List
+        fields:
+           name: Language
+           locale: ISO
+           primary: Primary
+           enabled: Enabled
+           image: Image
+        error:
+           primary: You can't delete the primary language of the application

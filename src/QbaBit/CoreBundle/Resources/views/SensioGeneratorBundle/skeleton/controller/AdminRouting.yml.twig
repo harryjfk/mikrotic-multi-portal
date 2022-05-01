@@ -1,0 +1,25 @@
+qba_bit_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_list:
+    path:     /list
+    defaults: { _controller: {{ bundle }}:Admin/{{ controller  }}:index }
+qba_bit_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_delete_list:
+    path:     /del_list/
+    defaults: { _controller: {{ bundle }}:Admin/{{ controller  }}:deleteList  }
+qba_bit_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_new:
+    path:     /new
+    defaults: { _controller: {{ bundle }}:Admin/{{ controller  }}:new }
+qba_bit_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_edit:
+    path:     /edit/{id}
+    defaults: { _controller: {{ bundle }}:Admin/{{ controller  }}:edit }
+qba_bit_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_delete:
+    path:     /delete/{id}
+    defaults: { _controller: {{ bundle }}:Admin/{{ controller  }}:delete }
+
+{% if type=="tree" %}
+qbabit_admin_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_tree:
+    path:     /tree
+    defaults: { _controller: {{ bundle }}:Admin/{{ controller  }}:tree }
+qbabit_admin_{{ bundle_name|lower}}_{{ generator.getSeparatedNames(controller,"_") }}_selectors:
+    path:     /selectors
+    defaults: { _controller: {{ bundle }}:Admin/{{ controller  }}:selectors }
+
+{% endif %}

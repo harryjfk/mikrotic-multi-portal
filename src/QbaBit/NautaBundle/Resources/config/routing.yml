@@ -1,0 +1,80 @@
+qba_bit_nauta_admin_homepage:
+    path: /admin
+    defaults:
+        _controller: 'QbaBitNautaBundle:Admin/Admin:index'
+qba_bit_nauta_admin_pay:
+    path: /admin/nauta_billing/pay/{id}
+    defaults:
+        _controller: 'QbaBitNautaBundle:Admin/Admin:pay'
+qba_bit_nauta_admin_nauta_accounts:
+    resource: '@QbaBitNautaBundle/Resources/config/routing/Admin/NautaAccounts.yml'
+    prefix: /admin/nauta/nauta_accounts
+qba_bit_nauta_admin_nauta_options:
+    resource: '@QbaBitNautaBundle/Resources/config/routing/Admin/NautaOptions.yml'
+    prefix: /admin/nauta/options
+qba_bit_nauta_nauta_accounts:
+    resource: '@QbaBitNautaBundle/Resources/config/routing/FrontEnd/NautaAccounts.yml'
+    prefix: /nauta/nauta_accounts
+qba_bit_nauta_admin_nauta_user_ip:
+    resource: '@QbaBitNautaBundle/Resources/config/routing/Admin/NautaUserIp.yml'
+    prefix: /admin/nauta/nauta_user_ip
+qba_bit_nauta_admin_tipo_cuenta_ip:
+    resource: '@QbaBitNautaBundle/Resources/config/routing/Admin/NautaTipoCuenta.yml'
+    prefix: /admin/nauta/tipo_cuenta
+qba_bit_nauta_nauta_user_ip:
+    resource: '@QbaBitNautaBundle/Resources/config/routing/FrontEnd/NautaUserIp.yml'
+    prefix: /nauta/nauta_user_ip
+qba_bit_nauta_admin_nauta_accounts_log:
+    resource: '@QbaBitNautaBundle/Resources/config/routing/Admin/NautaAccountsLog.yml'
+    prefix: /admin/nauta/nauta_accounts_log
+qba_bit_nauta_nauta_accounts_log:
+    resource: '@QbaBitNautaBundle/Resources/config/routing/FrontEnd/NautaAccountsLog.yml'
+    prefix: /nauta/nauta_accounts_log
+
+
+qba_bit_nauta_index:
+    path: /{type}
+    defaults:
+        _controller: 'QbaBitNautaBundle:Front\Front:index'
+        type: ''
+
+
+
+#qba_bit_nauta_login:
+#    path: /login
+#    defaults:
+#        _controller: 'QbaBitNautaBundle:Front\Front:login'
+#qba_bit_nauta_logout:
+#    path: /logout/{user}/{forzada}/{type}
+#    defaults:
+#        _controller: 'QbaBitNautaBundle:Front\Front:logout'
+#        forzada: false
+#        type: 1
+#qba_bit_nauta_status:
+#    path: /status/{user}/{ajax}
+#    defaults:
+#        _controller: 'QbaBitNautaBundle:Front\Front:status'
+#        ajax: false
+#        user: null
+#qba_bit_nauta_ccq:
+#    path: /ccq
+#    defaults:
+#        _controller: 'QbaBitNautaBundle:Front\Front:ccq'
+#
+#qba_bit_nauta_ping:
+#    path: /ping
+#    defaults:
+#        _controller: 'QbaBitNautaBundle:Front\Front:ping'
+#qba_bit_nauta_aviable:
+#    path: /aviable/{ajax}
+#    defaults:
+#        _controller: 'QbaBitNautaBundle:Front\Front:aviableInternet'
+#        ajax: "false"
+#qba_bit_nauta_has_internet:
+#    path: /hasInternet/{internet}
+#    defaults:
+#        _controller: 'QbaBitNautaBundle:Front\Front:hasInternet'
+#qba_bit_nauta_change_interface:
+#    path: /change/{interface}
+#    defaults:
+#        _controller: 'QbaBitNautaBundle:Front\Front:changeInterface'

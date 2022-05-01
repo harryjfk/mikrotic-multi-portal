@@ -1,0 +1,16 @@
+qba_bit_nauta_nauta_tipo_cuenta_list:
+    path:     /list
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaTipoCuenta:index }
+qba_bit_nauta_nauta_tipo_cuenta_delete_list:
+    path:     /del_list/
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaTipoCuenta:deleteList  }
+qba_bit_nauta_nauta_tipo_cuenta_new:
+    path:     /new
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaTipoCuenta:new }
+qba_bit_nauta_nauta_tipo_cuenta_edit:
+    path:     /edit/{id}
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaTipoCuenta:edit }
+qba_bit_nauta_nauta_tipo_cuenta_delete:
+    path:     /delete/{id}
+    defaults: { _controller: QbaBitNautaBundle:Admin/NautaTipoCuenta:delete }
+

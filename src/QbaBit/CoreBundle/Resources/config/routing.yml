@@ -1,0 +1,32 @@
+qba_bit_core_grid_data:
+    path:    /core/admin/grid/data/
+    defaults: { _controller: QbaBitCoreBundle:Modules\QbaBitFormGrid:data}
+qba_bit_core_install_modules:
+    path:    /admin/modules
+    defaults: { _controller: QbaBitCoreBundle:Installer:index}
+qba_bit_core_install_modules_view:
+    path:    /admin/modules/view/{id}/{version}
+    defaults: { _controller: QbaBitCoreBundle:Installer:view}
+qba_bit_core_install_modules_install:
+    path:    /admin/modules/install/{id}/{version}
+    defaults: { _controller: QbaBitCoreBundle:Installer:install}
+qba_bit_core_install_modules_install_selected:
+    path:    /admin/modules/install_selected
+    defaults: { _controller: QbaBitCoreBundle:Installer:installSelected}
+qba_bit_core_install_modules_uninstall:
+    path:    /admin/modules/uninstall/{id}/{version}
+    defaults: { _controller: QbaBitCoreBundle:Installer:uninstall}
+
+qba_bit_core_system_manager:
+    path:    /admin/systemManager
+    defaults: { _controller: QbaBitCoreBundle:SystemManager:index}
+
+qba_bit_core_system_manager_show:
+    path:    /admin/systemManager/view/{id}
+    defaults: { _controller: QbaBitCoreBundle:SystemManager:view}
+qba_bit_core_system_manager_restore:
+    path:    /admin/systemManager/restore/{id}
+    defaults: { _controller: QbaBitCoreBundle:SystemManager:restore}
+qba_bit_core_system_manager_make:
+    path:    /admin/systemManager/make
+    defaults: { _controller: QbaBitCoreBundle:SystemManager:make}

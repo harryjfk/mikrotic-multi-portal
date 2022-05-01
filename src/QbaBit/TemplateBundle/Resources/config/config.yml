@@ -1,0 +1,7 @@
+qba_bit_template:
+   enviroment:
+       frontend: null
+       backend: TemplateAdminLTE
+   menu:
+       frontend: null
+       backend: "@qba_bit_template.render.menu"

@@ -1,0 +1,3 @@
+qbabit_nauta_nauta_accounts_log:
+    defaults: { _controller: QbaBitNautaBundle:Front/NautaAccountsLog:index }
+    path:  /

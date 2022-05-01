@@ -1,0 +1,21 @@
+
+          {% set beginr = '<tr role="row" class="odd">' %}
+          {% set endr = '</tr>' %}
+          {% set begint = ' <td> ' %}
+          {% set endt = ' </td> ' %}
+{% set form_click ='doCollection_'~form.vars.id~'_Click' %}
+
+
+{% macro add_buttons(form_click,form) %}
+    <td>
+        <ul class='list-actions'>
+            <li>
+                <button type='button' style='color:#3c8dbc;padding: 5px;
+    margin-top: 5px;' onclick='{{ form_click }}(this,false);' class='delete btn' > <span
+                            class='glyphicon glyphicon-remove' ></span></button>
+            </li>
+
+        </ul>
+    </td>
+
+{% endmacro %}

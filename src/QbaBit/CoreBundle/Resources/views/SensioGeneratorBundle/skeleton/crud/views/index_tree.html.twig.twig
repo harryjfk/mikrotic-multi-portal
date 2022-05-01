@@ -1,0 +1,123 @@
+{% block extends %}
+    {{ "{% extends 'QbaBitCoreBundle:Cruds:_view.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+    {{ ' {% block form_action %}{{ url("qbabit_admin_'~(bundle_name|lower)~'_'~generator.getSeparatedNames(controller,"_")~'") }}{% endblock %}' }}
+    {{ '
+    {% block view_content %}
+        <link href="{{ asset("bundles/qbabitlocations/css/jqtree.css") }}" rel="stylesheet"/>
+        <link href="{{ asset("bundles/qbabitlocations/css/tree.css") }}" rel="stylesheet"/>
+        <link href="{{ asset("bundles/qbabitlocations/css/bootstrap-treeview.css") }}" rel="stylesheet"/>
+
+        <div id="tree1" class="col-xs-12" style="margin-bottom: 20px">
+
+        </div>
+
+
+    {% endblock %}
+   ' }}
+
+    {{ "
+
+     {% block breadcumb_child %}
+        {% include 'QbaBitCoreBundle:Common:_bread_item.html.twig' with {last:true,name:('qbabit.admin."~(bundle_name|lower)~'.'~(controller|lower)~".list'|trans)} %}
+
+
+    {% endblock %}
+    " }}
+    {{ "{% block new_item %}{{ url('qbabit_admin_"~(bundle_name|lower)~'_'~generator.getSeparatedNames(controller,"_")~"_new') }}{% endblock %}" }}
+
+    {{ " {% block title %}   {{ 'qbabit.admin."~(bundle_name|lower)~'.'~(controller|lower)~".list'|trans }}{% endblock %} " }}
+
+    {{ "{% block additional_javascripts %}
+
+
+        <script src='{{ asset('bundles/qbabitlocations/js/tree.jquery.js') }}'></script>
+        <script>
+
+           var data = [
+                {% for  t in entities %}
+                {{ t.getTreeInfo(1,true,2)|raw }},
+                {% endfor %}
+            ];" }}
+
+            var $tree = $('#tree1');
+            var tree = $tree.tree({
+                data: data,
+                autoOpen: true,
+                dragAndDrop: true,
+                onCanMove: function (node) {
+                    return !executing;
+                },
+                onCreateLi: function (node, $li) {
+
+
+                    $a = $li.find('a');
+
+                    $a.attr("class", $a.attr("class") + "  pd0 non-ajax");
+                    $a.attr("style", " margin-right: 5px;");
+
+                    $elem = $li.find('.jqtree-element');
+                    $elem.attr("class", $elem.attr("class") + " list-group-item node-treeview3 row");
+                    $title = $li.find('.jqtree-title');
+                    $title.attr("class", $title.attr("class") + "  pd0");
+                    $title.attr("style", $title.attr("style") + " margin:0");
+
+
+                    {{ "
+
+   var delete_dir = '{{ url('qbabit_admin_"~(bundle_name|lower)~'_'~generator.getSeparatedNames(controller,"_")~"_delete',{'id':-1}) }}'.replace('-1', node.id);
+                    var edit_dir = '{{ url('qbabit_admin_"~(bundle_name|lower)~'_'~generator.getSeparatedNames(controller,"_")~"_edit',{'id':-1}) }}'.replace('-1', node.id);
+
+                    " }}
+
+                    $delete = '<div class=" " style="text-align: center;   width: 20px;  float: right;  margin-right: 20px;"><div class="row"> <a href="' + edit_dir + '" class=" edit-button del  " data-id="' + node.id + '"style="height: auto; "><i class="fa fa-edit"></i></a> <a href="' + delete_dir + '"  class="  rojovino delete-button del  red " data-id="' + node.id + '" style=" color:red; height: auto;margin-left: 5px;"><i class="fa fa-trash-o"></i></a></div></div>';
+                    $elem.append($delete);
+                    $li.find('.delete-button').on('click', function (e) { // Get the id from the 'node-id' data property
+                        var node_id = $(e.target).data('id'); // Get the node from the tree
+
+                        {{ "if (confirm('{{ 'qbabit.admin."~(bundle_name|lower)~'.'~(controller|lower)~".delete'|trans }}')) {" }}
+
+                        }
+                        else {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+
+                    });
+                    PageAjax.assignEvent('.content-wrapper', null, $li.find('.edit-button'))
+
+
+                },
+                closedIcon: $('<i class="fa fa-arrow-circle-right"></i>'),
+                openedIcon: $('<i class="fa fa-arrow-circle-down"></i>')
+
+            });
+
+            var r_tree = tree.data().simple_widget_tree;
+            var executing = false;
+            $('#tree1').on('tree.refresh', function (e) {
+                var new_data = r_tree.getTree().getData();
+
+                var send_data = 'old=' + JSON.stringify(data) + '&new=' + JSON.stringify(new_data);
+                executing = true;
+                {{ "PageAjax.execute('{{ url('qbabit_admin_"~(bundle_name|lower)~'_'~generator.getSeparatedNames(controller,"_")~"_tree') }}', send_data, 'GET', function (e) {" }}
+
+                    data = new_data;
+                    executing = false;
+                }, function (e) {
+                    executing = false;
+                }, false);
+
+            });
+
+
+        </script>
+   {{ "{% endblock %}" }}
+
+{% endblock body %}
+
+
+
+

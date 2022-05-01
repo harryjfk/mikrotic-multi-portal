@@ -1,0 +1,76 @@
+#qbabit_security_homepage:
+#    path:     /security
+#    defaults: { _controller: QbaBitSecurityBundle:Default:index }
+
+qba_bit_admin_security_login_check:
+    path: /admin/login_check
+
+qba_bit_admin_security_logout:
+    path: /admin/logout
+qba_bit_security_security_user_list:
+    path: /admin/security/user/list
+    defaults: {_controller: QbaBitSecurityBundle:Admin/User:index}
+qba_bit_security_security_user_new:
+    path: /admin/security/user/new
+    defaults: {_controller: QbaBitSecurityBundle:Admin/User:new}
+qba_bit_security_security_user_edit:
+    path: /admin/security/user/edit/{id}
+    defaults: {_controller: QbaBitSecurityBundle:Admin/User:edit}
+qba_bit_admin_security_login:
+    path:     /admin/login
+    defaults: { _controller: QbaBitSecurityBundle:Admin/User:login }
+qba_bit_security_security_user_delete_list:
+    path:     /admin/security/user/delete_user
+    defaults: { _controller: QbaBitSecurityBundle:Admin/User:deleteList }
+qba_bit_security_security_user_delete:
+    path:     /admin/security/user/delete/{id}
+    defaults: { _controller: QbaBitSecurityBundle:Admin/User:delete }
+qba_bit_admin_security_nav:
+    path:     /admin/security/nav
+    defaults: { _controller: QbaBitSecurityBundle:Admin/User:nav }
+
+qba_bit_security_admin_recovery_confirm:
+    path:     /admin/security/recovery_confirm
+    defaults: { _controller: QbaBitSecurityBundle:Admin/User:recovery_confirm }
+##recovery
+qba_bit_security_recovery_mail:
+    path:     /recovery_mail
+    defaults: { _controller: QbaBitSecurityBundle:Default:remember }
+qba_bit_security_confirm:
+    path:     /recovery_confirm/
+    defaults: { _controller: QbaBitSecurityBundle:Default:recovery_confirm }
+##register
+#qbabit_security_register:
+#    path:     /register
+#    defaults: { _controller: QbaBitSecurityBundle:Default:register }
+#qbabit_security_activate:
+#    path:     /activate
+#    defaults: { _controller: QbaBitSecurityBundle:Default:activate }
+#qbabit_security_view:
+#    path:     /view
+#    defaults: { _controller: QbaBitSecurityBundle:Default:view }
+#
+#
+#qbabit_security_view_tab_edit:
+#    path:     /{id}/profile/edit
+#    defaults: { _controller: QbaBitSecurityBundle:Default:profileEdit }
+#
+qba_bit_security_login:
+    path:     /user/login
+    defaults: { _controller: QbaBitSecurityBundle:Default:login }
+qba_bit_security_login_check:
+    path: /login_check
+qba_bit_security_logout:
+    path: /logout
+
+##impersonate
+#qbabit_security_control_list:
+#    path:     /control
+#    defaults: { _controller: QbaBitSecurityBundle:Default:control }
+#qbabit_security_control_user:
+#    path:     /control/{user}
+#    defaults: { _controller: QbaBitSecurityBundle:Default:control_user }
+##nav
+#qbabit_security_nav:
+#    path:     /user/nav
+#    defaults: { _controller: QbaBitSecurityBundle:Default:nav }

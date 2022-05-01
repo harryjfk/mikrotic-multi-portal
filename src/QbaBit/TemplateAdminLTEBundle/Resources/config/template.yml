@@ -1,0 +1,21 @@
+template:
+   name: Admin LTE
+   views: []
+    #   Default\index: index-azul
+     #  Default\Prueba\index: index
+   menu:
+       render: "QbaBitTemplateAdminLTEBundle:Menu:render.html.twig"
+   navigator:
+       render: "QbaBitTemplateAdminLTEBundle:Navigator:render.html.twig"
+   pagination:
+       pagination: "QbaBitTemplateAdminLTEBundle:Pagination:_pag_sliding.html.twig"
+       sortable: "QbaBitTemplateAdminLTEBundle:Pagination:_sortable_link.html.twig"
+ #  menu:
+ #     locations: ['top-menu', 'footer']
+ #     top-menu: {name: 'qbabit.templating.top-menu',list:[store,juan] }
+ #     footer: {name: 'qbabit.templating.footer',list:[pepe,juan] }
+ #  widgets:
+
+
+
+

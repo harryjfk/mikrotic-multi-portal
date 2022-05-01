@@ -1,0 +1,22 @@
+qba_bit_nauta:
+    menu:
+        frontend: null
+        backend: '@qba_bit_nauta.render.menu'
+    options:
+        address: 172.16.10.1
+        user: admin
+        password: nomelase
+        dhcp_server: 10.190.98.1
+        releaseType: release
+        phone: '5555'
+        email: harryjfk@gmail.com
+    uploads:
+        nauta_accounts:
+            web: /uploads/nauta_accounts/
+            dir: /var/www/html/mikrotic-multi-portal/app/../web/uploads/nauta_accounts/
+        nauta_user_ip:
+            web: /uploads/nauta_user_ip/
+            dir: /var/www/html/mikrotic-multi-portal/app/../web/uploads/nauta_user_ip/
+        nauta_accounts_log:
+            web: /uploads/nauta_accounts_log/
+            dir: /var/www/html/mikrotic-multi-portal/app/../web/uploads/nauta_accounts_log/

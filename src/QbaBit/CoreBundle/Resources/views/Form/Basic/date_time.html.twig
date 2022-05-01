@@ -1,0 +1,93 @@
+{% block qba_bit_date_time_widget %}
+    {% set id = form.vars.id %}
+    {% set name = form.parent.vars.name~'['~form.vars.name~']' %}
+    <link rel="stylesheet" href="{{ asset('bundles/qbabitcore/forms/date_time/bootstrap-datetimepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/qbabitcore/forms/date_time/datepicker3.css') }}">
+
+    <script src="{{ asset('bundles/qbabitcore/forms/date_time/moment-with-locales.js') }}"></script>
+    <script src="{{ asset('bundles/qbabitcore/forms/date_time/date_time.js') }}"></script>
+
+
+
+    <script src="{{ asset('bundles/qbabitcore/forms/date_time/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('bundles/qbabitcore/forms/date_time/bootstrap-datetimepicker.js') }}"></script>
+
+
+    <div id="{{ id }}" style="display: none" class="form-control">
+        <select id="{{ id }}_day" name="{{ name }}[day]"></select>
+        <select id="{{ id }}_month" name="{{ name }}[month]"></select>
+        <select id="{{ id }}_year" name="{{ name }}[year]">
+        </select></div>
+    <input type="text" id="{{ form.vars.id }}_select" class="datepicker form-control"
+           value=" {{ data|date(format_new) }}">
+
+    {{ form_errors(form) }}
+    <script>
+
+        $(function () {
+            var {{ form.vars.id }}_control =   $('#{{ form.vars.id }}_select').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY',
+                useCurrent: false //Important! See issue #1075
+            });
+            $('#{{ form.vars.id }}_select').data('r',
+                    {{ form.vars.id }}_control);
+            $("#{{ form.vars.id }}_select").on("dp.change", function (e) {
+                ;
+                set{{ form.vars.id }}_selectChange(e);
+            });
+            set{{ form.vars.id }}_selectChange();
+        });
+
+
+
+
+
+
+
+            function set{{ form.vars.id }}_selectChange(e) {
+
+
+                var date = DateTimeFunction.DateStringToObject('{{ format_js }}', $("#{{ form.vars.id }}_select").val());
+                if (date.month[0] == "0")
+                    date.month = date.month[1];
+                if (date.day[0] == "0")
+                    date.day = date.day[1];
+                DateTimeFunction.selectSetValue('{{ form.vars.id }}_year', date.year);
+                DateTimeFunction.selectSetValue('{{ form.vars.id }}_month', date.month);
+                DateTimeFunction.selectSetValue('{{ form.vars.id }}_day', date.day);
+                {% if range_end %}
+
+                try
+                {
+                    var picker = $('#{{ range_end }}_select').data("r").data("DateTimePicker").date ==null?$('#{{ range_end }}_select').data("r").data():$('#{{ range_end }}_select').data("r").data("DateTimePicker");
+
+                    picker.minDate(e.date);
+                }
+
+catch (e){}
+
+                {% endif %}
+                {% if range_start %}
+                try
+                {
+               var  picker = $('#{{ range_start }}_select').data("r").data("DateTimePicker").date ==null?$('#{{ range_start }}_select').data("r").data():$('#{{ range_start }}_select').data("r").data("DateTimePicker");
+
+
+                    picker.maxDate(e.date);
+                }
+
+                catch (e){}
+
+                {% endif %}
+            }
+
+
+
+
+
+
+
+
+    </script>
+{% endblock %}

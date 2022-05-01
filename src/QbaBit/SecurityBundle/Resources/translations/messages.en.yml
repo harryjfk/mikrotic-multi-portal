@@ -1,0 +1,101 @@
+qbabit:
+   security:
+       entity:
+          securityuser:
+             fields:
+                name: Name
+                fullname: Full Name
+                email: E-Mail
+                location: Locations
+             title: Users
+             invited: Login as Invited
+       admin:
+          text: Security
+          title: Manage
+          user:
+             list: User List
+             simple: Users
+             fields:
+                email: E-Mail
+                userName: Nick
+                fullName: Full Name
+                name: Name
+                dateCreated: Created Date
+                dateModified: Modification Date
+                password: Password
+                repeatPassword: Repeat Password
+                firstName: First Name
+                secondName: Last Name
+                userGroups: User Groups
+                image: Image
+                enabled: Enabled
+             msg:
+                passwordMatch: Passwords dosen't match
+                unique: User name or email already exist in the system, please pick another one.
+             actions:
+                delete: Delete
+                edit: Edit
+                new: New
+                view: View
+          groups:
+             list: Group List
+             simple: Groups
+             fields:
+                name: Name
+                roles: Aviable Rols
+             actions:
+                delete: Delete
+                edit: Edit
+                new: New
+                view: View
+          administrator: Is Administrator?
+
+
+       login:
+          title: Login
+          alert:
+             error:
+                 locked: The user Is bloqued
+                 badcredentials: User or password dosen't found
+          email: E-Mail
+          password: Password
+          remember: Remember
+          enter: Enter
+          forgot:
+             button: Forgot your password?
+             title: Remember password
+             description: If you forgot your password, we will send you again.
+             email:  E-Mail
+             send: Send
+          activate:
+             ok: The user was activated successfully
+             error: User searched dosen't exists
+          recovery:
+             sent: A mail has been sended in order to recovery you acount
+             account_not_exists: Your account dosen't exists
+             title: Password recovery
+             ok: Your password has been recovery successfully. Please click in the next link to enter in the web site.
+       nav:
+          fields:
+             dateCreated: Member since %date%
+          logout: Logout
+          login: Login
+          register: Register
+          register_long: Register in the webSite
+          or: Or
+          sign_facebook: Login with Facebook
+          sign_google: Login with Google
+          i_ready_have: I have user
+          guest: Guest
+          front: StartPage
+          control:
+              exit: Stop Controlling
+          profile: Profile
+       profile:
+          title: Profile
+          edit_tab:
+              name: Change
+              data: Data
+          info_tab:
+              name: Information
+

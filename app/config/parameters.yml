@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 172.17.0.5
+    database_port: 3306
+    database_name: db
+    database_user: root
+    database_password: 123456
+    database_driver: pdo_mysql
+    mailer_transport: smtp
+    mailer_host: 192.168.2.16
+    mailer_user: harryjfk@qbabit.com
+    mailer_password: 123456
+    secret: a911503a29d9b82bdb2ae4e4fedd222ac8b6562a

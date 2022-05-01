@@ -1,0 +1,64 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+      usuarios:
+        entity: { class: QbaBit\SecurityBundle\Entity\SecurityUser, property: email}
+    encoders:
+        QbaBit\SecurityBundle\Entity\SecurityUser:  {algorithm: sha512, iterations: 15}
+
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin_area:
+          #  logout_on_user_change: true
+            http_basic: ~
+            pattern: /admin
+            anonymous: ~
+            provider: usuarios
+            form_login:
+                login_path: qba_bit_admin_security_login
+                check_path: qba_bit_admin_security_login_check
+            #    default_target_path: qbabit_core_admin_homepage
+              #  success_handler: authentication_success_handler
+            logout:
+                path:    qba_bit_admin_security_logout
+                target:  qba_bit_admin_security_login
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /admin
+        main:
+         #   logout_on_user_change: true
+            pattern: /
+            anonymous: ~
+            provider: usuarios
+            form_login:
+                login_path: qba_bit_security_login
+                check_path: qba_bit_security_login_check
+            #    default_target_path: qbabit_core_admin_homepage
+             #   success_handler: authentication_success_handler
+            logout:
+                path:    qba_bit_security_logout
+                target:  qba_bit_security_login
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~
+    access_control:
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/*, roles: [ROLE_ADMINISTRATOR]}
+        - { path: ^/admin, roles: [ROLE_ADMINISTRATOR]}

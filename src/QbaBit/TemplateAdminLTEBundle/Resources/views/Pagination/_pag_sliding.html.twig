@@ -1,0 +1,46 @@
+{# default Sliding pagination control implementation #}
+
+{% if pageCount > 1 %}
+    <div class="pagination">
+        {% if first is defined  %}
+            <li class="paginate_button previous {% if  current== first %}  {% endif %}"  style=" " id="example1_previous">
+                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}&dataTables_length={{ app.request.get('dataTables_length') }}" aria-controls="example1" data-dt-idx="0" tabindex="0">{{ 'qba_bit.pagination.first'|trans }}</a>
+            </li>
+
+        {% endif %}
+
+        {% if previous is defined %}
+            <li class="paginate_button previous {% if  current== first %} disabled {% endif %}" id="example1_previous"><a href="{{ path(route, query|merge({(pageParameterName): previous})) }}&dataTables_length={{ app.request.get('dataTables_length') }}"
+                                                                                    aria-controls="example1"
+                                                                                    data-dt-idx="0"
+                                                                                    tabindex="0">{{ 'qba_bit.pagination.prev'|trans }}</a>
+            </li>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            <li class="paginate_button {% if page == current %}active {% endif %}"><a  {% if page == current %}class="non-ajax" {% endif %}href="
+
+            {% if page == current %}
+            #
+            {% else %}
+            {{ path(route, query|merge({(pageParameterName): page})) }}&dataTables_length={{ app.request.get('dataTables_length') }} {% endif %}" aria-controls="example1" data-dt-idx="{{ page }}"
+                                                  tabindex="0">{{ page }}</a></li>
+
+
+        {% endfor %}
+
+        {% if next is defined %}
+            <li class="paginate_button next " id="example1_next"><a href="{{ path(route, query|merge({(pageParameterName): next})) }}&dataTables_length={{ app.request.get('dataTables_length') }}" aria-controls="example1"
+                                                                   data-dt-idx="7"
+                                                                   tabindex="0">{{ 'qba_bit.pagination.next'|trans }}</a></li>
+
+        {% endif %}
+
+        {% if last is defined  %}
+            <li class="paginate_button next {% if  current== last %}  {% endif %}" id="example1_previous">
+                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}&dataTables_length={{ app.request.get('dataTables_length') }}" aria-controls="example1" data-dt-idx="0" tabindex="0">{{ 'qba_bit.pagination.last'|trans }}</a>
+            </li>
+
+        {% endif %}
+    </div>
+{% endif %}

@@ -1,0 +1,23 @@
+
+    <select  id="{{  form.vars.id }}" name="{{ n_name is defined? n_name:form.vars.full_name }}" {% if show==false %} style="display:none"{% endif %} {% if required %} required="required" {% endif %} class="form-control" {% if multiple %}multiple="multiple"{% endif %}>
+        {% if multiple %}
+
+            {% for c in choices %}
+                {% set selected = false %}
+                {% for v in value %}
+                    {% if v == c.value %}
+                        {% set selected  =true %}
+
+                    {% endif %}
+                {% endfor %}
+                <option {{ selected?'selected' }} value="{{ c.value }}">{{ c.label|trans }}</option>
+            {% endfor %}
+        {% else %}
+            {% if required==false %}
+            <option value=""></option>
+{% endif %}
+            {% for c in choices %}
+                <option {{ value==c.value?'selected' }} value="{{ c.value }}">{{ c.label|trans }}</option>
+            {% endfor %}
+        {% endif %}
+    </select>

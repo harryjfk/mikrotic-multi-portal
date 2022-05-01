@@ -1,0 +1,58 @@
+{% macro create_tree(src,req) %}
+    {% if src.index==-1 or   (src.text== null) %}
+        {% for d in src.childs %}
+            {{ _self.create_tree(d,req) }}
+        {% endfor %}
+    {% else %}
+        {% if src.innerHtml=="" %}
+
+            {% if src.index==0 %}
+                <li class="header">
+                    {% if src.ref=="" %}
+                        {{ src.text |trans }}
+                    {% else %}
+                        <a href="{{ src.ref }}" onclick='$("body").removeClass("sidebar-open");' >
+                            <i class="{{ src.img }}"></i> <span>{{ src.text |trans }}</span>
+                            {% if src.childs|length>0 %}
+                                <i class="fa fa-angle-left pull-right"></i>
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </li>
+
+
+                {% for d in src.childs %}
+                    {{ _self.create_tree(d,req) }}
+                {% endfor %}
+            {% else %}
+                <li class="treeview {% if src.ref!=null %}{% if src.ref.name == req.get('_route') %} active{% endif %}{% endif %}" >
+                    <a href="{{ src.ref==""?"#":url(src.ref.name,src.ref.params) }}" onclick='$("body").removeClass("sidebar-open");' data-route="{{ src.ref==""?"": src.ref.name }}" class="{{ src.ref==""?"non-ajax":'' }}">
+                        <i class="{{ src.img }}"></i> <span>{{ src.text |trans }}</span>
+                        {% if src.childs|length>0 %}
+                            <i class="fa fa-angle-left pull-right"></i>
+                        {% endif %}
+                    </a>
+                    <ul class="treeview-menu">
+                        {% for d in src.childs %}
+                            {{ _self.create_tree(d,req) }}
+                        {% endfor %}
+                    </ul>
+                </li>
+
+
+            {% endif %}
+
+        {% else %}
+            {{ src.innerHtml|raw }}
+        {% endif %}
+
+    {% endif %}
+
+{% endmacro %}
+
+{% for modules in data %}
+ {% set menus = modules.getData() %}
+     {% for menu in menus %}
+    {{ _self.create_tree(menu,request) }}
+         {% endfor %}
+{% endfor %}

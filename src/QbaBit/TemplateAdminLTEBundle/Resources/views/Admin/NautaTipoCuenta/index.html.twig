@@ -1,0 +1,111 @@
+{% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_list.html.twig") %}
+
+
+
+
+
+
+    {% block search_columns %}
+
+
+        <div class="col-md-9">
+            <div class="form-group">
+                {{ form_label(searchForm.name) }}
+                {{ form_widget(searchForm.name) }}
+            </div>
+        </div>
+
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label style="display: block;">&nbsp;</label>
+                {{ form_row(searchForm.submit) }}
+            </div>
+        </div>
+    {% endblock search_columns %}
+
+    {% block columns %}
+        <th style='width: 25px;'>
+            <input type='checkbox' id='chkall' class='chkall'/>
+        </th>
+
+
+        <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">
+            {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nauta_tipo_cuenta.fields.name' , 'a.name') }}
+        </th>
+        <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">
+            {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nauta_tipo_cuenta.fields.capacity' , 'a.capacity') }}
+        </th>
+
+        <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">
+            {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nauta_tipo_cuenta.fields.amount' , 'a.amount') }}
+        </th>
+
+
+        <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1"
+            aria-sort="ascending"
+            aria-label="Rendering engine: activate to sort column descending">
+            {{ knp_pagination_sortable(entities,  'qba_bit.nauta.nauta_tipo_cuenta.fields.date' , 'a.date') }}
+        </th>
+
+
+
+    {% endblock columns %}
+
+
+    {% block row %}
+
+        {% for entity in entities %}
+            <tr id='rw{{ entity.id }}' class='odd'>
+                <td>
+
+                    <input type="checkbox" name="idcheck[]" value="{{ entity.id }}" id="id{{ entity.id }}"
+                           class="selitm minimal"/>
+                    <label for="id{{ entity.id }}"></label>
+
+                </td>
+
+
+                <td class="">
+                    <a href="{{ url('qba_bit_nauta_nauta_tipo_cuenta_edit',{id:entity.id}) }}">{{ entity.name }}</a>
+                </td>
+                <td class="">
+                    {{ entity.capacity }} kb
+                </td>
+                <td class="">
+                    {{ entity.amount }}
+                </td>
+
+                <td class="">
+                    {% if entity.date=="7" %}
+                        Semanal
+                    {% else %}
+                        {% if entity.date=="14" %}
+                            Quincenal
+                        {% else %}
+                            {% if entity.date=="31" %}
+                                Mensual
+                            {% else %}
+                                {% if entity.date=="365" %}
+                                    Anual
+                                {% else %}
+                                    Admin
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+
+
+            </tr>
+
+        {% endfor %}
+
+
+    {% endblock %}

@@ -1,0 +1,96 @@
+qba_bit:
+   core:
+      listado_X: Listado de X
+      editar_X: Editar X
+      nuevo_X: Nuevo X
+      ver_X: Viendo X
+      new: Nuevo
+      delete: Eliminar
+      options: Opciones
+      actions:
+        cancel: Cancelar
+        submit: Guardar
+        go: Ir
+        plural: Acciones
+      messages:
+         ok: Datos guardados correctamente
+         error: Existen errores a la hora de guardar los datos.
+         select_none: No existe ningun elemento seleccionado
+         access_denied: Acceso Denegado
+         deleting_error: Ocurrió un error al momento de eliminar los datos
+         delete_confirm: Esta seguro que desea eliminar estos datos?
+         deleted_success: Se eliminaron correctamente los datos seleccionados
+   pagination:
+      prev: Anterior
+      first: Primero
+      next: Siguiente
+      last: Ultimo
+   modules:
+      fields:
+         name: Nombre
+         icon: Icono
+         version: Versión
+         status: Estado
+         description: Descripción
+         dependences: Dependencias
+         files: Archivos
+         id: Identificador
+         state:
+            non-installed: Sin instalar
+            upgrade: Nueva Version
+            installed: Instalado
+            obsolete: Obsoleto
+         action:
+            text: Accion
+            doUpgrade: Actualizar
+            doInstall: Instalar
+            doUninstall: Desinstalar
+            install_confirm: Esta seguro que desea instalar estos módulos?
+            uninstall_confirm: Esta seguro que desea desinstalar estos módulos?
+            upgrade_confirm: Esta seguro que desea actualizar estos módulos?
+            installed: Los módulos fueron instalados satisfactoriamente.
+      text: Módulos
+      single: Módulo
+   systemRestore:
+      text: Puntos de restauración
+      single: Punto de restauración
+      changes:
+         text: Cambios
+         deleted: Eliminado
+         added: Agregado
+         modified: Modificado
+         filename: Nombre de Archivo
+         status: Estado
+      fields:
+         date: Fecha
+         size: Tamaño
+         description: Descripción
+         id: Identificador
+         rangeStart: Fecha Inicio
+         rangeEnd: Fecha Fin
+
+      action:
+         make: Respaldar
+         make_confirm: Esta seguro que desea realizar una copia de seguridad?
+         doBackuping: Respaldando
+         doRestore: Restaurar
+         make_description_error: Debe establecer la descripción para esta copia de seguridad.
+   chart:
+         generated_types:
+             year:
+                title: Año
+             month:
+                title: Meses
+                values:
+                    january: Enero
+                    febrary: Febrero
+                    march: Marzo
+                    april: Abril
+                    may: Mayo
+                    june: Junio
+                    july: Julio
+                    agoust: Agosto
+                    september: Septiembre
+                    october: Octubre
+                    november: Noviembre
+                    december: Diciembre

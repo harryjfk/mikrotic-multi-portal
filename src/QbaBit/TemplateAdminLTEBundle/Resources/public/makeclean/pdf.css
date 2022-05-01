@@ -1,0 +1,95 @@
+.a-rhg{
+	text-align: right;
+}
+.a-ct{
+	text-align: center;
+}
+.f-rhg{
+	float: right;
+}
+.padd-rhg-none{
+	padding-right: 0 !important;
+}
+.page-header{
+	padding-bottom: 9px;
+	margin: 10px 0 20px 0;
+	font-size: 22px;
+	border-bottom: 1px solid #eee;
+}
+.invoice-info{
+	margin-bottom: 15px
+}
+.name-central{
+	margin-top: 15px;
+	float: left
+}
+.logo-pdf{
+	width: 50px;
+	margin-right: 10px;
+	float: left
+}
+.cont-header-pdf{
+	position: relative;
+	min-height: 70px;
+	display: block
+}
+.cont-header-pdf small{
+	margin-top: 18px;
+}
+.row{
+	margin-right: -15px;
+	margin-left: -15px;
+	width: 100%;
+}
+.col-sm-4 {
+	display: inline-block;
+	width: 30%;
+	vertical-align: top;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.col-md-12{
+	display: block;
+	width: 100%;
+	vertical-align: top;
+	padding-left: 15px;
+	padding-right: 15px;
+
+}
+.table>thead>tr>th{
+	border: 2px solid #ecf0f5 !important;
+}
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+	padding: 8px;
+}
+.table-service{
+	width: 100%;
+}
+.table-service th{
+	text-align: left;
+}
+.table-service .cantidad{
+	width: 15%;
+}
+.table-service .number{
+	text-align: right;
+}
+.table-service thead{
+	background-color: #ecf0f5;
+}
+.cont-table-totales{
+	margin-top: 20px
+}
+.table-totales{
+	width: 300px;
+	float: right;
+}
+.table-totales td,
+.table-totales th{
+	text-align: right;
+}

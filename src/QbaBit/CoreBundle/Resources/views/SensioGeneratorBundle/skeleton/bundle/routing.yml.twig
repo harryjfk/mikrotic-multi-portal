@@ -1,0 +1,7 @@
+{{ extension_alias }}_homepage:
+    path:     /
+    defaults: { _controller: {{ bundle }}:Front/Front:index }
+
+{{ extension_alias }}_admin_homepage:
+    path:     /admin
+    defaults: { _controller: {{ bundle }}:Admin/Admin:index }

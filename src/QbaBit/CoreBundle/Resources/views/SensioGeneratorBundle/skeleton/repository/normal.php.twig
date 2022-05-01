@@ -1,0 +1,26 @@
+<?php
+
+namespace {{ namespace }};
+
+{% block use_statements %}
+use QbaBit\CoreBundle\Repository\QbaBitBaseRepository;
+{% endblock %}
+
+{% block class_definition %}
+class {{ entity_class }}Repository extends QbaBitBaseRepository
+{% endblock class_definition %}
+
+{
+{% block class_body %}
+    public function getListQuery($filter )
+{
+    $query = $this->getBasicQuery(true);
+$name = "";
+if(array_key_exists("name",$filter))
+$name = $filter["name"];
+return $query->where('a.name LIKE :name')->setParameter('name','%'.$name.'%')->getQuery();
+
+}
+
+{% endblock class_body %}
+}

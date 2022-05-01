@@ -1,0 +1,77 @@
+{% extends template_helper.getRedirectedView("QbaBitCoreBundle:Cruds:_edit.html.twig") %}
+
+ {% block form_body %}
+     <div class="row nmlf">
+         <div class="col-md-3">
+             {{ form_row(form.path_file) }}
+         </div>
+         <div class="col-md-9">
+             <div class="row">
+                 <div class="col-md-4">
+                     {{ form_row(form.name ) }}
+                 </div>
+                 <div class="col-md-4">
+                     {{ form_row(form.firstName ) }}
+                 </div>
+                 <div class="col-md-4">
+                     {{ form_row(form.secondName ) }}
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="col-md-6">
+                     {{ form_row(form.username ) }}
+                 </div>
+                 <div class="col-md-6">
+                     {{ form_row(form.email ) }}
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="col-md-3">
+                     {{ form_row(form.password.first  ) }}
+                 </div>
+                 <div class="col-md-3">
+                     {{ form_row(form.password.second ) }}
+                 </div>
+                 <div class="col-md-3">
+                     {{ form_row(form.movilPhone) }}
+                 </div>
+
+                 <div class="col-md-3">
+                     {{ form_row(form.fixPhone) }}
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <div class="row nmlf">
+
+         {% if is_granted('ROLE_QBA_BIT_SECURITY_SECURITY_GROUP_NEW') %}
+             <div class="col-md-4">
+                 {{ form_row(form.group) }}
+             </div>
+             {% set noMargin = false %}
+         {% endif %}
+         <div class="col-md-3">
+             {{ form_row(form.interface ) }}
+         </div>
+         <div class="col-md-3">
+             {{ form_row(form.accountType ) }}
+         </div>
+         <div class="col-md-2">
+             {{ form_row(form.enabled ) }}
+         </div>
+         {#<div class="col-md-2">#}
+             {#{{ form_row(form.percent ) }}#}
+         {#</div>#}
+
+     </div>
+
+     <div class="row nmlf">
+         {#<div class="col-md-12">#}
+             {#{{ form_row(form.accounts ) }}#}
+         {#</div>#}
+         <div class="col-md-12">
+             {{ form_row(form.ip ) }}
+         </div>
+     </div>
+ {% endblock %}
